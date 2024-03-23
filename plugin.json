@@ -1,0 +1,43 @@
+{
+  "name": "siyuan-plugin-task-list",
+  "author": "syh19",
+  "url": "https://github.com/syh19/siyuan-plugin-task-list",
+  "version": "0.0.1",
+  "minAppVersion": "2.10.13",
+  "backends": [
+    "all"
+  ],
+  "frontends": [
+    "desktop"
+  ],
+  "displayName": {
+    "default": "Task List",
+    "zh_CN": "任务列表"
+  },
+  "description": {
+    "default": "Summarize tasks scattered throughout your workspace",
+    "zh_CN": "汇总散落在整个工作空间的任务"
+  },
+  "readme": {
+    "default": "README.md",
+    "zh_CN": "README_zh_CN.md"
+  },
+  "i18n": [
+    "en_US",
+    "zh_CN"
+  ],
+  "funding": {
+    "openCollective": "",
+    "patreon": "",
+    "github": "",
+    "custom": []
+  },
+  "keywords": [
+    "task",
+    "todo",
+    "list",
+    "任务",
+    "代办",
+    "列表"
+  ]
+}

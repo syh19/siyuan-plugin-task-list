@@ -1,0 +1,22 @@
+{
+  "pluginTitle": "TaskList",
+  "taskStatus": {
+    "todo": "TODO",
+    "done": "DONE",
+    "all": "ALL"
+  },
+  "options": {
+    "refresh": "refresh",
+    "expand": "expand",
+    "collapse": "collapse",
+    "switch": "switch status",
+    "search": "search"
+  },
+  "searchPlaceholder": "Please enter the task you want to search for",
+  "range": {
+    "doc": "document",
+    "box": "notebook",
+    "workspace": "workspace"
+  },
+  "emptyText": "Great, all tasks completed~"
+}

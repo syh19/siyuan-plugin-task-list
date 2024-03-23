@@ -1,0 +1,35 @@
+$themes: (
+  light: (
+    fontColor: #373530,
+    activeBgColor: #e3e2e2,
+    hoverBgColor: #f3f3f3,
+
+    tabsBorderColor: #d3d1cc,
+
+    // 笔记本图标颜色
+    notebookColor: #0077c6,
+    // 文档图标颜色
+    docColor: #6a097d,
+    // 待办图标颜色
+    todoColor: #d74b76,
+    // 已办图标颜色
+    doneColor: #58a399,
+  ),
+
+  dark: (
+    fontColor: #dadada,
+    activeBgColor: #27374d,
+    hoverBgColor: #2c2f32,
+
+    tabsBorderColor: #000000,
+
+    // 笔记本图标颜色
+    notebookColor: #faa300,
+    // 文档图标颜色
+    docColor: #8b93ff,
+    // 待办图标颜色
+    todoColor: #f4538a,
+    // 已办图标颜色
+    doneColor: #59d5e0,
+  ),
+);

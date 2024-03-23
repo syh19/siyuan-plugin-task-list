@@ -1,0 +1,22 @@
+{
+  "pluginTitle": "任务列表",
+  "taskStatus": {
+    "todo": "未完成",
+    "done": "已完成",
+    "all": "全部"
+  },
+  "options": {
+    "refresh": "刷新",
+    "expand": "展开",
+    "collapse": "收起",
+    "switch": "切换状态",
+    "search": "搜索"
+  },
+  "searchPlaceholder": "请输入要搜索的任务",
+  "range": {
+    "doc": "文档",
+    "box": "笔记本",
+    "workspace": "工作空间"
+  },
+  "emptyText": "太棒了，所有任务都完成了~"
+}

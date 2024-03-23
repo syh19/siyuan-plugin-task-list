@@ -1,0 +1,86 @@
+{
+  "id": "4475728",
+  "name": "siyuan-plugin-task-list",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7239880",
+      "name": "search",
+      "font_class": "search3",
+      "unicode": "e74e",
+      "unicode_decimal": 59214
+    },
+    {
+      "icon_id": "17475794",
+      "name": "task",
+      "font_class": "task3",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "38052773",
+      "name": "notebook_bookmarked",
+      "font_class": "notebook_bookmarked",
+      "unicode": "e75c",
+      "unicode_decimal": 59228
+    },
+    {
+      "icon_id": "38052783",
+      "name": "pages",
+      "font_class": "pages",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
+    },
+    {
+      "icon_id": "38053371",
+      "name": "repeat",
+      "font_class": "repeat",
+      "unicode": "e766",
+      "unicode_decimal": 59238
+    },
+    {
+      "icon_id": "38053579",
+      "name": "document_text",
+      "font_class": "document_text",
+      "unicode": "e771",
+      "unicode_decimal": 59249
+    },
+    {
+      "icon_id": "4765811",
+      "name": "sync",
+      "font_class": "sync",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "4767026",
+      "name": "colum-height",
+      "font_class": "colum-height",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    },
+    {
+      "icon_id": "4767028",
+      "name": "vertical-align-middl",
+      "font_class": "vertical-align-middl",
+      "unicode": "e7f0",
+      "unicode_decimal": 59376
+    },
+    {
+      "icon_id": "4936478",
+      "name": "check-circle-fill",
+      "font_class": "check-circle-fill",
+      "unicode": "e844",
+      "unicode_decimal": 59460
+    },
+    {
+      "icon_id": "4936512",
+      "name": "time-circle-fill",
+      "font_class": "time-circle-fill",
+      "unicode": "e848",
+      "unicode_decimal": 59464
+    }
+  ]
+}
