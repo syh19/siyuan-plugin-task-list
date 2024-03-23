@@ -32,7 +32,7 @@
 
 **快速定位**：点击任务节点可以自动打开该任务节点所在的文档，并将该任务节点滚动到可视区域内，同时做临时高亮处理，方便快速定位。
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location.png" style="width:60%" align="center" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location.png" style="width:80%" align="center" alt="">
 
 **顶部按钮区域：**
 

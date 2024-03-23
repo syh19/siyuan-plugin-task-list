@@ -30,7 +30,7 @@ Task node descriptions that are too long will be truncated, and the complete tas
 
 **Quick positioning**: Clicking on a task node can automatically open the document where the task node is located, scroll the task node into the visible area, and temporarily highlight it to facilitate quick positioning.
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location.png" style="width:60%" align="center" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location.png" style="width:80%" align="center" alt="">
 
 **Top Button Area:**
 
