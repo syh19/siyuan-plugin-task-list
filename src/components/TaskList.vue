@@ -29,7 +29,7 @@
             :content="isExpand ? i18n.options.collapse : i18n.options.expand"
             placement="bottom"
           >
-            <svg class="icon" aria-hidden="true" @click="toggleExpand">
+            <svg class="icon" aria-hidden="true" @click="isExpand = !isExpand">
               <use
                 :xlink:href="
                   isExpand ? '#icon-vertical-align-middl' : '#icon-colum-height'
@@ -203,6 +203,11 @@ const refreshData = async () => {
     status: taskStatus.value,
   })
   data.value = res
+
+  // 根据按钮状态展开或者收起所有节点
+  nextTick(() => {
+    toggleExpand(isExpand.value)
+  })
 }
 
 const trigger = ref<'tab' | 'tree'>('tab')
@@ -236,17 +241,24 @@ const filterTreeNode = (value: string, data: any) => {
   return data.label.indexOf(value) !== -1
 }
 
-const isExpand = ref<boolean>(false)
 /**
  * 折叠或者展开所有节点
  */
-const toggleExpand = () => {
+const toggleExpand = (isExpandNew: boolean) => {
   let nodes = treeRef.value.store.nodesMap
   for (let i in nodes) {
-    nodes[i].expanded = !isExpand.value
+    nodes[i].expanded = isExpandNew
   }
-  isExpand.value = !isExpand.value
 }
+
+const isExpand = ref<boolean>(true)
+watch(
+  isExpand,
+  (val) => {
+    toggleExpand(val)
+  },
+  { immediate: false }
+)
 
 refreshData()
 
