@@ -64,6 +64,7 @@
           :placeholder="i18n.searchPlaceholder"
           v-model="filterText"
           @blur="isInputShow = false"
+          @keyup.enter="triggerFiltrateTreeNode(filterText)"
         ></el-input>
       </div>
       <!-- tabs选项 -->
@@ -225,9 +226,17 @@ utils.plugin.eventBus.on('switch-protyle', () => {
   refreshData()
 })
 
-watch(filterText, (val) => {
-  treeRef.value!.filter(val)
+watch(filterText, (val: string) => {
+  triggerFiltrateTreeNode(val)
 })
+
+/**
+ * 触发过滤树节点
+ * @param val
+ */
+const triggerFiltrateTreeNode = (val: string) => {
+  treeRef.value!.filter(val)
+}
 
 /**
  * 过滤树节点
