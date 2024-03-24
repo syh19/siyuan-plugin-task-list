@@ -1,5 +1,22 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
+# 当前版本`v0.0.2`更新记录
+
+**修复缺陷**
+
+- 修复某些情况下**已完成状态**下无法正常显示任务节点的问题
+- 修复**文档维度**下，嵌套太深的文档中的任务节点无法显示的问题
+- 修复刷新数据以及切换【文档、笔记本、工作空间】TAB 后**展开收起**按钮可能与实际展开收起状态不一致的问题
+
+**改进功能**
+
+- 初始状态下默认展开树中所有节点
+- 搜索输入框隐藏后，在输入框中有值的情况下，通过键盘回车键`Enter`可以重新触发数据的过滤操作
+
+> [所有版本的更新记录请在这里查看](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
+
+---
+
 # 任务列表插件
 
 <img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/preview.png?raw=true" align="center" alt="">
