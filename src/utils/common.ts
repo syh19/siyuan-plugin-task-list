@@ -2,7 +2,7 @@ import * as sy from 'siyuan'
 import TaskListPlugin from '../index'
 import * as sySDK from '@siyuan-community/siyuan-sdk'
 import * as API from '../api/index'
-import type { IRange } from '../types'
+import type { IRange, TSqlResItem, TResponse } from '../types'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -143,6 +143,7 @@ export function convertToList(tree: any) {
   function convertToTaskList(node: any, box: any, pathList: any) {
     if (node.type === 'task') {
       const taskNode = {
+        ...node,
         type: 'task',
         label: node.label,
         key: node.key,
@@ -205,14 +206,11 @@ export async function getTaskListBySql({
       boxId: currentBoxId,
     })
   }
-  const res: any = await API.getTaskListBySql(params)
-  console.log('点击获取数据', res)
+  const res: TResponse<Array<TSqlResItem>> = await API.getTaskListBySql(params)
 
   let treeData = convertSqlToTree(res.data)
   if (range === 'doc') {
-    treeData = treeData[0]?.children.find(
-      (node: any) => node.key === currentDocId
-    )?.children
+    treeData = convertToList(treeData)
   } else if (range === 'box') {
     treeData = treeData[0]?.children
   }
