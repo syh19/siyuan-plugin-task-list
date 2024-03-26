@@ -21,6 +21,7 @@ export default class TaskListPlugin extends Plugin {
 
   onLayoutReady(): void {
     utils.setWorkSpaceName()
+    console.log('当前APP对象：', this.app)
   }
 
   onunload() {

@@ -183,7 +183,7 @@ export function convertToList(tree: any) {
 /**
  * 获取任务列表
  * @param range {IRange} 模式：doc, box, workspace
- * @param status {string} 模式：todo, doing, done
+ * @param status {string} 模式：todo, done, all
  * @param isList {boolean} 是否想要列表形式的数据，默认是树形结构
  */
 export async function getTaskListBySql({

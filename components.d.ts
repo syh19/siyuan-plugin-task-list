@@ -7,9 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    Setting: typeof import('./src/components/Setting.vue')['default']
     TaskList: typeof import('./src/components/TaskList.vue')['default']
+    Tree: typeof import('./src/components/Tree.vue')['default']
   }
 }

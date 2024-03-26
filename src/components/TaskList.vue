@@ -4,7 +4,7 @@
       <!-- 头部区域 -->
       <div class="title">
         <div class="title-text">
-          <h3>
+          <h3 @click="openDrawer">
             <svg style="margin-right: 5px" class="icon" aria-hidden="true">
               <use xlink:href="#icon-task3"></use></svg
             >{{ i18n.pluginTitle }}
@@ -139,6 +139,11 @@
         </div>
       </template>
     </el-tree>
+
+    <Setting
+      ref="settingRef"
+      @submit-success="refreshTaskAfterHideDocChecked($event, data)"
+    />
   </div>
 </template>
 
@@ -151,11 +156,20 @@ import { i18n } from '../utils/common'
 import * as sy from 'siyuan'
 import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
+import Setting from './Setting.vue'
 
 interface Tree {
   [key: string]: any
 }
 
+let settingRef = ref<InstanceType<typeof Setting>>()
+
+const openDrawer = () => {
+  settingRef.value?.open()
+  nextTick(() => {
+    document.body.style.width = '100%'
+  })
+}
 const treeRef = ref<InstanceType<typeof ElTree>>()
 const inputRef = ref<InstanceType<typeof ElInput>>()
 const showInput = () => {
@@ -165,6 +179,34 @@ const showInput = () => {
   })
 }
 const isInputShow = ref<boolean>(false)
+
+/**
+ * 根据 e 中的列表对 treeData 进行过滤，删掉存在于 e 中的 doc 节点，需要递归
+ * @param e
+ * @param treeData
+ */
+const refreshTaskAfterHideDocChecked = async (e: any, treeData: any) => {
+  console.log('选中的节点-setting', e)
+  let checkedNodes = e
+  console.log('选中的节点-setting', checkedNodes)
+  console.log('树数据', treeData)
+  // 递归删除选中的doc节点
+  function removeDocNode(docNode: any) {
+    docNode.children = docNode.children?.filter((item: any) => {
+      if (checkedNodes.find((node: any) => node.key === item.key)) {
+        return false
+      }
+      if (item.children) {
+        removeDocNode(item)
+      }
+      return true
+    })
+    return docNode
+  }
+  data.value = treeData.map((item: any) => {
+    return removeDocNode(item)
+  })
+}
 
 const app = ref<sy.App>({ plugins: [], appId: '' })
 let data = ref<any>([])
