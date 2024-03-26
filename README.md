@@ -2,19 +2,19 @@
 
 # Task List Plugin
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/preview.png?raw=true" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/src/assets/imgs/preview-en.jpg?raw=true" alt="">
 
 When using Siyuan Notes, you will inevitably have some doubts that puzzle you during the learning or recording process. These doubts may not affect the subsequent learning of the content, so you want to record and skip them temporarily and solve them when you have time. At this time, you need a tool that can organize all the doubt points scattered throughout the workspace to facilitate subsequent viewing and resolution.
 
-Therefore, the **Task List** plugin came into being. It can help you quickly generate a task list for all **Task List Block** type of doubt points and place it in the `Dock` column on the right to facilitate subsequent learning.
+Therefore, the **Task list plug-in** came into being, which can help you quickly generate a task list for all **task list block** type doubt points and place it in the right `Dock` to facilitate subsequent learning and organization.
 
 ## Ability
 
 **This plugin can be used directly without any configuration.**
 
-**Status**: All task list block type nodes (collectively referred to as **task nodes** for convenience) have two states, namely **Unfinished** and **Completed**, click on the note Click the check box in front of the task node to switch the status of the task node.
+**Status**: All task list block type nodes (collectively referred to as **task nodes** for convenience) have two status, namely **unfinished** and **completed**. The status of the **task node** can be switched by clicking the check box in front of the **task node** in the note.
 
-**Scope**: **Task List** plugin summarizes all task nodes according to three dimensions:
+**Scope**: **The Task List plug-in** summarizes all task nodes according to three dimensions:
 
 - Document: All task nodes in the currently active open document block
 - Notebook: All task nodes in the notebook to which the currently activated document block belongs
@@ -24,17 +24,17 @@ Therefore, the **Task List** plugin came into being. It can help you quickly gen
 
 Task node descriptions that are too long will be truncated, and the complete task node description will be displayed when the mouse is hovering over the task node.
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/src/assets/imgs/overflow.png?raw=true" style="width:50%" align="center" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/src/assets/imgs/overflow-en.jpg?raw=true" style="width:50%" align="center" alt="">
 
-**Ability List：**
+**Function Points：**
 
 **Quick positioning**: Clicking on a task node can automatically open the document where the task node is located, scroll the task node into the visible area, and temporarily highlight it to facilitate quick positioning.
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location.png" style="width:80%" align="center" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/location-en.jpg?raw=true" style="width:80%" align="center" alt="">
 
 **Top Button Area:**
 
-<img src="https://github.com/syh19/siyuan-plugin-task-list/raw/main/src/assets/imgs/button.png" style="width:50%" align="center" alt="">
+<img src="https://github.com/syh19/siyuan-plugin-task-list/blob/main/src/assets/imgs/button-en.jpg?raw=true" style="width:50%" align="center" alt="">
 
 - Refresh: Retrieve the latest data of the task list
 - Expand and collapse: Quickly expand and collapse all task nodes
@@ -43,8 +43,8 @@ Task node descriptions that are too long will be truncated, and the complete tas
 
 # Feedback
 
-If you encounter problems during use or have good suggestions, please leave a message [here](https://github.com/syh19/siyuan-plugin-task-list/issues) for feedback.
+This plug-in uses `Vue3` and `Element Plus` to realize the drawing of `UI Layout` . Due to limited technical capabilities, there will inevitably be some problems during the use of the plug-in. If you encounter problems during use or have good suggestions, please leave a message [here](https://github.com/syh19/siyuan-plugin-task-list/issues) for feedback.
 
-- [Siyuan Notes official website](https://b3log.org/siyuan/)
+- [Siyuan Notes official website](https://b3log.org/siyuan/en/?lang=en)
 - [SiYuan English Discussion Forum](https://liuyun.io/)
-- [Repository Address](https://github.com/syh19/siyuan-plugin-task-list)
+- [Github Repository Address](https://github.com/syh19/siyuan-plugin-task-list)
