@@ -8,7 +8,7 @@
     "all"
   ],
   "frontends": [
-    "desktop"
+    "all"
   ],
   "displayName": {
     "default": "Task List",
