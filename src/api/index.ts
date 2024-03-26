@@ -39,3 +39,18 @@ export async function getTaskListBySql(params: {
   })
   return taskRes
 }
+
+/** 设置持久化本地存储数据 */
+export async function setLocalStorage(params: {
+  app?: string
+  val: { [key: string]: any }
+}): Promise<void> {
+  const { data: previousVal } = await client.getLocalStorage()
+  params.val = { ...previousVal, ...params.val }
+  await client.setLocalStorage(params)
+}
+
+/** 获取持久化本地存储数据 */
+export async function getLocalStorage(): Promise<any> {
+  return await client.getLocalStorage()
+}
