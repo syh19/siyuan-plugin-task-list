@@ -155,7 +155,7 @@ import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
 import Setting from './Setting.vue'
 import eventBus from '../utils/eventBus'
-import * as treeData from '../utils/handleTreeData'
+import * as treeFn from '../utils/handleTreeData'
 
 interface Tree {
   [key: string]: any
@@ -181,7 +181,7 @@ const isInputShow = ref<boolean>(false)
 
 eventBus.on(
   'node-list-for-hide-task-changed',
-  treeData.refreshTaskAfterHideDocChecked
+  treeFn.refreshTaskAfterHideDocChecked
 )
 const app = ref<sy.App>({ plugins: [], appId: '' })
 let data = ref<any>([])
@@ -216,11 +216,11 @@ const filterText = ref<string>('')
  * 刷新数据重新获取el-tree的数据
  */
 const refreshData = async () => {
-  let res = await utils.getTaskListBySql({
+  let res = await utils.getTaskListForDisplay({
     range: range.value,
     status: taskStatus.value,
   })
-  data.value = await treeData.refreshTaskAfterHideDocChecked(res)
+  data.value = await treeFn.refreshTaskAfterHideDocChecked(res)
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {

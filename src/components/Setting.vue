@@ -30,7 +30,7 @@ import { ref, defineExpose, watch } from 'vue'
 import * as utils from '../utils/common'
 import * as API from '../api'
 import eventBus from '../utils/eventBus'
-import * as treeData from '../utils/handleTreeData'
+import * as treeFn from '../utils/handleTreeData'
 
 const isShow = ref<boolean>(true)
 const allTreeData = ref<Array<any>>([])
@@ -47,7 +47,7 @@ watch(
 
 const init = async () => {
   await refreshData()
-  allTreeData.value = await treeData.handleCheckStatusForTreeData(
+  allTreeData.value = await treeFn.handleCheckStatusForTreeData(
     allTreeData.value
   )
 }
@@ -56,11 +56,11 @@ const init = async () => {
  * 刷新数据重新获取el-tree的数据
  */
 const refreshData = async () => {
-  let res = await utils.getTaskListBySql({
-    range: 'workspace',
-    status: 'all',
+  let res: any = await API.getTaskListBySql({
+    isGetAll: true,
   })
-  allTreeData.value = treeData.handleTreeDataWithoutTaskNode(res)
+  let resTreeData: any = utils.convertSqlToTree(res.data)
+  allTreeData.value = treeFn.handleTreeDataWithoutTaskNode(resTreeData)
 }
 
 const checkedNodes = ref<Array<any>>([])
@@ -74,7 +74,7 @@ const cancel = () => {
 
 const submit = async () => {
   // 找到allTreeData中被勾选的节点
-  let hiddenTaskNodes: any[] = treeData.findHiddenTaskNodesInTreeData(
+  let hiddenTaskNodes: any[] = treeFn.findHiddenTaskNodesInTreeData(
     allTreeData.value
   )
   await API.setLocalStorage({

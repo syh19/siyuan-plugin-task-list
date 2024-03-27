@@ -186,7 +186,7 @@ export function convertToList(tree: any) {
  * @param status {string} 模式：todo, done, all
  * @param isList {boolean} 是否想要列表形式的数据，默认是树形结构
  */
-export async function getTaskListBySql({
+export async function getTaskListForDisplay({
   range,
   status,
 }: {
@@ -206,7 +206,10 @@ export async function getTaskListBySql({
       boxId: currentBoxId,
     })
   }
-  const res: TResponse<Array<TSqlResItem>> = await API.getTaskListBySql(params)
+  const res: TResponse<Array<TSqlResItem>> = await API.getTaskListBySql({
+    ...params,
+    isGetAll: false,
+  })
 
   let treeData = convertSqlToTree(res.data)
   if (range === 'doc') {

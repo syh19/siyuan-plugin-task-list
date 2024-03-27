@@ -4,24 +4,47 @@ import type { TSqlResItem, TResponse } from '../types'
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
 
-/** 获取指定范围的taskNode节点列表 */
-export async function getTaskListBySql(params: {
-  status: string
+type TSqlReq = {
+  isGetAll: boolean
+  status?: string
   docId?: string
   boxId?: string
-}): Promise<TResponse<Array<TSqlResItem>>> {
+}
+
+/** 获取指定范围的taskNode节点列表 */
+export async function getTaskListBySql(
+  params: TSqlReq
+): Promise<TResponse<Array<TSqlResItem>>> {
   let stmtStr = "SELECT * FROM blocks WHERE type = 'i' AND subtype = 't'"
 
-  if (params.status === 'todo') {
-    stmtStr += ` AND markdown LIKE '%[ ]%'`
-  } else if (params.status === 'done') {
-    stmtStr += ` AND markdown LIKE '%[_]%' AND markdown NOT LIKE '%[ ]%'` // 已完成可能有两种：[x] 和 [X]
-  } else if (params.status === 'all') {
-    stmtStr += ''
-  }
+  if (!params.isGetAll) {
+    // 根据配置项排除特定任务
+    const { data: storage } = await getLocalStorage()
+    storage.nodeListForHideTask
+    if (storage.nodeListForHideTask) {
+      storage.nodeListForHideTask.forEach((item: any) => {
+        if (item.type === 'box') {
+          stmtStr += ` AND box != '${item.key}'`
+        } else if (item.type === 'doc') {
+          item.hideTaskInNodeStatus === 1 &&
+            (stmtStr += ` AND root_id != '${item.key}'`)
+          item.hideTaskInNodeStatus === 2 &&
+            (stmtStr += ` AND path NOT LIKE '/${item.key}/%'`)
+        }
+      })
+    }
 
-  params.docId && (stmtStr += ` AND root_id = '${params.docId}'`)
-  params.boxId && (stmtStr += ` AND box = '${params.boxId}'`)
+    if (params.status === 'todo') {
+      stmtStr += ` AND markdown LIKE '%[ ]%'`
+    } else if (params.status === 'done') {
+      stmtStr += ` AND markdown LIKE '%[_]%' AND markdown NOT LIKE '%[ ]%'` // 已完成可能有两种：[x] 和 [X]
+    } else if (params.status === 'all') {
+      stmtStr += ''
+    }
+
+    params.docId && (stmtStr += ` AND root_id = '${params.docId}'`)
+    params.boxId && (stmtStr += ` AND box = '${params.boxId}'`)
+  }
 
   stmtStr += ` ORDER BY created DESC LIMIT 1000`
 
