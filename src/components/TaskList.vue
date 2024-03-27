@@ -179,10 +179,6 @@ const showInput = () => {
 }
 const isInputShow = ref<boolean>(false)
 
-eventBus.on(
-  'node-list-for-hide-task-changed',
-  treeFn.refreshTaskAfterHideDocChecked
-)
 const app = ref<sy.App>({ plugins: [], appId: '' })
 let data = ref<any>([])
 let taskStatus = ref<string>('todo')
@@ -220,13 +216,15 @@ const refreshData = async () => {
     range: range.value,
     status: taskStatus.value,
   })
-  data.value = await treeFn.refreshTaskAfterHideDocChecked(res)
+  // data.value = await treeFn.refreshTaskAfterHideDocChecked(res)
+  data.value = res
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {
     toggleExpand(isExpand.value)
   })
 }
+eventBus.on('node-list-for-hide-task-changed', refreshData)
 
 const trigger = ref<'tab' | 'tree'>('tab')
 utils.plugin.eventBus.on('switch-protyle', () => {

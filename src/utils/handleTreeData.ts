@@ -1,6 +1,7 @@
 import * as API from '../api'
 
 /**
+ * 【未使用】
  * 根据配置中的列表对 treeData 进行过滤，删掉存在于 配置 中的 doc 节点，需要递归
  * @param e
  * @param treeData

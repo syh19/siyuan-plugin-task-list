@@ -8,9 +8,10 @@
     title="设置"
   >
     <template #default>
-      <div style="border: 1px solid black">
+      <div class="tree-check-info">您所勾选的节点，其中的任务会将被隐藏</div>
+      <div class="setting-tree-wrap">
         <Tree
-          :treeData="allTreeData"
+          :treeData="treeData"
           :defaultExpandAll="true"
           @check="handleChecked2HideTask"
         />
@@ -32,8 +33,8 @@ import * as API from '../api'
 import eventBus from '../utils/eventBus'
 import * as treeFn from '../utils/handleTreeData'
 
-const isShow = ref<boolean>(true)
-const allTreeData = ref<Array<any>>([])
+const isShow = ref<boolean>(false)
+const treeData = ref<Array<any>>([])
 
 watch(
   isShow,
@@ -46,21 +47,20 @@ watch(
 )
 
 const init = async () => {
-  await refreshData()
-  allTreeData.value = await treeFn.handleCheckStatusForTreeData(
-    allTreeData.value
-  )
+  await getTreeData()
 }
 
 /**
- * 刷新数据重新获取el-tree的数据
+ * 获取el-tree的数据
  */
-const refreshData = async () => {
+const getTreeData = async () => {
   let res: any = await API.getTaskListBySql({
     isGetAll: true,
   })
   let resTreeData: any = utils.convertSqlToTree(res.data)
-  allTreeData.value = treeFn.handleTreeDataWithoutTaskNode(resTreeData)
+  // 这里必须这么写，因为子组件做了watch监听，如果直接赋值，子组件不会触发watch
+  treeData.value = treeFn.handleTreeDataWithoutTaskNode(resTreeData)
+  treeData.value = await treeFn.handleCheckStatusForTreeData(treeData.value)
 }
 
 const checkedNodes = ref<Array<any>>([])
@@ -73,9 +73,9 @@ const cancel = () => {
 }
 
 const submit = async () => {
-  // 找到allTreeData中被勾选的节点
+  // 找到treeData中被勾选的节点
   let hiddenTaskNodes: any[] = treeFn.findHiddenTaskNodesInTreeData(
-    allTreeData.value
+    treeData.value
   )
   await API.setLocalStorage({
     app: utils.plugin.app.appId,
@@ -98,5 +98,23 @@ defineExpose({
 
 <style scoped lang="scss">
 .plugin-task-list-config-wrap {
+  .tree-check-info {
+    font-size: 18px;
+    // color: #606266;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .setting-tree-wrap {
+    height: 500px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    border: 1px solid #ebeef5;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f6f6f6;
+  }
 }
 </style>

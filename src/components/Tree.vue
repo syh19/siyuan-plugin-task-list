@@ -195,12 +195,12 @@ const setDiffClassForNode = () => {
     let nodeEle = document.querySelector(
       `div.el-tree-node[data-key="${data.key}"]`
     )
-    nodeEle.classList.remove('hide-task-only-self')
-    nodeEle.classList.remove('hide-task-include-child')
+    nodeEle?.classList.remove('hide-task-only-self')
+    nodeEle?.classList.remove('hide-task-include-child')
     if (data.hideTaskInNodeStatus === 1) {
-      nodeEle.classList.add('hide-task-only-self')
+      nodeEle?.classList.add('hide-task-only-self')
     } else if (data.hideTaskInNodeStatus === 2) {
-      nodeEle.classList.add('hide-task-include-child')
+      nodeEle?.classList.add('hide-task-include-child')
     }
   }
 }
@@ -405,7 +405,7 @@ const defaultProps = {
       > .el-tree-node__content {
         span {
           text-decoration: line-through;
-          color: #ccc;
+          color: #737373;
         }
       }
     }
@@ -414,7 +414,7 @@ const defaultProps = {
       .el-tree-node__content {
         span {
           text-decoration: line-through;
-          color: #ccc;
+          color: #737373;
         }
       }
       .el-tree-node__children {
