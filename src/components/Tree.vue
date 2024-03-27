@@ -54,6 +54,7 @@
             <el-checkbox
               v-for="range in hideRangeList"
               v-model="data.hideTaskInNodeStatus"
+              v-show="!(data.type === 'box' && range.value === 1)"
               :key="range.value"
               :label="range.label"
               :true-value="range.value"
@@ -98,7 +99,7 @@ const props = withDefaults(defineProps<Props>(), {
   defaultExpandAll: false,
 })
 
-const emit = defineEmits(['check'])
+// const emit = defineEmits(['check'])
 
 const app = ref<sy.App>({ plugins: [], appId: '' })
 
@@ -154,11 +155,21 @@ const toggleExpand = (isExpandNew: boolean) => {
  * @param data 所在的树节点
  */
 const changeNodeHideStatus = (e: any, range: any, data: any) => {
+  let nodeEle = document.querySelector(
+    `div.el-tree-node[data-key="${data.key}"]`
+  )
+  nodeEle.classList.remove('hide-task-only-self')
+  nodeEle.classList.remove('hide-task-include-child')
   if (e !== 0) {
-    if (range.label === '仅自身') {
+    // 仅自身
+    if (range.value === 1) {
       data.hideTaskInNodeStatus = 1
-    } else {
+      nodeEle.classList.add('hide-task-only-self')
+    }
+    // 包含子节点
+    else {
       data.hideTaskInNodeStatus = 2
+      nodeEle.classList.add('hide-task-include-child')
     }
   } else {
     data.hideTaskInNodeStatus = 0
@@ -255,7 +266,7 @@ const checkNode = (data: any) => {
     )
   }
   treeRef.value!.setCheckedNodes(checkedNodes)
-  emit('check', checkedNodes)
+  // emit('check', checkedNodes)
 }
 
 const defaultProps = {
@@ -350,6 +361,36 @@ const defaultProps = {
             .el-checkbox:first-child {
               margin-right: 10px;
             }
+          }
+        }
+      }
+    }
+
+    /**
+     * 勾选【仅自身】或者【包含子节点】选项后对相应的节点做样式区分处理
+     * 【仅自身】时将节点自身中的文字添加划线，并将字体颜色变成灰色
+      * 【包含子节点】时则同时处理节点自身以及所属子节点 
+     */
+    div.el-tree-node.hide-task-only-self {
+      > .el-tree-node__content {
+        span {
+          text-decoration: line-through;
+          color: #ccc;
+        }
+      }
+    }
+
+    div.el-tree-node.hide-task-include-child {
+      .el-tree-node__content {
+        span {
+          text-decoration: line-through;
+          color: #ccc;
+        }
+      }
+      .el-tree-node__children {
+        .el-tree-node__content {
+          .el-checkbox {
+            display: none;
           }
         }
       }

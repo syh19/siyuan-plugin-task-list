@@ -140,10 +140,7 @@
       </template>
     </el-tree>
 
-    <Setting
-      ref="settingRef"
-      @submit-success="refreshTaskAfterHideDocChecked($event, data)"
-    />
+    <Setting ref="settingRef" />
   </div>
 </template>
 
@@ -152,11 +149,13 @@ import { ref, nextTick, watch } from 'vue'
 // import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
-// import * as API from '../api'
+import * as API from '../api'
 import * as sy from 'siyuan'
 import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
 import Setting from './Setting.vue'
+import eventBus from '../utils/eventBus'
+import * as treeData from '../utils/handleTreeData'
 
 interface Tree {
   [key: string]: any
@@ -180,34 +179,10 @@ const showInput = () => {
 }
 const isInputShow = ref<boolean>(false)
 
-/**
- * 根据 e 中的列表对 treeData 进行过滤，删掉存在于 e 中的 doc 节点，需要递归
- * @param e
- * @param treeData
- */
-const refreshTaskAfterHideDocChecked = async (e: any, treeData: any) => {
-  console.log('选中的节点-setting', e)
-  let checkedNodes = e
-  console.log('选中的节点-setting', checkedNodes)
-  console.log('树数据', treeData)
-  // 递归删除选中的doc节点
-  function removeDocNode(docNode: any) {
-    docNode.children = docNode.children?.filter((item: any) => {
-      if (checkedNodes.find((node: any) => node.key === item.key)) {
-        return false
-      }
-      if (item.children) {
-        removeDocNode(item)
-      }
-      return true
-    })
-    return docNode
-  }
-  data.value = treeData.map((item: any) => {
-    return removeDocNode(item)
-  })
-}
-
+eventBus.on(
+  'node-list-for-hide-task-changed',
+  treeData.refreshTaskAfterHideDocChecked
+)
 const app = ref<sy.App>({ plugins: [], appId: '' })
 let data = ref<any>([])
 let taskStatus = ref<string>('todo')
@@ -245,7 +220,7 @@ const refreshData = async () => {
     range: range.value,
     status: taskStatus.value,
   })
-  data.value = res
+  data.value = await treeData.refreshTaskAfterHideDocChecked(res)
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {

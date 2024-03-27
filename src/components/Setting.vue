@@ -26,14 +26,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose } from 'vue'
+import { ref, defineExpose, watch } from 'vue'
 import * as utils from '../utils/common'
 import * as API from '../api'
+import eventBus from '../utils/eventBus'
+import * as treeData from '../utils/handleTreeData'
 
 const isShow = ref<boolean>(true)
 const allTreeData = ref<Array<any>>([])
 
-const emit = defineEmits(['submit-success'])
+watch(
+  isShow,
+  (val) => {
+    if (val) {
+      init()
+    }
+  },
+  { immediate: false }
+)
+
+const init = async () => {
+  await refreshData()
+  allTreeData.value = await treeData.handleCheckStatusForTreeData(
+    allTreeData.value
+  )
+}
 
 /**
  * 刷新数据重新获取el-tree的数据
@@ -43,7 +60,7 @@ const refreshData = async () => {
     range: 'workspace',
     status: 'all',
   })
-  allTreeData.value = handleTreeDataWithoutTaskNode(res)
+  allTreeData.value = treeData.handleTreeDataWithoutTaskNode(res)
 }
 
 const checkedNodes = ref<Array<any>>([])
@@ -51,44 +68,24 @@ const handleChecked2HideTask = async (e: any) => {
   checkedNodes.value = e
 }
 
-/**
- * 将树数据中的任务节点过滤掉
- */
-const handleTreeDataWithoutTaskNode = (treeData: Array<any>): any => {
-  function removeTaskNode(node: any) {
-    node.hideTaskInNodeStatus = 0
-    node.children = node.children.filter((item: any) => {
-      if (item.type === 'task') {
-        return false
-      }
-      if (item.children) {
-        removeTaskNode(item)
-      }
-      return true
-    })
-    return node
-  }
-  treeData.forEach((item: any) => {
-    item = removeTaskNode(item)
-  })
-  console.log('传递给抽屉中树的数据', treeData)
-  return treeData
-}
-
-refreshData()
-
 const cancel = () => {
   isShow.value = false
 }
+
 const submit = async () => {
+  // 找到allTreeData中被勾选的节点
+  let hiddenTaskNodes: any[] = treeData.findHiddenTaskNodesInTreeData(
+    allTreeData.value
+  )
   await API.setLocalStorage({
     app: utils.plugin.app.appId,
     val: {
-      docListForHideTask: checkedNodes.value,
+      nodeListForHideTask: hiddenTaskNodes,
     },
   })
   isShow.value = false
-  emit('submit-success', checkedNodes.value)
+
+  eventBus.emit('node-list-for-hide-task-changed', hiddenTaskNodes)
 }
 
 const open = () => {
