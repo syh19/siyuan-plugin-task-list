@@ -99,7 +99,15 @@ const props = withDefaults(defineProps<Props>(), {
   defaultExpandAll: false,
 })
 
-// const emit = defineEmits(['check'])
+watch(
+  () => props.treeData,
+  (val: any) => {
+    if (val.length) {
+      setDiffClassForNode()
+    }
+  },
+  { immediate: false }
+)
 
 const app = ref<sy.App>({ plugins: [], appId: '' })
 
@@ -175,6 +183,28 @@ const changeNodeHideStatus = (e: any, range: any, data: any) => {
     data.hideTaskInNodeStatus = 0
   }
 }
+
+/**
+ * 设置节点的样式
+ */
+const setDiffClassForNode = () => {
+  let nodes = treeRef.value.store.nodesMap
+  for (let i in nodes) {
+    let node = nodes[i]
+    let data = node.data
+    let nodeEle = document.querySelector(
+      `div.el-tree-node[data-key="${data.key}"]`
+    )
+    nodeEle.classList.remove('hide-task-only-self')
+    nodeEle.classList.remove('hide-task-include-child')
+    if (data.hideTaskInNodeStatus === 1) {
+      nodeEle.classList.add('hide-task-only-self')
+    } else if (data.hideTaskInNodeStatus === 2) {
+      nodeEle.classList.add('hide-task-include-child')
+    }
+  }
+}
+
 const isExpand = ref<boolean>(true)
 watch(
   isExpand,
