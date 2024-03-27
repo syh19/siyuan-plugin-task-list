@@ -7,7 +7,7 @@
       node-key="key"
       check-strictly
       :default-expand-all="defaultExpandAll"
-      show-checkbox
+      :show-checkbox="false"
       :empty-text="i18n.emptyText"
       highlight-current
       :filter-node-method="filterTreeNode"
@@ -50,6 +50,18 @@
             style="padding-left: 10px"
             v-html="data.highlightLabel || data.label"
           ></span>
+          <div class="hide-task-in-node-checkbox-wrap">
+            <el-checkbox
+              v-for="range in hideRangeList"
+              v-model="data.hideTaskInNodeStatus"
+              :key="range.value"
+              :label="range.label"
+              :true-value="range.value"
+              :false-value="0"
+              @click.stop
+              @change="changeNodeHideStatus($event, range, data)"
+            />
+          </div>
         </div>
       </template>
     </el-tree>
@@ -64,7 +76,11 @@ import { i18n } from '../utils/common'
 import * as sy from 'siyuan'
 import type { IRange } from '../types/index'
 import { ElTree } from 'element-plus'
-
+/** 选择隐藏任务节点方式的复选框选项 */
+const hideRangeList = ref<Array<any>>([
+  { label: '仅自身', value: 1 },
+  { label: '包含子节点', value: 2 },
+])
 interface Tree {
   [key: string]: any
 }
@@ -131,6 +147,23 @@ const toggleExpand = (isExpandNew: boolean) => {
   }
 }
 
+/**
+ * 勾选用于隐藏任务的文档或者笔记本节点
+ * @param e 复选框选中的值
+ * @param range 当前点击的是哪个复选框
+ * @param data 所在的树节点
+ */
+const changeNodeHideStatus = (e: any, range: any, data: any) => {
+  if (e !== 0) {
+    if (range.label === '仅自身') {
+      data.hideTaskInNodeStatus = 1
+    } else {
+      data.hideTaskInNodeStatus = 2
+    }
+  } else {
+    data.hideTaskInNodeStatus = 0
+  }
+}
 const isExpand = ref<boolean>(true)
 watch(
   isExpand,
@@ -303,6 +336,20 @@ const defaultProps = {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+          }
+          .hide-task-in-node-checkbox-wrap {
+            flex-shrink: 0;
+            width: 170px;
+            .el-checkbox {
+              width: 80px;
+
+              .el-checkbox__input {
+                width: 16px;
+              }
+            }
+            .el-checkbox:first-child {
+              margin-right: 10px;
+            }
           }
         }
       }

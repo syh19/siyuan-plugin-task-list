@@ -4,7 +4,7 @@
     class="plugin-task-list-config-wrap"
     direction="ltr"
     append-to-body
-    size="40%"
+    size="50%"
     title="设置"
   >
     <template #default>
@@ -55,8 +55,9 @@ const handleChecked2HideTask = async (e: any) => {
  * 将树数据中的任务节点过滤掉
  */
 const handleTreeDataWithoutTaskNode = (treeData: Array<any>): any => {
-  function removeTaskNode(docNode: any) {
-    docNode.children = docNode.children.filter((item: any) => {
+  function removeTaskNode(node: any) {
+    node.hideTaskInNodeStatus = 0
+    node.children = node.children.filter((item: any) => {
       if (item.type === 'task') {
         return false
       }
@@ -65,11 +66,12 @@ const handleTreeDataWithoutTaskNode = (treeData: Array<any>): any => {
       }
       return true
     })
-    return docNode
+    return node
   }
   treeData.forEach((item: any) => {
     item = removeTaskNode(item)
   })
+  console.log('传递给抽屉中树的数据', treeData)
   return treeData
 }
 
