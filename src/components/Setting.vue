@@ -83,7 +83,7 @@ const submit = async () => {
   await API.setLocalStorage({
     app: utils.plugin.app.appId,
     val: {
-      nodeListForHideTask: hiddenTaskNodes,
+      'plugin-task-list-nodeListForHideTask': hiddenTaskNodes,
     },
   })
   isShow.value = false

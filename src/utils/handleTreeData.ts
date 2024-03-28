@@ -10,7 +10,7 @@ export const refreshTaskAfterHideDocChecked = async (
   treeData: any
 ): Promise<Array<any>> => {
   const { data: storage } = await API.getLocalStorage()
-  let checkedNodeList = storage.nodeListForHideTask
+  let checkedNodeList = storage['plugin-task-list-nodeListForHideTask']
   // 递归删除选中的doc节点
   function removeDocNode(node: any) {
     let findedNodeInChecked = checkedNodeList.find(
@@ -59,7 +59,7 @@ export const handleCheckStatusForTreeData = async (
 ): Promise<Array<any>> => {
   const { data: storage } = await API.getLocalStorage()
 
-  let nodeListForHideTask = storage.nodeListForHideTask
+  let nodeListForHideTask = storage['plugin-task-list-nodeListForHideTask']
   function setCheckStatus(node: any) {
     if (nodeListForHideTask) {
       nodeListForHideTask.forEach((item: any) => {

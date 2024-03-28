@@ -20,16 +20,15 @@ export async function getTaskListBySql(
   if (!params.isGetAll) {
     // 根据配置项排除特定任务
     const { data: storage } = await getLocalStorage()
-    storage.nodeListForHideTask
-    if (storage.nodeListForHideTask) {
-      storage.nodeListForHideTask.forEach((item: any) => {
+    if (storage['plugin-task-list-nodeListForHideTask']) {
+      storage['plugin-task-list-nodeListForHideTask'].forEach((item: any) => {
         if (item.type === 'box') {
           stmtStr += ` AND box != '${item.key}'`
         } else if (item.type === 'doc') {
           item.hideTaskInNodeStatus === 1 &&
             (stmtStr += ` AND root_id != '${item.key}'`)
           item.hideTaskInNodeStatus === 2 &&
-            (stmtStr += ` AND path NOT LIKE '/${item.key}/%'`)
+            (stmtStr += ` AND path NOT LIKE '%/${item.key}%'`)
         }
       })
     }
