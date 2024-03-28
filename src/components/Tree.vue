@@ -55,6 +55,7 @@
               v-for="range in hideRangeList"
               v-model="data.hideTaskInNodeStatus"
               v-show="!(data.type === 'box' && range.value === 1)"
+              :title="range.label"
               :key="range.value"
               :label="range.label"
               :true-value="range.value"
@@ -79,8 +80,8 @@ import type { IRange } from '../types/index'
 import { ElTree } from 'element-plus'
 /** 选择隐藏任务节点方式的复选框选项 */
 const hideRangeList = ref<Array<any>>([
-  { label: '仅自身', value: 1 },
-  { label: '包含子节点', value: 2 },
+  { label: i18n.setting.onlySelf, value: 1 },
+  { label: i18n.setting.selfAndChildren, value: 2 },
 ])
 interface Tree {
   [key: string]: any
@@ -357,8 +358,9 @@ const defaultProps = {
           justify-content: flex-start;
           align-items: center;
           @include color('fontColor');
+          font-size: var(--el-font-size-base) !important;
           svg.icon {
-            font-size: 18px;
+            font-size: 24px !important;
             &.icon-box {
               @include color('notebookColor');
             }
@@ -381,8 +383,10 @@ const defaultProps = {
           .hide-task-in-node-checkbox-wrap {
             flex-shrink: 0;
             width: 170px;
+            display: flex;
+            justify-content: flex-end;
             .el-checkbox {
-              width: 80px;
+              // width: 80px;
 
               .el-checkbox__input {
                 width: 16px;
