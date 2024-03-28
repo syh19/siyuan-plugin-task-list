@@ -4,7 +4,7 @@
       <!-- 头部区域 -->
       <div class="title">
         <div class="title-text">
-          <h3 @click="openDrawer">
+          <h3>
             <svg style="margin-right: 5px" class="icon" aria-hidden="true">
               <use xlink:href="#icon-task3"></use></svg
             >{{ i18n.pluginTitle }}
@@ -55,6 +55,15 @@
           >
             <svg class="icon" aria-hidden="true" @click="showInput">
               <use xlink:href="#icon-search3"></use>
+            </svg>
+          </el-tooltip>
+          <el-tooltip
+            effect="dark"
+            :content="i18n.setting.title"
+            placement="bottom"
+          >
+            <svg class="icon" aria-hidden="true" @click="openDrawer">
+              <use xlink:href="#icon-setting"></use>
             </svg>
           </el-tooltip>
         </div>
@@ -385,10 +394,10 @@ const defaultProps = {
           display: flex;
           align-items: center;
           span + span {
-            margin-left: 5px;
+            margin-left: 3px;
           }
           span {
-            padding: 5px;
+            padding: 3px;
             border-radius: 5px;
             &:hover {
               cursor: pointer;
