@@ -367,7 +367,7 @@ const defaultProps = {
     max-width: 100%;
     .head-wrap {
       .title {
-        padding: 0px 10px;
+        padding: 0px 3px 0px 10px;
         height: 36px;
         display: flex;
         justify-content: space-between;
@@ -394,10 +394,10 @@ const defaultProps = {
           display: flex;
           align-items: center;
           span + span {
-            margin-left: 3px;
+            margin-left: 4px;
           }
           span {
-            padding: 3px;
+            padding: 4px;
             border-radius: 5px;
             &:hover {
               cursor: pointer;

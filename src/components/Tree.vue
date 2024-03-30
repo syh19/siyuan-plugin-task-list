@@ -391,9 +391,15 @@ const defaultProps = {
               .el-checkbox__input {
                 width: 16px;
               }
+              .el-checkbox__label {
+                @include color('fontColor');
+              }
             }
             .el-checkbox:first-child {
               margin-right: 10px;
+              .el-checkbox__input {
+                width: 18px;
+              }
             }
           }
         }
@@ -425,6 +431,22 @@ const defaultProps = {
         .el-tree-node__content {
           .el-checkbox {
             display: none;
+          }
+        }
+      }
+    }
+
+    /** 置灰两个复选框【仅自身】和【自身及子节点】 */
+    div.el-tree-node.hide-task-only-self,
+    div.el-tree-node.hide-task-include-child {
+      > .el-tree-node__content {
+        .custom-tree-node {
+          .hide-task-in-node-checkbox-wrap {
+            .el-checkbox {
+              .el-checkbox__label {
+                color: #737373 !important;
+              }
+            }
           }
         }
       }
