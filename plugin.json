@@ -2,7 +2,7 @@
   "name": "siyuan-plugin-task-list",
   "author": "syh19",
   "url": "https://github.com/syh19/siyuan-plugin-task-list",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "minAppVersion": "2.10.13",
   "backends": [
     "all"
@@ -30,7 +30,9 @@
     "openCollective": "",
     "patreon": "",
     "github": "",
-    "custom": []
+    "custom": [
+      "https://afdian.net/a/xhir19"
+    ]
   },
   "keywords": [
     "task",
