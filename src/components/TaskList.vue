@@ -290,7 +290,7 @@ const openDocAndScrollTaskNode = async (docId: string, taskNodeId: string) => {
     await utils.sleep(300)
   }
   let taskEle: any = document.querySelector(
-    `.layout-tab-container .protyle-content .protyle-wysiwyg [data-node-id="${taskNodeId}"][data-type="NodeListItem"] div:nth-child(2)[data-type="NodeParagraph"]`
+    `.layout-tab-container .protyle-content .protyle-wysiwyg >div:not([data-type="NodeBlockQueryEmbed"]) [data-node-id="${taskNodeId}"][data-type="NodeListItem"] div:nth-child(2)[data-type="NodeParagraph"]`
   )
   taskEle?.scrollIntoView({
     behavior: 'smooth',
@@ -299,9 +299,9 @@ const openDocAndScrollTaskNode = async (docId: string, taskNodeId: string) => {
   })
   // 临时高亮节点
   nextTick(async () => {
-    taskEle.classList.add('plugin-task-list__hightlight-node')
+    taskEle?.classList.add('plugin-task-list__hightlight-node')
     await utils.sleep(1500)
-    taskEle.classList.remove('plugin-task-list__hightlight-node')
+    taskEle?.classList.remove('plugin-task-list__hightlight-node')
   })
 }
 // ---------------------------方法 Start-------------------------
