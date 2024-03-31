@@ -1,4 +1,4 @@
-@import '../styles/handle.scss';
+@import './handle.scss';
 // 高亮选中的taskNode节点
 .plugin-task-list__hightlight-node {
   @include background_color('activeBgColor');

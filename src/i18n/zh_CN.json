@@ -18,5 +18,13 @@
     "box": "笔记本",
     "workspace": "工作空间"
   },
-  "emptyText": "太棒了，所有任务都完成了~"
+  "emptyText": "太棒了，所有任务都完成了~",
+  "setting": {
+    "title": "设置",
+    "cancel": "取消",
+    "confirm": "确认",
+    "hideTaskTreeDesc": "您所勾选的节点，其中的任务会将被隐藏",
+    "onlySelf": "仅自身",
+    "selfAndChildren": "自身及子节点"
+  }
 }

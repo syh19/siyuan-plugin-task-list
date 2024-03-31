@@ -57,6 +57,15 @@
               <use xlink:href="#icon-search3"></use>
             </svg>
           </el-tooltip>
+          <el-tooltip
+            effect="dark"
+            :content="i18n.setting.title"
+            placement="bottom"
+          >
+            <svg class="icon" aria-hidden="true" @click="openDrawer">
+              <use xlink:href="#icon-setting"></use>
+            </svg>
+          </el-tooltip>
         </div>
         <el-input
           v-show="isInputShow"
@@ -139,6 +148,8 @@
         </div>
       </template>
     </el-tree>
+
+    <Setting ref="settingRef" />
   </div>
 </template>
 
@@ -147,15 +158,26 @@ import { ref, nextTick, watch } from 'vue'
 // import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
-// import * as API from '../api'
+import * as API from '../api'
 import * as sy from 'siyuan'
 import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
+import Setting from './Setting.vue'
+import eventBus from '../utils/eventBus'
+import * as treeFn from '../utils/handleTreeData'
 
 interface Tree {
   [key: string]: any
 }
 
+let settingRef = ref<InstanceType<typeof Setting>>()
+
+const openDrawer = () => {
+  settingRef.value?.open()
+  nextTick(() => {
+    document.body.style.width = '100%'
+  })
+}
 const treeRef = ref<InstanceType<typeof ElTree>>()
 const inputRef = ref<InstanceType<typeof ElInput>>()
 const showInput = () => {
@@ -199,10 +221,11 @@ const filterText = ref<string>('')
  * 刷新数据重新获取el-tree的数据
  */
 const refreshData = async () => {
-  let res = await utils.getTaskListBySql({
+  let res = await utils.getTaskListForDisplay({
     range: range.value,
     status: taskStatus.value,
   })
+  // data.value = await treeFn.refreshTaskAfterHideDocChecked(res)
   data.value = res
 
   // 根据按钮状态展开或者收起所有节点
@@ -210,6 +233,7 @@ const refreshData = async () => {
     toggleExpand(isExpand.value)
   })
 }
+eventBus.on('node-list-for-hide-task-changed', refreshData)
 
 const trigger = ref<'tab' | 'tree'>('tab')
 utils.plugin.eventBus.on('switch-protyle', () => {
@@ -343,7 +367,7 @@ const defaultProps = {
     max-width: 100%;
     .head-wrap {
       .title {
-        padding: 0px 10px;
+        padding: 0px 3px 0px 10px;
         height: 36px;
         display: flex;
         justify-content: space-between;
@@ -370,10 +394,10 @@ const defaultProps = {
           display: flex;
           align-items: center;
           span + span {
-            margin-left: 5px;
+            margin-left: 4px;
           }
           span {
-            padding: 5px;
+            padding: 4px;
             border-radius: 5px;
             &:hover {
               cursor: pointer;
