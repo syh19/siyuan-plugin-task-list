@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, watch, defineProps } from 'vue'
-import { toRaw } from '@vue/reactivity'
+// import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
 import * as sy from 'siyuan'
@@ -284,7 +284,7 @@ const clickNode = async (data: Tree) => {
  * 如果取消勾选，就取消所有子节点
  */
 const checkNode = (data: any) => {
-  console.log(toRaw(data))
+  // console.log(toRaw(data))
   let checkedNodes: any[] = treeRef.value!.getCheckedNodes(false)
   let childNodes = getChildNodes(data)
   let isNodeChacked = checkedNodes.find((node: any) => node.key === data.key)
