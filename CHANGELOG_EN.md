@@ -34,3 +34,11 @@
 **Bugfix**
 
 - [When you click on a task node to locate it, in a few scenarios it is possible to locate the task in the **embedded block**.](https://github.com/syh19/siyuan-plugin-task-list/issues/11)
+
+## v0.0.4
+
+> **2024-04-01**
+
+**Bugfix**
+
+- When running in the browser through the server, an error occurs and the plug-in cannot be used.
