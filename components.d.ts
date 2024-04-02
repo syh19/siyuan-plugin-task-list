@@ -13,6 +13,8 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    InfoCard: typeof import('./src/components/infoCard/index.vue')['default']
+    List: typeof import('./src/components/List.vue')['default']
     Setting: typeof import('./src/components/Setting.vue')['default']
     TaskList: typeof import('./src/components/TaskList.vue')['default']
     Tree: typeof import('./src/components/Tree.vue')['default']

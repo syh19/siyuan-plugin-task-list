@@ -111,7 +111,11 @@
       @node-click="handleNodeClick"
     >
       <template #default="{ node, data }">
-        <div class="custom-tree-node" :title="node.label">
+        <div
+          class="custom-tree-node"
+          :title="node.label"
+          @mouseenter="handleMouseEnter($event, data)"
+        >
           <svg
             v-if="data.type === 'box'"
             class="icon icon-box"
@@ -165,6 +169,7 @@ import { ElTree, ElInput } from 'element-plus'
 import Setting from './Setting.vue'
 import eventBus from '../utils/eventBus'
 import * as treeFn from '../utils/handleTreeData'
+import infoCard from './infoCard/index'
 
 interface Tree {
   [key: string]: any
@@ -196,6 +201,10 @@ const taskStatusMap = ref<any>({
   done: i18n.taskStatus.done,
   all: i18n.taskStatus.all,
 })
+
+const handleMouseEnter = (e: any, data: any) => {
+  infoCard.update(data, e.target)
+}
 
 /** 高亮搜索的关键字 */
 const handleHighLightSearchText = (text: string) => {
