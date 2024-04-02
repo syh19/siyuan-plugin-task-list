@@ -76,3 +76,22 @@ export async function setLocalStorage(params: {
 export async function getLocalStorage(): Promise<any> {
   return await client.getLocalStorage()
 }
+
+/**
+ * 设置块属性
+ * @param params
+ */
+export async function setBlockAttrs(params: {
+  id: string
+  attrs: { [key: string]: any }
+}): Promise<void> {
+  await client.setBlockAttrs(params)
+}
+
+/**
+ * 获取块属性
+ * @param params
+ */
+// export async function getBlockAttrs(params: { id: string }): Promise<void> {
+//   await client.getBlockAttrs(params)
+// }

@@ -3,6 +3,7 @@ import * as utils from './utils/common'
 import { addDock } from './utils/addButton'
 import './styles/index.scss'
 import './assets/iconFont/iconfont.js'
+import * as task from '../src/utils/handleTaskNode'
 
 export default class TaskListPlugin extends Plugin {
   async onload() {
@@ -16,6 +17,9 @@ export default class TaskListPlugin extends Plugin {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)
       utils.setCurrentBoxId(e.detail.protyle.notebookId)
       // utils.addOperationForTaskNode(e)
+    })
+    this.eventBus.on('ws-main', (e: any) => {
+      task.taskNodeFinishedSetAttrs(e)
     })
   }
 

@@ -3,6 +3,7 @@ import TaskListPlugin from '../index'
 import * as sySDK from '@siyuan-community/siyuan-sdk'
 import * as API from '../api/index'
 import type { IRange, TSqlResItem, TResponse } from '../types'
+import { parseNodeCustomIal } from './fun'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -116,6 +117,8 @@ export function convertSqlToTree(sqlData: any) {
       highlightLabel: fcontent,
       key: id,
       status: markdown.includes('* [ ]') ? 'todo' : 'done',
+      finished:
+        parseNodeCustomIal(otherAttr.ial)['plugin-task-list-finished'] || '',
       children: null,
     }
     parentNode.children.push(taskNode)
