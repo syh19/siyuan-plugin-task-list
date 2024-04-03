@@ -7,17 +7,23 @@
 
     <div class="info-card-item">
       <div class="info-card-item__label">创建时间</div>
-      <div class="info-card-item__value">{{ info.created }}</div>
+      <div class="info-card-item__value">
+        {{ formatDateTime(info.created) }}
+      </div>
     </div>
 
     <div class="info-card-item">
       <div class="info-card-item__label">更新时间</div>
-      <div class="info-card-item__value">{{ info.updated || '暂无' }}</div>
+      <div class="info-card-item__value">
+        {{ formatDateTime(info.updated) || '暂无' }}
+      </div>
     </div>
 
     <div class="info-card-item">
       <div class="info-card-item__label">完成时间</div>
-      <div class="info-card-item__value">{{ info.finished || '暂未完成' }}</div>
+      <div class="info-card-item__value">
+        {{ formatDateTime(info.finished) || '暂未完成' }}
+      </div>
     </div>
 
     <div class="info-card-item">
@@ -35,6 +41,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onUpdated, computed } from 'vue'
+import { formatDateTime } from '@/utils/func'
 const props = defineProps<{
   reference?: any
   info?: any

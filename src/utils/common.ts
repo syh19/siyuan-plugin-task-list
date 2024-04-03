@@ -3,7 +3,7 @@ import TaskListPlugin from '../index'
 import * as sySDK from '@siyuan-community/siyuan-sdk'
 import * as API from '../api/index'
 import type { IRange, TSqlResItem, TResponse } from '../types'
-import { parseNodeCustomIal } from './fun'
+import { parseNodeCustomIal } from './func'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()

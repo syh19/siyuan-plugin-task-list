@@ -1,6 +1,7 @@
 <template>
   <div class="plugin-task-list-wrap">
     <div class="head-wrap">
+      <List :taskList="data"></List>
       <!-- 头部区域 -->
       <div class="title">
         <div class="title-text">
@@ -112,7 +113,7 @@
     >
       <template #default="{ node, data }">
         <div
-          class="custom-tree-node"
+          class="custom-tree-node icon-label-wrap"
           :title="node.label"
           @mouseenter="handleMouseEnter($event, data)"
         >
@@ -145,10 +146,7 @@
           >
             <use xlink:href="#icon-check-circle-fill"></use>
           </svg>
-          <span
-            style="padding-left: 10px"
-            v-html="data.highlightLabel || data.label"
-          ></span>
+          <span v-html="data.highlightLabel || data.label"></span>
         </div>
       </template>
     </el-tree>
@@ -483,31 +481,31 @@ const defaultProps = {
           }
           div.custom-tree-node {
             width: calc(100% - 20px);
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            @include color('fontColor');
-            svg.icon {
-              font-size: 18px;
-              &.icon-box {
-                @include color('notebookColor');
-              }
-              &.icon-doc {
-                @include color('docColor');
-              }
-              &.icon-todo {
-                @include color('todoColor');
-              }
-              &.icon-done {
-                @include color('doneColor');
-              }
-            }
-            span {
-              width: 100%;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
+            // display: flex;
+            // justify-content: flex-start;
+            // align-items: center;
+            // @include color('fontColor');
+            // svg.icon {
+            //   font-size: 18px;
+            //   &.icon-box {
+            //     @include color('notebookColor');
+            //   }
+            //   &.icon-doc {
+            //     @include color('docColor');
+            //   }
+            //   &.icon-todo {
+            //     @include color('todoColor');
+            //   }
+            //   &.icon-done {
+            //     @include color('doneColor');
+            //   }
+            // }
+            // span {
+            //   width: 100%;
+            //   overflow: hidden;
+            //   text-overflow: ellipsis;
+            //   white-space: nowrap;
+            // }
           }
         }
       }

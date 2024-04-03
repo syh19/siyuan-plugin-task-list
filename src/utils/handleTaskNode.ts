@@ -1,5 +1,5 @@
 import * as API from '../api'
-import { getCurrentDateTime } from './fun'
+import { getCurrentDateTime } from './func'
 
 /**
  * 为任务节点设置自定义属性：完成时间

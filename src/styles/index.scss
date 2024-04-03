@@ -11,3 +11,33 @@
   fill: currentColor;
   overflow: hidden;
 }
+
+// 图标和描述的通用样式
+.icon-label-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @include color('fontColor');
+  svg.icon {
+    font-size: 18px;
+    &.icon-box {
+      @include color('notebookColor');
+    }
+    &.icon-doc {
+      @include color('docColor');
+    }
+    &.icon-todo {
+      @include color('todoColor');
+    }
+    &.icon-done {
+      @include color('doneColor');
+    }
+  }
+  span {
+    padding-left: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
