@@ -141,6 +141,41 @@ export function convertSqlToTree(sqlData: any) {
 }
 
 /**
+ * 隐藏树中的doc节点，只保留box和task的层级结构
+ */
+export function convertTreeToBoxTaskTree(tree: any) {
+  // 递归处理其中的doc节点，将所有doc节点内部的task节点全部放到box.children中，去掉doc节点
+  function getTaskListInDoc(doc: any) {
+    const taskList = []
+    doc.children.forEach((node: any) => {
+      if (node.type === 'task') {
+        taskList.push(node)
+      } else if (node.type === 'doc') {
+        taskList.push(...getTaskListInDoc(node))
+      }
+    })
+    return taskList
+  }
+  const newTree = []
+  tree.forEach((box: any) => {
+    const newBox = {
+      ...box,
+      children: [],
+    }
+
+    box.children.forEach((node: any) => {
+      if (node.type === 'doc') {
+        newBox.children.push(...getTaskListInDoc(node))
+      } else {
+        newBox.children.push(node)
+      }
+    })
+    newTree.push(newBox)
+  })
+  return newTree
+}
+
+/**
  * 将树形数据转换为列表数据
  * @param tree 树形数据
  * @returns
@@ -220,10 +255,27 @@ export async function getTaskListForDisplay({
   })
 
   let treeData = convertSqlToTree(res.data)
-  if (range === 'doc') {
-    treeData = convertToList(treeData)
-  } else if (range === 'box') {
-    treeData = treeData[0]?.children
+
+  const { data: storage } = await API.getLocalStorage()
+
+  if (storage['plugin-task-list-taskTreeDisplayMode'] === 'box-doc-task') {
+    if (range === 'doc') {
+      treeData = convertToList(treeData)
+    } else if (range === 'box') {
+      treeData = treeData[0]?.children
+    }
+  } else if (storage['plugin-task-list-taskTreeDisplayMode'] === 'box-task') {
+    treeData = convertTreeToBoxTaskTree(treeData)
+    if (range === 'doc') {
+      treeData = treeData[0]?.children
+    } else if (range === 'box') {
+      // const newTreeData = []
+      // treeData.forEach((box: any) => {
+      //   newTreeData.push(...box.children)
+      // })
+      // treeData = newTreeData
+      treeData = treeData[0]?.children
+    }
   }
 
   return treeData

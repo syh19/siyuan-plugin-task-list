@@ -8,6 +8,11 @@
     :title="i18n.setting.title"
   >
     <template #default>
+      <div>任务列表的展示方式</div>
+      <el-radio-group v-model="localSettings.taskTreeDisplayMode" class="ml-4">
+        <el-radio value="box-doc-task" label="笔记本&文档&任务" size="large" />
+        <el-radio value="box-task" label="笔记本&任务" size="large" />
+      </el-radio-group>
       <div class="tree-check-info">{{ i18n.setting.hideTaskTreeDesc }}</div>
       <div class="setting-tree-wrap">
         <Tree
@@ -38,6 +43,7 @@ import * as treeFn from '../utils/handleTreeData'
 
 const isShow = ref<boolean>(false)
 const treeData = ref<Array<any>>([])
+// const taskTreeDisplayMode = ref<'box-doc-task' | 'box-task'>('box-doc-task')
 
 watch(
   isShow,
@@ -50,7 +56,24 @@ watch(
 )
 
 const init = async () => {
-  await getTreeData()
+  getTreeData()
+  getLocalStorage()
+}
+
+const localSettings = ref<any>({
+  nodeListForHideTask: [],
+  taskTreeDisplayMode: 'box-doc-task',
+})
+const getLocalStorage = async () => {
+  const { data: storage } = await API.getLocalStorage()
+  const {
+    'plugin-task-list-nodeListForHideTask': nodeListForHideTask,
+    'plugin-task-list-taskTreeDisplayMode': taskTreeDisplayMode,
+  } = storage
+  localSettings.value = {
+    nodeListForHideTask,
+    taskTreeDisplayMode,
+  }
 }
 
 /**
@@ -83,7 +106,11 @@ const submit = async () => {
   await API.setLocalStorage({
     app: utils.plugin.app.appId,
     val: {
+      /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
       'plugin-task-list-nodeListForHideTask': hiddenTaskNodes,
+      /** 任务列表树的显示模式 */
+      'plugin-task-list-taskTreeDisplayMode':
+        localSettings.value.taskTreeDisplayMode,
     },
   })
   isShow.value = false

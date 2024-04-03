@@ -1,7 +1,6 @@
 <template>
   <div class="plugin-task-list-wrap">
     <div class="head-wrap">
-      <List :taskList="data"></List>
       <!-- 头部区域 -->
       <div class="title">
         <div class="title-text">
@@ -103,7 +102,7 @@
     <!-- 树形数据区域 -->
     <el-tree
       style="max-width: 600px"
-      :data="data"
+      :data="treeData"
       ref="treeRef"
       :empty-text="i18n.emptyText"
       highlight-current
@@ -114,7 +113,6 @@
       <template #default="{ node, data }">
         <div
           class="custom-tree-node icon-label-wrap"
-          :title="node.label"
           @mouseenter="handleMouseEnter($event, data)"
         >
           <svg
@@ -192,7 +190,7 @@ const showInput = () => {
 const isInputShow = ref<boolean>(false)
 
 const app = ref<sy.App>({ plugins: [], appId: '' })
-let data = ref<any>([])
+let treeData = ref<any>([])
 let taskStatus = ref<string>('todo')
 const taskStatusMap = ref<any>({
   todo: i18n.taskStatus.todo,
@@ -232,8 +230,8 @@ const refreshData = async () => {
     range: range.value,
     status: taskStatus.value,
   })
-  // data.value = await treeFn.refreshTaskAfterHideDocChecked(res)
-  data.value = res
+  // treeData.value = await treeFn.refreshTaskAfterHideDocChecked(res)
+  treeData.value = res
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {
