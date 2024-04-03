@@ -1,38 +1,38 @@
 <template>
   <div v-if="info && info.status" class="plugin-task-list__info-card-wrap">
     <div class="info-card-item">
-      <div class="info-card-item__label">任务名称</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.taskName }}</div>
       <div class="info-card-item__value">{{ info.label }}</div>
     </div>
 
     <div class="info-card-item">
-      <div class="info-card-item__label">创建时间</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.created }}</div>
       <div class="info-card-item__value">
         {{ formatDateTime(info.created) }}
       </div>
     </div>
 
     <div class="info-card-item">
-      <div class="info-card-item__label">更新时间</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.updated }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.updated) || '暂无' }}
+        {{ formatDateTime(info.updated) || '' }}
       </div>
     </div>
 
     <div class="info-card-item">
-      <div class="info-card-item__label">完成时间</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.finished }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.finished) || '暂未完成' }}
+        {{ formatDateTime(info.finished) || '' }}
       </div>
     </div>
 
     <div class="info-card-item">
-      <div class="info-card-item__label">笔记本</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.box }}</div>
       <div class="info-card-item__value">{{ info.box.label }}</div>
     </div>
 
     <div class="info-card-item">
-      <div class="info-card-item__label">文档路径</div>
+      <div class="info-card-item__label">{{ i18n.infoCard.docPath }}</div>
       <div class="info-card-item__value">
         {{ info.pathList.map((item) => item.label).join(' / ') }}
       </div>
@@ -42,6 +42,7 @@
 <script setup lang="ts">
 import { ref, onUpdated, computed } from 'vue'
 import { formatDateTime } from '@/utils/func'
+import { i18n } from '@/utils/common'
 const props = defineProps<{
   reference?: any
   info?: any

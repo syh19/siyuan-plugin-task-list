@@ -10,7 +10,9 @@
     <template #default>
       <!-- 设置任务列表的展示方式 -->
       <div class="setting-item setting-item__horizontal">
-        <div class="setting-item__label">任务列表的展示方式</div>
+        <div class="setting-item__label">
+          {{ i18n.setting.taskListDisplayLabel }}
+        </div>
         <div class="setting-item__content">
           <el-radio-group
             v-model="localSettings.taskTreeDisplayMode"
@@ -18,10 +20,14 @@
           >
             <el-radio
               value="box-doc-task"
-              label="笔记本&文档&任务"
+              :label="i18n.setting.boxDocTask"
               size="large"
             />
-            <el-radio value="box-task" label="笔记本&任务" size="large" />
+            <el-radio
+              value="box-task"
+              :label="i18n.setting.boxTask"
+              size="large"
+            />
           </el-radio-group>
         </div>
       </div>
@@ -81,16 +87,18 @@ const localSettings = ref<any>({
   nodeListForHideTask: [],
   taskTreeDisplayMode: 'box-doc-task',
 })
+
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
   const {
     'plugin-task-list-nodeListForHideTask': nodeListForHideTask,
     'plugin-task-list-taskTreeDisplayMode': taskTreeDisplayMode,
   } = storage
-  localSettings.value = {
-    nodeListForHideTask,
-    taskTreeDisplayMode,
-  }
+
+  nodeListForHideTask &&
+    (localSettings.value.nodeListForHideTask = nodeListForHideTask)
+  taskTreeDisplayMode &&
+    (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode)
 }
 
 /**

@@ -25,6 +25,17 @@
     "confirm": "Confirm",
     "hideTaskTreeDesc": "The tasks in the nodes you checked will be hidden",
     "onlySelf": "Only Self",
-    "selfAndChildren": "Self & Children"
+    "selfAndChildren": "Self & Children",
+    "taskListDisplayLabel": "How task lists are displayed",
+    "boxDocTask": "notebook & doc & task",
+    "boxTask": "notebook & task"
+  },
+  "infoCard": {
+    "taskName": "task name",
+    "created": "created",
+    "updated": "updated",
+    "finished": "finished",
+    "box": "notebook",
+    "docPath": "doc path"
   }
 }
