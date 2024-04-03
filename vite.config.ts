@@ -22,6 +22,11 @@ console.log('isWatch=>', isWatch)
 console.log('distDir=>', distDir)
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+    },
+  },
   plugins: [
     AutoImport({
       resolvers: [ElementPlusResolver()],
