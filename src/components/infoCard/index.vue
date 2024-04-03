@@ -1,10 +1,40 @@
 <template>
-  <div v-if="info" class="plugin-task-list__info-card-wrap">
-    {{ info }}
+  <div v-if="info && info.status" class="plugin-task-list__info-card-wrap">
+    <div class="info-card-item">
+      <div class="info-card-item__label">任务名称</div>
+      <div class="info-card-item__value">{{ info.label }}</div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="info-card-item__label">创建时间</div>
+      <div class="info-card-item__value">{{ info.created }}</div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="info-card-item__label">更新时间</div>
+      <div class="info-card-item__value">{{ info.updated || '暂无' }}</div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="info-card-item__label">完成时间</div>
+      <div class="info-card-item__value">{{ info.finished || '暂未完成' }}</div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="info-card-item__label">笔记本</div>
+      <div class="info-card-item__value">{{ info.box.label }}</div>
+    </div>
+
+    <div class="info-card-item">
+      <div class="info-card-item__label">文档路径</div>
+      <div class="info-card-item__value">
+        {{ info.pathList.map((item) => item.label).join('/') }}
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onUpdated } from 'vue'
+import { ref, onUpdated, computed } from 'vue'
 const props = defineProps<{
   reference?: any
   info?: any
@@ -31,6 +61,12 @@ const updateXY = (e: MouseEvent) => {
           window.innerWidth - rect.width
         }px`)
     }
+    if (rect.bottom > window.innerHeight) {
+      infoEle.value &&
+        ((infoEle.value as HTMLElement).style.top = `${
+          window.innerHeight - rect.height
+        }px`)
+    }
   }
 }
 
@@ -52,5 +88,31 @@ onUpdated(() => {
 .plugin-task-list__info-card-wrap {
   position: fixed;
   z-index: 3000;
+  display: none;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  max-width: 300px;
+  min-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // transition: all 0.3s;
+  pointer-events: none;
+  .info-card-item {
+    display: flex;
+    margin-bottom: 10px;
+    .info-card-item__label {
+      width: 80px;
+      color: #666;
+    }
+    .info-card-item__value {
+      flex: 1;
+      color: #333;
+    }
+  }
 }
 </style>

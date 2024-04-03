@@ -116,6 +116,11 @@ export function convertSqlToTree(sqlData: any) {
       label: fcontent,
       highlightLabel: fcontent,
       key: id,
+      box: { key: box, label: boxName },
+      pathList: pathParts.map((doc: any, index: number) => ({
+        label: hpathParts[index],
+        key: path,
+      })),
       status: markdown.includes('* [ ]') ? 'todo' : 'done',
       finished:
         parseNodeCustomIal(otherAttr.ial)['plugin-task-list-finished'] || '',
