@@ -8,18 +8,35 @@
     :title="i18n.setting.title"
   >
     <template #default>
-      <div>任务列表的展示方式</div>
-      <el-radio-group v-model="localSettings.taskTreeDisplayMode" class="ml-4">
-        <el-radio value="box-doc-task" label="笔记本&文档&任务" size="large" />
-        <el-radio value="box-task" label="笔记本&任务" size="large" />
-      </el-radio-group>
-      <div class="tree-check-info">{{ i18n.setting.hideTaskTreeDesc }}</div>
-      <div class="setting-tree-wrap">
-        <Tree
-          :treeData="treeData"
-          :defaultExpandAll="true"
-          @check="handleChecked2HideTask"
-        />
+      <!-- 设置任务列表的展示方式 -->
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">任务列表的展示方式</div>
+        <div class="setting-item__content">
+          <el-radio-group
+            v-model="localSettings.taskTreeDisplayMode"
+            class="ml-4"
+          >
+            <el-radio
+              value="box-doc-task"
+              label="笔记本&文档&任务"
+              size="large"
+            />
+            <el-radio value="box-task" label="笔记本&任务" size="large" />
+          </el-radio-group>
+        </div>
+      </div>
+      <!-- 设置任务列表某些节点不显示的树形组件 -->
+      <div class="setting-item setting-item__vertical">
+        <div class="setting-item__label">
+          {{ i18n.setting.hideTaskTreeDesc }}
+        </div>
+        <div class="setting-item__content setting-tree-wrap">
+          <Tree
+            :treeData="treeData"
+            :defaultExpandAll="true"
+            @check="handleChecked2HideTask"
+          />
+        </div>
       </div>
     </template>
     <template #footer>
@@ -129,33 +146,57 @@ defineExpose({
 <style lang="scss">
 .plugin-task-list-config-wrap {
   background-color: var(--b3-theme-background) !important;
-  .tree-check-info {
-    font-size: 18px;
-    // color: #606266;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .setting-tree-wrap {
-    height: 500px;
-    overflow: auto;
-    &::-webkit-scrollbar {
-      display: none;
+
+  .el-drawer__body {
+    .setting-item {
+      margin-bottom: 20px;
+      // 通用样式
+      .setting-item__label {
+        color: var(--b3-text-color);
+      }
+
+      // 特殊样式
+      .setting-tree-wrap {
+        height: 500px;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        border: 1px solid var(--b3-border-color);
+        border-radius: 8px;
+        padding: 10px;
+        background-color: var(--b3-theme-surface);
+      }
     }
 
-    border: 1px solid var(--b3-border-color);
-    border-radius: 8px;
-    padding: 10px;
-    background-color: var(--b3-theme-surface);
-  }
+    .setting-item__horizontal {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      .setting-item__label {
+        margin-right: 80px;
+      }
+    }
+    .setting-item__vertical {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      .setting-item__label {
+        margin-bottom: 5px;
+      }
+    }
 
-  // .el-button {
-  //   box-shadow: inset 0 0 0 0.6px var(--b3-theme-primary) !important;
-  //   background-color: rgba(0, 0, 0, 0) !important;
-  // }
-  // .el-button.el-button--primary {
-  //   color: var(--b3-theme-primary) !important;
-  //   box-shadow: inset 0 0 0 0.6px var(--b3-theme-primary) !important;
-  //   background-color: rgba(0, 0, 0, 0) !important;
-  // }
+    // .el-button {
+    //   box-shadow: inset 0 0 0 0.6px var(--b3-theme-primary) !important;
+    //   background-color: rgba(0, 0, 0, 0) !important;
+    // }
+    // .el-button.el-button--primary {
+    //   color: var(--b3-theme-primary) !important;
+    //   box-shadow: inset 0 0 0 0.6px var(--b3-theme-primary) !important;
+    //   background-color: rgba(0, 0, 0, 0) !important;
+    // }
+  }
 }
 </style>

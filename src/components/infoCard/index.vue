@@ -34,7 +34,7 @@
     <div class="info-card-item">
       <div class="info-card-item__label">文档路径</div>
       <div class="info-card-item__value">
-        {{ info.pathList.map((item) => item.label).join('/') }}
+        {{ info.pathList.map((item) => item.label).join(' / ') }}
       </div>
     </div>
   </div>
@@ -96,30 +96,34 @@ onUpdated(() => {
   position: fixed;
   z-index: 3000;
   display: none;
-  background-color: #fff;
+  background-color: var(--b3-theme-background) !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
-  color: #333;
+  color: var(--b3-text-color);
   max-width: 300px;
-  min-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: 250px;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
   // transition: all 0.3s;
   pointer-events: none;
   .info-card-item {
     display: flex;
-    margin-bottom: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
     .info-card-item__label {
       width: 80px;
-      color: #666;
+      color: var(--b3-text-color);
     }
     .info-card-item__value {
       flex: 1;
-      color: #333;
+      color: var(--b3-text-color);
     }
+  }
+  .info-card-item + .info-card-item {
+    margin-top: 5px;
   }
 }
 </style>

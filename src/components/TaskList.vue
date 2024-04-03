@@ -479,6 +479,7 @@ const defaultProps = {
           }
           div.custom-tree-node {
             width: calc(100% - 20px);
+            height: 100%;
             // display: flex;
             // justify-content: flex-start;
             // align-items: center;
