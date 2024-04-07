@@ -90,10 +90,8 @@ const localSettings = ref<any>({
 
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
-  const {
-    'plugin-task-list-nodeListForHideTask': nodeListForHideTask,
-    'plugin-task-list-taskTreeDisplayMode': taskTreeDisplayMode,
-  } = storage
+  const { nodeListForHideTask, taskTreeDisplayMode } =
+    storage['plugin-task-list-settings']
 
   nodeListForHideTask &&
     (localSettings.value.nodeListForHideTask = nodeListForHideTask)
@@ -128,14 +126,14 @@ const submit = async () => {
   let hiddenTaskNodes: any[] = treeFn.findHiddenTaskNodesInTreeData(
     treeData.value
   )
-  await API.setLocalStorage({
+  await API.setLocalStorageVal({
     app: utils.plugin.app.appId,
+    key: 'plugin-task-list-settings',
     val: {
       /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
-      'plugin-task-list-nodeListForHideTask': hiddenTaskNodes,
+      nodeListForHideTask: hiddenTaskNodes,
       /** 任务列表树的显示模式 */
-      'plugin-task-list-taskTreeDisplayMode':
-        localSettings.value.taskTreeDisplayMode,
+      taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
     },
   })
   isShow.value = false

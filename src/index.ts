@@ -4,6 +4,7 @@ import { addDock } from './utils/addButton'
 import './styles/index.scss'
 import './assets/iconFont/iconfont.js'
 import * as task from '../src/utils/handleTaskNode'
+import '@/utils/compatible'
 
 export default class TaskListPlugin extends Plugin {
   async onload() {

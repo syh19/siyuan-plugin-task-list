@@ -20,17 +20,19 @@ export async function getTaskListBySql(
   if (!params.isGetAll) {
     // 根据配置项排除特定任务
     const { data: storage } = await getLocalStorage()
-    if (storage['plugin-task-list-nodeListForHideTask']) {
-      storage['plugin-task-list-nodeListForHideTask'].forEach((item: any) => {
-        if (item.type === 'box') {
-          stmtStr += ` AND box != '${item.key}'`
-        } else if (item.type === 'doc') {
-          item.hideTaskInNodeStatus === 1 &&
-            (stmtStr += ` AND root_id != '${item.key}'`)
-          item.hideTaskInNodeStatus === 2 &&
-            (stmtStr += ` AND path NOT LIKE '%/${item.key}%'`)
+    if (storage['plugin-task-list-settings']?.['nodeListForHideTask']) {
+      storage['plugin-task-list-settings']?.['nodeListForHideTask'].forEach(
+        (item: any) => {
+          if (item.type === 'box') {
+            stmtStr += ` AND box != '${item.key}'`
+          } else if (item.type === 'doc') {
+            item.hideTaskInNodeStatus === 1 &&
+              (stmtStr += ` AND root_id != '${item.key}'`)
+            item.hideTaskInNodeStatus === 2 &&
+              (stmtStr += ` AND path NOT LIKE '%/${item.key}%'`)
+          }
         }
-      })
+      )
     }
 
     if (params.status === 'todo') {
@@ -70,6 +72,22 @@ export async function setLocalStorage(params: {
   const { data: previousVal } = await client.getLocalStorage()
   params.val = { ...previousVal, ...params.val }
   await client.setLocalStorage(params)
+}
+
+/**
+ * 设置持久化本地存储数据
+ * 设置单个键值对
+ */
+export async function setLocalStorageVal(params: {
+  app: string
+  key: string
+  val: any
+}): Promise<void> {
+  await client.setLocalStorageVal({
+    app: params.app,
+    key: params.key,
+    val: params.val,
+  })
 }
 
 /** 获取持久化本地存储数据 */

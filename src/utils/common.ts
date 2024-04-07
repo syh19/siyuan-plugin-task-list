@@ -258,13 +258,18 @@ export async function getTaskListForDisplay({
 
   const { data: storage } = await API.getLocalStorage()
 
-  if (storage['plugin-task-list-taskTreeDisplayMode'] === 'box-doc-task') {
+  if (
+    storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] ===
+    'box-doc-task'
+  ) {
     if (range === 'doc') {
       treeData = convertToList(treeData)
     } else if (range === 'box') {
       treeData = treeData[0]?.children
     }
-  } else if (storage['plugin-task-list-taskTreeDisplayMode'] === 'box-task') {
+  } else if (
+    storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] === 'box-task'
+  ) {
     treeData = convertTreeToBoxTaskTree(treeData)
     if (range === 'doc') {
       treeData = treeData[0]?.children
