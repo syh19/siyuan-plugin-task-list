@@ -61,3 +61,11 @@
 **Others**
 
 - Modify the storage structure of configuration data and realize automatic migration of old data
+
+## v0.0.6
+
+> **2024-04-08**
+
+**Bugfix**
+
+- Emergency repair: Repair the judgment logic of task completion status
