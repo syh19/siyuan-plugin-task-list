@@ -35,10 +35,11 @@ export async function getTaskListBySql(
       )
     }
 
+    // 最开头的 '* [ ]'或者 '* [_]' 才表示当前任务节点
     if (params.status === 'todo') {
-      stmtStr += ` AND markdown LIKE '%[ ]%'`
+      stmtStr += ` AND markdown LIKE '* [ ]%'`
     } else if (params.status === 'done') {
-      stmtStr += ` AND markdown LIKE '%[_]%' AND markdown NOT LIKE '%[ ]%'` // 已完成可能有两种：[x] 和 [X]
+      stmtStr += ` AND markdown LIKE '* [_]%' AND markdown NOT LIKE '* [ ]%'` // 已完成可能有两种：[x] 和 [X]
     } else if (params.status === 'all') {
       stmtStr += ''
     }
