@@ -59,10 +59,8 @@ export function parseNodeCustomIal(ial: string) {
  * @param params
  * @returns 'todo' | 'done'
  */
-export function findTaskNodeRealStatus(params: {
-  fcontent: string
-  markdown: string
-}): 'todo' | 'done' {
-  const index = params.markdown.indexOf(params.fcontent.trim())
-  return params.markdown.substring(0, index).includes('* [ ]') ? 'todo' : 'done'
-}
+// export function findTaskNodeRealStatus(params: {
+//   markdown: string
+// }): 'todo' | 'done' {
+//   return params.markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done'
+// }

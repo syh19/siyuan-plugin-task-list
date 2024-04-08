@@ -121,7 +121,7 @@ export function convertSqlToTree(sqlData: any) {
         label: hpathParts[index],
         key: path,
       })),
-      status: func.findTaskNodeRealStatus({ fcontent, markdown }),
+      status: markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done',
       finished:
         func.parseNodeCustomIal(otherAttr.ial)[
           'custom-plugin-task-list-finished'
