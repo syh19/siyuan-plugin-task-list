@@ -1,16 +1,20 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 当前版本`v0.0.3`更新记录
+# 当前版本`v0.0.5`更新记录
 
 **改进功能**
 
-- [✨✨✨ 添加隐藏指定文档中的任务节点的配置，隐藏方式支持两种：**仅文档自身**和**文档及其子文档**](https://github.com/syh19/siyuan-plugin-task-list/issues/5)
-- 隐藏指定文档的任务节点配置支持**持久化存储**
-- [✨✨✨ 插件配置中取消仅`PC`端可用的限制，理论上全平台可用](https://github.com/syh19/siyuan-plugin-task-list/issues/10)
+- ✨✨✨ 任务节点通过自定义属性支持自动添加**完成时间**
+- 新增任务节点的信息卡片浮窗
+- [通过配置项支持任务列表模式与树形模式的切换](https://github.com/syh19/siyuan-plugin-task-list/issues/1)
 
 **修复缺陷**
 
-- [点击任务节点进行定位时少数场景下可能定位到**嵌入块**中的任务](https://github.com/syh19/siyuan-plugin-task-list/issues/11)
+- 修复嵌套任务节点完成状态判断不准确的问题
+
+**其他**
+
+- 修改配置数据的存储结构并实现旧数据的自动迁移
 
 > [所有版本的更新记录请在这里查看](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
 

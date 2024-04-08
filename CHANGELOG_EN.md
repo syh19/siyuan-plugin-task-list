@@ -42,3 +42,22 @@
 **Bugfix**
 
 - When running in the browser through the server, an error occurs and the plug-in cannot be used.
+
+## v0.0.5
+
+> **2024-04-08**
+
+**Enhancement**
+
+- ✨✨✨ Task nodes support automatically adding finished time through custom attributes
+- Added information card floating window for task nodes
+- [Support switching between task list mode and tree mode through configuration items
+  ](https://github.com/syh19/siyuan-plugin-task-list/issues/1)
+
+**Bugfix**
+
+- Fixed the problem of inaccurate judgment of the completion status of nested task nodes
+
+**Others**
+
+- Modify the storage structure of configuration data and realize automatic migration of old data

@@ -30,7 +30,6 @@ export const taskNodeFinishedSetAttrs = (e: any): void => {
   const detailData = e.detail.data
   if (!detailData) return
   const divStr = detailData[0]?.doOperations[0]?.data
-  // #syh-todo 处理undo的情况
 
   if (!divStr || typeof divStr !== 'string') return
 

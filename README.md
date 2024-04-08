@@ -1,16 +1,21 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Current version `v0.0.3` change log
+# Current version `v0.0.5` change log
 
 **Enhancement**
 
-- [✨✨✨ Add the configuration of shielding and hiding task nodes in the specified document. Two shielding methods are supported: **Only the document itself** and **Document and children**](https://github.com/syh19/siyuan-plugin-task-list/issues/5)
-- Mask and hide the task node configuration of the specified document to support **persistent storage**
-- [✨✨✨ In the plug-in configuration, the restriction that it is only available on `PC` is removed. In theory, it is available on all platforms.](https://github.com/syh19/siyuan-plugin-task-list/issues/10)
+- ✨✨✨ Task nodes support automatically adding **finished time** through custom attributes
+- Added information card floating window for task nodes
+- [Support switching between task list mode and tree mode through configuration items
+  ](https://github.com/syh19/siyuan-plugin-task-list/issues/1)
 
 **Bugfix**
 
-- [When you click on a task node to locate it, in a few scenarios it is possible to locate the task in the **embedded block**.](https://github.com/syh19/siyuan-plugin-task-list/issues/11)
+- Fixed the problem of inaccurate judgment of the completion status of nested task nodes
+
+**Others**
+
+- Modify the storage structure of configuration data and realize automatic migration of old data
 
 > [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
 
