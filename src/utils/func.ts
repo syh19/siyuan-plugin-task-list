@@ -52,3 +52,17 @@ export function parseNodeCustomIal(ial: string) {
   })
   return obj
 }
+
+/**
+ * 判断节点的真实完成状态
+ * 不要通过完成时间判断，不然使用插件之前完成的任务就统计不出来了
+ * @param params
+ * @returns 'todo' | 'done'
+ */
+export function findTaskNodeRealStatus(params: {
+  fcontent: string
+  markdown: string
+}): 'todo' | 'done' {
+  const index = params.markdown.indexOf(params.fcontent.trim())
+  return params.markdown.substring(0, index).includes('* [ ]') ? 'todo' : 'done'
+}

@@ -1,5 +1,5 @@
 import * as API from '../api'
-import { getCurrentDateTime } from './func'
+import * as func from './func'
 
 /**
  * 为任务节点设置自定义属性：完成时间
@@ -10,7 +10,13 @@ const setTaskBlockAttrs = async (id: string, isFinish: boolean) => {
   await API.setBlockAttrs({
     id,
     attrs: {
-      'plugin-task-list-finished': isFinish ? getCurrentDateTime() : '',
+      /**
+       * 这里必须加上 custom- 前缀
+       * 关联思源issue：https://github.com/siyuan-note/siyuan/issues/10928
+       */
+      'custom-plugin-task-list-finished': isFinish
+        ? func.getCurrentDateTime()
+        : '',
     },
   })
 }
@@ -24,6 +30,7 @@ export const taskNodeFinishedSetAttrs = (e: any): void => {
   const detailData = e.detail.data
   if (!detailData) return
   const divStr = detailData[0]?.doOperations[0]?.data
+  // #syh-todo 处理undo的情况
 
   if (!divStr || typeof divStr !== 'string') return
 
