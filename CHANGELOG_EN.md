@@ -69,3 +69,12 @@
 **Bugfix**
 
 - Emergency repair: Repair the judgment logic of task completion status
+
+## v0.0.7
+
+> **2024-04-14**
+
+**Bugfix**
+
+- The text in the information card may display abnormally if it is too long
+- Improve custom attribute parsing function

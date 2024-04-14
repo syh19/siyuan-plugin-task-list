@@ -1,23 +1,14 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version change log
-
-**Enhancement**
-
-- ✨✨✨ Task nodes support automatically adding **finished time** through custom attributes
-- Added information card floating window for task nodes
-- [Support switching between task list mode and tree mode through configuration items
-  ](https://github.com/syh19/siyuan-plugin-task-list/issues/1)
+# Latest version `v0.0.7` change log
 
 **Bugfix**
 
-- Fixed the problem of inaccurate judgment of the completion status of nested task nodes
+- The text in the information card may display abnormally if it is too long
+- Improve custom attribute parsing function
 
-**Others**
-
-- Modify the storage structure of configuration data and realize automatic migration of old data
-
-> [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
+> - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
+> - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
 
 ---
 
