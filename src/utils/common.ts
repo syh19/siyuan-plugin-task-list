@@ -123,7 +123,7 @@ export function convertSqlToTree(sqlData: any) {
       })),
       status: markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done',
       finished:
-        func.parseNodeCustomIal(otherAttr.ial)[
+        func.parseStringToKeyValuePairs(otherAttr.ial)[
           'custom-plugin-task-list-finished'
         ] || '',
       children: null,

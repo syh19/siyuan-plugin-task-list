@@ -37,20 +37,23 @@ export function formatDateTime(dateTime: string) {
 }
 
 /**
- * 解析节点的自定义属性
+ * 解析字符串为键值对
+ * 解析节点的自定义属性 ial
  * @param ial
  * @returns
  */
-export function parseNodeCustomIal(ial: string) {
-  const regex = /(?:{: |}|")/g
-  ial = ial.replace(regex, '') // 去除不需要的字符
-  const pairs = ial.split(/\s+/) // 分割字符串成键值对
-  const obj = {}
-  pairs.forEach((pair) => {
-    const [key, value] = pair.split('=')
-    obj[key] = value.replace(/"/g, '') // 去除双引号
-  })
-  return obj
+export function parseStringToKeyValuePairs(ial: string) {
+  // 使用正则表达式匹配键值对
+  const pattern = /(\w+)="([^"]+)"/g
+  let match: any = {}
+  const keyValuePairs = {}
+
+  while ((match = pattern.exec(ial)) !== null) {
+    // 将匹配到的键和值添加到对象中
+    keyValuePairs[match[1]] = match[2]
+  }
+
+  return keyValuePairs
 }
 
 /**
