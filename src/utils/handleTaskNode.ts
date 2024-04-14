@@ -41,16 +41,22 @@ export const taskNodeFinishedSetAttrs = (e: any): void => {
   let doc = parser.parseFromString(divStr, 'text/html')
   // 获取最外层的div
   let outerDiv = doc.querySelector('div')
+
+  if (!outerDiv) {
+    console.log("siyuan-plugin-task-list: can't find outerDiv")
+    return
+  }
+
   // 获取div的class属性
-  let divClass = outerDiv.getAttribute('class')
+  let divClass = outerDiv?.getAttribute('class')
   // 获取div的data-marker属性
-  let divDataMarker = outerDiv.getAttribute('data-marker')
+  let divDataMarker = outerDiv?.getAttribute('data-marker')
   // 获取div的data-subtype属性
-  let divDataSubtype = outerDiv.getAttribute('data-subtype')
+  let divDataSubtype = outerDiv?.getAttribute('data-subtype')
   // 获取div的data-node-id属性
-  let divNodeId = outerDiv.getAttribute('data-node-id')
+  let divNodeId = outerDiv?.getAttribute('data-node-id')
   // 获取div的data-type属性
-  let divDataType = outerDiv.getAttribute('data-type')
+  let divDataType = outerDiv?.getAttribute('data-type')
 
   if (
     divDataMarker === '*' &&
