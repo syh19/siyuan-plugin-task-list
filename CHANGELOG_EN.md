@@ -8,6 +8,7 @@
 
 - The text in the information card may display abnormally if it is too long
 - Improve custom attribute parsing function
+- [Add `DOM` element empty judgment logic](https://github.com/syh19/siyuan-plugin-task-list/issues/13)
 
 ## v0.0.6
 

@@ -8,6 +8,7 @@
 
 - 信息卡片中的文本过长时可能显示异常
 - 完善自定义属性解析函数
+- [添加`DOM`元素判空逻辑](https://github.com/syh19/siyuan-plugin-task-list/issues/13)
 
 ## v0.0.6
 
