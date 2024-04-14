@@ -44,7 +44,7 @@ export function formatDateTime(dateTime: string) {
  */
 export function parseStringToKeyValuePairs(ial: string) {
   // 使用正则表达式匹配键值对
-  const pattern = /(\w+)="([^"]+)"/g
+  const pattern = /(\w[\w-]*)="([^"]*)"/g
   let match: any = {}
   const keyValuePairs = {}
 
