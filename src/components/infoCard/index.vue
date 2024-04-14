@@ -115,10 +115,12 @@ onUpdated(() => {
     justify-content: flex-start;
     align-items: flex-start;
     .info-card-item__label {
+      flex-shrink: 0;
       width: 80px;
       color: var(--b3-text-color);
     }
     .info-card-item__value {
+      word-break: break-all;
       flex: 1;
       color: var(--b3-text-color);
     }
