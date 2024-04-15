@@ -2,7 +2,7 @@ import { Plugin } from 'siyuan'
 import * as utils from './utils/common'
 import { addDock } from './utils/addButton'
 import './styles/index.scss'
-import './assets/iconFont/iconfont.js'
+import './utils/iconfont.js'
 import * as task from '../src/utils/handleTaskNode'
 import '@/utils/compatible'
 
