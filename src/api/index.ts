@@ -48,7 +48,7 @@ export async function getTaskListBySql(
     params.boxId && (stmtStr += ` AND box = '${params.boxId}'`)
   }
 
-  stmtStr += ` ORDER BY created DESC LIMIT 1000`
+  stmtStr += ` ORDER BY created ASC LIMIT 1000`
 
   let taskRes = await client.sql({
     stmt: stmtStr,

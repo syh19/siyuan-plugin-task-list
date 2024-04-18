@@ -8,6 +8,27 @@
     :title="i18n.setting.title"
   >
     <template #default>
+      <!-- 设置任务列表排序方式 -->
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ i18n.setting.sortItem.sortBy }}
+        </div>
+        <div class="setting-item__content">
+          <el-select
+            v-model="localSettings.taskSortBy"
+            :placeholder="i18n.setting.sortItem.placeholder"
+            size="default"
+            style="width: 240px"
+          >
+            <el-option
+              v-for="item in sortOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
       <!-- 设置任务列表的展示方式 -->
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
@@ -83,20 +104,56 @@ const init = async () => {
   getLocalStorage()
 }
 
+/**
+ * 本地设置
+ *
+ */
 const localSettings = ref<any>({
+  /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
   nodeListForHideTask: [],
+  /** 任务列表树的显示模式 */
   taskTreeDisplayMode: 'box-doc-task',
+  /** 任务节点的排序方式 */
+  taskSortBy: 'createdAsc',
 })
+
+const sortOptions = ref<Array<{ value: string; label: string }>>([
+  {
+    value: 'createdAsc',
+    label: i18n.setting.sortItem.createdAsc,
+  },
+  {
+    value: 'createdDesc',
+    label: i18n.setting.sortItem.createdDesc,
+  },
+  {
+    value: 'updatedAsc',
+    label: i18n.setting.sortItem.updatedAsc,
+  },
+  {
+    value: 'updatedDesc',
+    label: i18n.setting.sortItem.updatedDesc,
+  },
+  {
+    value: 'finishedAsc',
+    label: i18n.setting.sortItem.finishedAsc,
+  },
+  {
+    value: 'finishedDesc',
+    label: i18n.setting.sortItem.finishedDesc,
+  },
+])
 
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
-  const { nodeListForHideTask, taskTreeDisplayMode } =
+  const { nodeListForHideTask, taskTreeDisplayMode, taskSortBy } =
     storage['plugin-task-list-settings']
 
   nodeListForHideTask &&
     (localSettings.value.nodeListForHideTask = nodeListForHideTask)
   taskTreeDisplayMode &&
     (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode)
+  taskSortBy && (localSettings.value.taskSortBy = taskSortBy)
 }
 
 /**
@@ -134,6 +191,7 @@ const submit = async () => {
       nodeListForHideTask: hiddenTaskNodes,
       /** 任务列表树的显示模式 */
       taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
+      taskSortBy: localSettings.value.taskSortBy,
     },
   })
   isShow.value = false

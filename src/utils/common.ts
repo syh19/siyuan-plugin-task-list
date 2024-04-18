@@ -4,6 +4,7 @@ import * as sySDK from '@siyuan-community/siyuan-sdk'
 import * as API from '../api/index'
 import type { IRange, TSqlResItem, TResponse } from '../types'
 import * as func from './func'
+import * as tree from './handleTreeData'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -221,7 +222,6 @@ export function convertToList(tree: any) {
   tree.forEach((node: any) => {
     convertToTaskList(node, {}, [])
   })
-
   return list
 }
 
@@ -267,23 +267,27 @@ export async function getTaskListForDisplay({
     if (range === 'doc') {
       treeData = convertToList(treeData)
     } else if (range === 'box') {
-      treeData = treeData[0]?.children
+      treeData = treeData[0]?.children || []
     }
   } else if (
     storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] === 'box-task'
   ) {
     treeData = convertTreeToBoxTaskTree(treeData)
     if (range === 'doc') {
-      treeData = treeData[0]?.children
+      treeData = treeData[0]?.children || []
     } else if (range === 'box') {
       // const newTreeData = []
       // treeData.forEach((box: any) => {
       //   newTreeData.push(...box.children)
       // })
       // treeData = newTreeData
-      treeData = treeData[0]?.children
+      treeData = treeData[0]?.children || []
     }
   }
 
+  treeData = tree.sortTaskTreeData(
+    treeData,
+    storage['plugin-task-list-settings']['taskSortBy'] || 'createdAsc'
+  )
   return treeData
 }

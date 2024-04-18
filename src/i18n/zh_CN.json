@@ -28,7 +28,19 @@
     "selfAndChildren": "自身及子节点",
     "taskListDisplayLabel": "任务列表的展示方式",
     "boxDocTask": "笔记本 & 文档 & 任务",
-    "boxTask": "笔记本 & 任务"
+    "boxTask": "笔记本 & 任务",
+    "sortItem": {
+      "sortBy": "排序方式",
+      "placeholder": "请选择排序方式",
+      "createdAsc": "创建时间升序",
+      "createdDesc": "创建时间降序",
+      "updatedAsc": "更新时间升序",
+      "updatedDesc": "更新时间降序",
+      "finishedAsc": "完成时间升序",
+      "finishedDesc": "完成时间降序",
+      "taskNameAsc": "任务名称升序",
+      "taskNameDesc": "任务名称降序"
+    }
   },
   "infoCard": {
     "taskName": "任务名称",

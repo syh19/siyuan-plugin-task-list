@@ -140,3 +140,69 @@ export const handleTreeDataWithoutTaskNode = (
   })
   return treeData
 }
+
+/** 节点的排序方法 */
+const sortNodeMethod = (a: any, b: any, sortBy: string) => {
+  // 根据sortBy进行排序，有创建时间、更新时间、完成时间等
+  if (['createdDesc', 'createdAsc'].includes(sortBy)) {
+    if (sortBy === 'createdDesc') {
+      return b.created - a.created
+    } else {
+      return a.created - b.created
+    }
+  } else if (['updatedDesc', 'updatedAsc'].includes(sortBy)) {
+    if (sortBy === 'updatedDesc') {
+      return b.updated - a.updated
+    } else {
+      return a.updated - b.updated
+    }
+  } else if (['finishedDesc', 'finishedAsc'].includes(sortBy)) {
+    if (sortBy === 'finishedDesc') {
+      return b.finished - a.finished
+    } else {
+      return a.finished - b.finished
+    }
+  }
+}
+
+/** 判断某个节点下是否有任务节点 */
+const isNodeHasChildrenTask = (node: any): boolean => {
+  if (node.children?.length) {
+    return node.children.some((item: any) => item.type === 'task')
+  } else {
+    return false
+  }
+}
+
+/**
+ * 任务节点的排序方法
+ * @param treeData
+ * @param sortBy
+ * @returns treeData 排序后的树形数据
+ */
+export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
+  function sortTaskNode(node: any) {
+    if (isNodeHasChildrenTask(node)) {
+      node.children = node.children.sort((a: any, b: any) => {
+        return sortNodeMethod(a, b, sortBy)
+      })
+      node.children.forEach((item: any) => {
+        sortTaskNode(item)
+      })
+    }
+    return node
+  }
+
+  if (treeData.length === 0) return treeData
+
+  // 如果是列表模式
+  if (treeData[0].type === 'task') {
+    treeData = treeData.sort((a: any, b: any) => {
+      return sortNodeMethod(a, b, sortBy)
+    })
+  } else {
+    return treeData?.map((item: any) => {
+      return sortTaskNode(item)
+    })
+  }
+}

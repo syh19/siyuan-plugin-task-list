@@ -316,7 +316,7 @@ const openDocAndScrollTaskNode = async (docId: string, taskNodeId: string) => {
       },
     })
     // 延时滚动到指定的node节点
-    await utils.sleep(300)
+    await utils.sleep(350)
   }
   let taskEle: any = document.querySelector(
     `.layout-tab-container .protyle-content .protyle-wysiwyg >div:not([data-type="NodeBlockQueryEmbed"]) [data-node-id="${taskNodeId}"][data-type="NodeListItem"] div:nth-child(2)[data-type="NodeParagraph"]`
