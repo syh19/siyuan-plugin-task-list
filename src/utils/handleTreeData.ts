@@ -181,9 +181,9 @@ const isNodeHasChildrenTask = (node: any): boolean => {
  * @returns treeData 排序后的树形数据
  */
 export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
-  function sortTaskNode(node: any) {
+  function sortTaskNode(node: any): any {
     if (isNodeHasChildrenTask(node)) {
-      node.children = node.children.sort((a: any, b: any) => {
+      node.children.sort((a: any, b: any) => {
         return sortNodeMethod(a, b, sortBy)
       })
       node.children.forEach((item: any) => {
@@ -195,14 +195,15 @@ export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
 
   if (treeData.length === 0) return treeData
 
-  // 如果是列表模式
+  // 如果显示的任务节点没有层级，即只有一层
   if (treeData[0].type === 'task') {
-    treeData = treeData.sort((a: any, b: any) => {
+    treeData.sort((a: any, b: any) => {
       return sortNodeMethod(a, b, sortBy)
     })
   } else {
-    return treeData?.map((item: any) => {
+    treeData = treeData?.map((item: any) => {
       return sortTaskNode(item)
     })
   }
+  return treeData
 }
