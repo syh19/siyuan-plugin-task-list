@@ -28,7 +28,17 @@
     "selfAndChildren": "Self & Children",
     "taskListDisplayLabel": "How task lists are displayed",
     "boxDocTask": "notebook & doc & task",
-    "boxTask": "notebook & task"
+    "boxTask": "notebook & task",
+    "sortItem": {
+      "sortBy": "Sort",
+      "placeholder": "Please select a sort method",
+      "createdAsc": "Created Time ASC",
+      "createdDesc": "Created Time DESC",
+      "updatedAsc": "Updated Time ASC",
+      "updatedDesc": "Updated Time DESC",
+      "finishedAsc": "Finished Time ASC",
+      "finishedDesc": "Finished Time DESC"
+    }
   },
   "infoCard": {
     "taskName": "task name",

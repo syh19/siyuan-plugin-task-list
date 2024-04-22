@@ -1,11 +1,15 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.0.7` change log
+# Latest version `v0.1.0` change log
+
+**Enhancement**
+
+- Add time-based sorting functionality to task nodes #9
+- Reduce packaged file size
 
 **Bugfix**
 
-- The text in the information card may display abnormally if it is too long
-- Improve custom attribute parsing function
+- Moving the `dock` bar plugin icon causes the plugin to become unusable
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

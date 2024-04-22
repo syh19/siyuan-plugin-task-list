@@ -37,9 +37,7 @@
       "updatedAsc": "更新时间升序",
       "updatedDesc": "更新时间降序",
       "finishedAsc": "完成时间升序",
-      "finishedDesc": "完成时间降序",
-      "taskNameAsc": "任务名称升序",
-      "taskNameDesc": "任务名称降序"
+      "finishedDesc": "完成时间降序"
     }
   },
   "infoCard": {

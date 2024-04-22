@@ -1,5 +1,18 @@
 # CHANGE LOG
 
+## v0.1.0
+
+> **2024-04-22**
+
+**Enhancement**
+
+- Add time-based sorting functionality to task nodes #9
+- Reduce packaged file size
+
+  **Bugfix**
+
+  - Moving the `dock` bar plugin icon causes the plugin to become unusable
+
 ## v0.0.7
 
 > **2024-04-14**
