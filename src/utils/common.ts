@@ -287,7 +287,7 @@ export async function getTaskListForDisplay({
 
   treeData = tree.sortTaskTreeData(
     treeData,
-    storage['plugin-task-list-settings']['taskSortBy'] || 'createdAsc'
+    storage?.['plugin-task-list-settings']?.['taskSortBy'] || 'createdAsc'
   )
   return treeData
 }

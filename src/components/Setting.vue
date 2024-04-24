@@ -146,6 +146,7 @@ const sortOptions = ref<Array<{ value: string; label: string }>>([
 
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
+  if (!storage['plugin-task-list-settings']) return
   const { nodeListForHideTask, taskTreeDisplayMode, taskSortBy } =
     storage['plugin-task-list-settings']
 
