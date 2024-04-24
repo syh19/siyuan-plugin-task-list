@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.1.2
+
+> **2024-04-24**
+
+**Bugfix**
+
+- The plug-in reports an error when no setting configuration is saved in the drawer.
+
 ## v0.1.1
 
 > **2024-04-23**
