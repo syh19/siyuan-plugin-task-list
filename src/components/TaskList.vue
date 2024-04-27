@@ -82,7 +82,7 @@
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
             <span>{{
-              i18n.range.doc + (range === 'doc' ? `(${taskCounter})` : '')
+              i18n.range.doc + (range === 'doc' ? ` (${taskCounter})` : '')
             }}</span>
           </template>
         </el-tab-pane>
@@ -90,7 +90,7 @@
         <el-tab-pane name="box" :label="i18n.range.box">
           <template #label>
             <span>{{
-              i18n.range.box + (range === 'box' ? `(${taskCounter})` : '')
+              i18n.range.box + (range === 'box' ? ` (${taskCounter})` : '')
             }}</span>
           </template>
         </el-tab-pane>
@@ -99,7 +99,7 @@
           <template #label>
             <span>{{
               i18n.range.workspace +
-              (range === 'workspace' ? `(${taskCounter})` : '')
+              (range === 'workspace' ? ` (${taskCounter})` : '')
             }}</span>
           </template>
         </el-tab-pane>
@@ -154,7 +154,7 @@
           <span>
             <span v-html="data.highlightLabel || data.label"> </span>
             <span v-if="data.type === 'box'">
-              {{ `(${treeFn.getTaskNodeCountsInTree(treeData, data.key)})` }}
+              {{ ` (${treeFn.getTaskNodeCountsInTree(treeData, data.key)})` }}
             </span>
           </span>
         </div>
