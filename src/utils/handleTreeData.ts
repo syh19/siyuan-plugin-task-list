@@ -207,3 +207,35 @@ export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
   }
   return treeData
 }
+
+/**
+ * 统计各个维度的任务数量或者统计某个笔记本下的任务数量
+ * @param treeData 树形数据
+ * @param boxId 笔记本ID，统计某个笔记本中的任务数量
+ * @returns 任务数量
+ */
+export const getTaskNodeCountsInTree = (
+  treeData: any = [],
+  boxId?: string
+): number => {
+  let count = 0
+  function getTaskNodeCounts(node: any) {
+    if (node.type === 'task') {
+      count++
+    }
+    if (node.children?.length) {
+      node.children.forEach((item: any) => {
+        getTaskNodeCounts(item)
+      })
+    }
+  }
+  for (let i = 0; i < treeData.length; i++) {
+    if (boxId && treeData[i].key === boxId) {
+      count = 0
+      getTaskNodeCounts(treeData[i])
+      break
+    }
+    getTaskNodeCounts(treeData[i])
+  }
+  return count
+}

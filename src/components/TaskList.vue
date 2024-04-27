@@ -81,19 +81,26 @@
         <!-- 文档 -->
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
-            <span>{{ i18n.range.doc }}</span>
+            <span>{{
+              i18n.range.doc + (range === 'doc' ? `(${taskCounter})` : '')
+            }}</span>
           </template>
         </el-tab-pane>
         <!-- 笔记本 -->
         <el-tab-pane name="box" :label="i18n.range.box">
           <template #label>
-            <span>{{ i18n.range.box }}</span>
+            <span>{{
+              i18n.range.box + (range === 'box' ? `(${taskCounter})` : '')
+            }}</span>
           </template>
         </el-tab-pane>
         <!-- 工作空间 -->
         <el-tab-pane name="workspace" :label="i18n.range.workspace">
           <template #label>
-            <span>{{ i18n.range.workspace }}</span>
+            <span>{{
+              i18n.range.workspace +
+              (range === 'workspace' ? `(${taskCounter})` : '')
+            }}</span>
           </template>
         </el-tab-pane>
       </el-tabs>
@@ -144,7 +151,12 @@
           >
             <use xlink:href="#icon-check-circle-fill"></use>
           </svg>
-          <span v-html="data.highlightLabel || data.label"></span>
+          <span>
+            <span v-html="data.highlightLabel || data.label"> </span>
+            <span v-if="data.type === 'box'">
+              {{ `(${treeFn.getTaskNodeCountsInTree(treeData, data.key)})` }}
+            </span>
+          </span>
         </div>
       </template>
     </el-tree>
@@ -221,7 +233,7 @@ const toggleTaskStatus = () => {
 
 const range = ref<IRange>('doc')
 const filterText = ref<string>('')
-
+const taskCounter = ref<number>(0)
 /**
  * 刷新数据重新获取el-tree的数据
  */
@@ -232,6 +244,7 @@ const refreshData = async () => {
   })
   // treeData.value = await treeFn.refreshTaskAfterHideDocChecked(res)
   treeData.value = res
+  taskCounter.value = treeFn.getTaskNodeCountsInTree(treeData.value)
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {
