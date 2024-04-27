@@ -1,11 +1,12 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.1.2`更新记录
+# 最新版本`v0.1.3`更新记录
 
 **改进功能**
 
 - `v0.1.0` [为任务节点添加基于时间的排序功能](https://github.com/syh19/siyuan-plugin-task-list/issues/9)
 - `v0.1.0` 缩小打包后的文件体积
+- `v0.1.3` ✨✨✨ [**显示任务的数量**](https://github.com/syh19/siyuan-plugin-task-list/issues/14)
 
 **修复缺陷**
 

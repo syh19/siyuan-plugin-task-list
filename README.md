@@ -1,11 +1,12 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.1.2` change log
+# Latest version `v0.1.3` change log
 
 **Enhancement**
 
 - `v0.1.0` [Add time-based sorting functionality to task nodes](https://github.com/syh19/siyuan-plugin-task-list/issues/9)
 - `v0.1.0` Reduce packaged file size
+- `v0.1.3` ✨✨✨ [**Display the number of tasks.**](https://github.com/syh19/siyuan-plugin-task-list/issues/14)
 
 **Bugfix**
 

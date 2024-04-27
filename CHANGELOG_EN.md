@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.1.3
+
+> **2024-04-27**
+
+**Enhancement**
+
+- Display the number of tasks. #14
+
 ## v0.1.2
 
 > **2024-04-24**
