@@ -150,6 +150,7 @@
     </el-tree>
 
     <Setting ref="settingRef" />
+    <TaskFilter />
   </div>
 </template>
 
@@ -163,6 +164,7 @@ import * as sy from 'siyuan'
 import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
 import Setting from './Setting.vue'
+import TaskFilter from './TaskFilter.vue'
 import eventBus from '../utils/eventBus'
 import * as treeFn from '../utils/handleTreeData'
 import infoCard from './infoCard/index'
