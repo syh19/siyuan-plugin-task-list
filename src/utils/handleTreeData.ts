@@ -166,13 +166,13 @@ const sortNodeMethod = (a: any, b: any, sortBy: string) => {
 }
 
 /** 判断某个节点下是否有任务节点 */
-const isNodeHasChildrenTask = (node: any): boolean => {
-  if (node.children?.length) {
-    return node.children.some((item: any) => item.type === 'task')
-  } else {
-    return false
-  }
-}
+// const isNodeHasChildrenTask = (node: any): boolean => {
+//   if (node.children?.length) {
+//     return node.children.some((item: any) => item.type === 'task')
+//   } else {
+//     return false
+//   }
+// }
 
 /**
  * 任务节点的排序方法
@@ -182,7 +182,7 @@ const isNodeHasChildrenTask = (node: any): boolean => {
  */
 export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
   function sortTaskNode(node: any): any {
-    if (isNodeHasChildrenTask(node)) {
+    if (node.children) {
       node.children.sort((a: any, b: any) => {
         return sortNodeMethod(a, b, sortBy)
       })

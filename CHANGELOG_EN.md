@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.1.4
+
+> **2024-05-08**
+
+**Bugfix**
+
+- The **sorting function** fails when the task list display mode is "notebook & doc & task". #19
+
 ## v0.1.3
 
 > **2024-04-27**

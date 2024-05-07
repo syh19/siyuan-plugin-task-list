@@ -1,6 +1,6 @@
 {
   "name": "sy-plugin-task-list",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "description": "思源笔记插件：汇总散落在整个工作空间的任务",
   "repository": "https://github.com/syh19/siyuan-plugin-task-list",
