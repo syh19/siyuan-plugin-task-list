@@ -50,7 +50,7 @@ export async function getTaskListBySql(
 
   stmtStr += ` ORDER BY created ASC LIMIT 1000`
 
-  let taskRes = await client.sql({
+  let taskRes: any = await client.sql({
     stmt: stmtStr,
     // SELECT * FROM blocks WHERE type = 'i' AND subtype = 't' AND markdown LIKE '%[ ]%' AND root_id = 'xxx' AND box = 'xxx' ORDER BY created DESC LIMIT 1000
   })
@@ -63,6 +63,21 @@ export async function getTaskListBySql(
     item.boxName = notebooksObj[item.box]
   })
   return taskRes
+}
+
+/**
+ * 获取单个任务节点的信息
+ * @param taskId
+ * @returns {object} 单个任务节点的信息
+ */
+export async function getSingleTaskInfoBySql(taskId: string): Promise<object> {
+  let stmtStr: string = `SELECT * FROM blocks WHERE id='${taskId}'`
+  const res: any = await client.sql({
+    stmt: stmtStr,
+  })
+  if (res?.code === 0) {
+    return res.data[0]
+  }
 }
 
 /** 设置持久化本地存储数据 */

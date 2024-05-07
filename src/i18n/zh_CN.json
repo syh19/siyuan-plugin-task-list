@@ -43,6 +43,7 @@
   "infoCard": {
     "taskName": "任务名称",
     "created": "创建时间",
+    "handleAt": "处理时间",
     "updated": "更新时间",
     "finished": "完成时间",
     "box": "笔记本",

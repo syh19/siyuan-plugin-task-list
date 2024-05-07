@@ -28,12 +28,37 @@ export function formatDateTime(dateTime: string) {
   let year = dateTime.slice(0, 4)
   let month = dateTime.slice(4, 6)
   let day = dateTime.slice(6, 8)
-  let hours = dateTime.slice(8, 10)
-  let minutes = dateTime.slice(10, 12)
+  // let hours = dateTime.slice(8, 10)
+  // let minutes = dateTime.slice(10, 12)
   // let seconds = dateTime.slice(12, 14)
 
   // return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
-  return `${year}-${month}-${day} ${hours}:${minutes}`
+  return `${year}-${month}-${day}`
+}
+
+/**
+ * 将形如 2024-05-08 的日期转换为形如 20240508000000 的格式
+ * @param dateStr 形如 2024-05-08 的日期格式
+ * @returns {string} 形如 20240508000000 的日期格式
+ */
+export function formatHandleDateToStorage(dateStr: string): string {
+  // 将日期字符串转换为Date对象
+  const date = new Date(dateStr)
+
+  // 获取年、月、日等信息
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1 // getMonth()返回的月份是从0开始的
+  const day = date.getDate()
+
+  // 将年、月、日转换为字符串，并添加前导零
+  const yearStr = year.toString()
+  const monthStr = month < 10 ? '0' + month : month.toString()
+  const dayStr = day < 10 ? '0' + day : day.toString()
+
+  // 拼接字符串
+  const formattedDate = yearStr + monthStr + dayStr + '000000'
+
+  return formattedDate
 }
 
 /**

@@ -151,6 +151,12 @@
 
     <Setting ref="settingRef" />
     <TaskFilter />
+    <AddHandleDate
+      :visible="isAddHandleDateDialogVisible"
+      :task-id="taskIdToAddHandleDate"
+      @close="isAddHandleDateDialogVisible = false"
+      @submit-success="refreshData"
+    />
   </div>
 </template>
 
@@ -174,6 +180,10 @@ interface Tree {
 }
 
 let settingRef = ref<InstanceType<typeof Setting>>()
+
+let isAddHandleDateDialogVisible = ref<boolean>(true)
+/** 需要添加处理日期的任务ID */
+let taskIdToAddHandleDate = ref<string>('')
 
 const openDrawer = () => {
   settingRef.value?.open()
@@ -240,7 +250,12 @@ const refreshData = async () => {
     toggleExpand(isExpand.value)
   })
 }
+
 eventBus.on('node-list-for-hide-task-changed', refreshData)
+eventBus.on('add-handle-date-for-task-node', (taskId: string) => {
+  isAddHandleDateDialogVisible.value = true
+  taskIdToAddHandleDate.value = taskId
+})
 
 const trigger = ref<'tab' | 'tree'>('tab')
 utils.plugin.eventBus.on('switch-protyle', () => {

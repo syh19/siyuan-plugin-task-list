@@ -27,7 +27,7 @@ const props = defineProps<{
   taskList: any[]
 }>()
 
-const dialogVisible = ref(true)
+const dialogVisible = ref(false)
 const emit = defineEmits(['submit-success'])
 
 const submit = () => {

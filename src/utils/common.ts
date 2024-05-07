@@ -127,6 +127,10 @@ export function convertSqlToTree(sqlData: any) {
         func.parseStringToKeyValuePairs(otherAttr.ial)[
           'custom-plugin-task-list-finished'
         ] || '',
+      handleAt:
+        func.parseStringToKeyValuePairs(otherAttr.ial)[
+          'custom-plugin-task-list-handleAt'
+        ] || otherAttr.created,
       children: null,
     }
     parentNode.children.push(taskNode)

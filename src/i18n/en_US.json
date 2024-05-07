@@ -43,6 +43,7 @@
   "infoCard": {
     "taskName": "task name",
     "created": "created",
+    "handleAt": "handleAt",
     "updated": "updated",
     "finished": "finished",
     "box": "notebook",

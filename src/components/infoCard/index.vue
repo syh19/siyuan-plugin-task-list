@@ -13,6 +13,13 @@
     </div>
 
     <div class="info-card-item">
+      <div class="info-card-item__label">{{ i18n.infoCard.handleAt }}</div>
+      <div class="info-card-item__value">
+        {{ formatDateTime(info.handleAt) }}
+      </div>
+    </div>
+
+    <div class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.updated }}</div>
       <div class="info-card-item__value">
         {{ formatDateTime(info.updated) || '' }}
