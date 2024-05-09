@@ -21,6 +21,7 @@ import 'v-calendar/style.css'
 import { i18n } from '../utils/common'
 import * as API from '../api'
 import * as func from '../utils/func'
+import * as date from '../utils/date'
 
 interface Props {
   visible: boolean
@@ -47,12 +48,12 @@ const init = async () => {
 }
 const getTaskNodeInfo = async () => {
   const taskInfoRes: any = await API.getSingleTaskInfoBySql(props.taskId)
-  const realHandleDate: string = func.formatDateTime(
+  const realHandleDate: string = date.formatDateTime(
     func.parseStringToKeyValuePairs(taskInfoRes.ial)[
       'custom-plugin-task-list-handleAt'
     ]
   )
-  const created: string = func.formatDateTime(taskInfoRes.created)
+  const created: string = date.formatDateTime(taskInfoRes.created)
 
   // 优先使用实际的处理时间，如果没有就使用创建时间
   const handleAt: string = realHandleDate || created
@@ -101,7 +102,7 @@ const close = () => {
 }
 const submit = async () => {
   emit('close')
-  let handleData: string = func.formatHandleDateToStorage(handleDate.value)
+  let handleData: string = date.formatHandleDateToStorage(handleDate.value)
   await setTaskNodeHandleDate(props.taskId, handleData)
   emit('submit-success')
 }

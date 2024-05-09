@@ -184,7 +184,6 @@ const submit = async () => {
     treeData.value
   )
   await API.setLocalStorageVal({
-    app: utils.plugin.app.appId,
     key: 'plugin-task-list-settings',
     val: {
       /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */

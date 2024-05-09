@@ -1,5 +1,5 @@
 import * as API from '../api'
-import * as func from './func'
+import * as date from './date'
 
 /**
  * 为任务节点设置自定义属性：完成时间
@@ -15,7 +15,7 @@ const setTaskBlockAttrs = async (id: string, isFinish: boolean) => {
        * 关联思源issue：https://github.com/siyuan-note/siyuan/issues/10928
        */
       'custom-plugin-task-list-finished': isFinish
-        ? func.getCurrentDateTime()
+        ? date.getCurrentDateTime()
         : '',
     },
   })

@@ -48,7 +48,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onUpdated, computed } from 'vue'
-import { formatDateTime } from '@/utils/func'
+import { formatDateTime } from '@/utils/date'
 import { i18n } from '@/utils/common'
 const props = defineProps<{
   reference?: any

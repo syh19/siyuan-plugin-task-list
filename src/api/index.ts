@@ -1,5 +1,6 @@
 import * as sySDK from '@siyuan-community/siyuan-sdk'
 import type { TSqlResItem, TResponse } from '../types'
+import * as utils from '../utils/common'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -95,12 +96,11 @@ export async function setLocalStorage(params: {
  * 设置单个键值对
  */
 export async function setLocalStorageVal(params: {
-  app: string
   key: string
   val: any
 }): Promise<void> {
   await client.setLocalStorageVal({
-    app: params.app,
+    app: utils.plugin.app.appId,
     key: params.key,
     val: params.val,
   })

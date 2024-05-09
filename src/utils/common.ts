@@ -4,6 +4,8 @@ import * as sySDK from '@siyuan-community/siyuan-sdk'
 import * as API from '../api/index'
 import type { IRange, TSqlResItem, TResponse } from '../types'
 import * as func from './func'
+import eventBus from './eventBus'
+import * as date from './date'
 import * as tree from './handleTreeData'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
@@ -116,21 +118,12 @@ export function convertSqlToTree(sqlData: any) {
       type: 'task',
       label: fcontent,
       highlightLabel: fcontent,
-      key: id,
       box: { key: box, label: boxName },
+      key: id,
       pathList: pathParts.map((doc: any, index: number) => ({
         label: hpathParts[index],
         key: path,
       })),
-      status: markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done',
-      finished:
-        func.parseStringToKeyValuePairs(otherAttr.ial)[
-          'custom-plugin-task-list-finished'
-        ] || '',
-      handleAt:
-        func.parseStringToKeyValuePairs(otherAttr.ial)[
-          'custom-plugin-task-list-handleAt'
-        ] || otherAttr.created,
       children: null,
     }
     parentNode.children.push(taskNode)
@@ -260,9 +253,11 @@ export async function getTaskListForDisplay({
     isGetAll: false,
   })
 
-  let treeData = convertSqlToTree(res.data)
-
+  let taskList: any[] = formatSqlTaskList(res.data)
   const { data: storage } = await API.getLocalStorage()
+
+  taskList = filterTaskListByDateRange(taskList, storage)
+  let treeData = convertSqlToTree(taskList)
 
   if (
     storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] ===
@@ -294,4 +289,80 @@ export async function getTaskListForDisplay({
     storage['plugin-task-list-settings']['taskSortBy'] || 'createdAsc'
   )
   return treeData
+}
+
+function formatSqlTaskList(sqlTaskList: any[]) {
+  return sqlTaskList.map((item: any) => {
+    return {
+      ...item,
+      label: item.fcontent,
+      key: item.id,
+      status: item.markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done',
+      finished:
+        func.parseStringToKeyValuePairs(item.ial)[
+          'custom-plugin-task-list-finished'
+        ] || '',
+      handleAt:
+        func.parseStringToKeyValuePairs(item.ial)[
+          'custom-plugin-task-list-handleAt'
+        ] || item.created,
+    }
+  })
+}
+
+/** 周视图中选择的日期；通过事件weekly-date-clicked进行更新 */
+let dateForWeeklyCalendar: string = ''
+eventBus.on('weekly-date-clicked', (dataStr: string) => {
+  dateForWeeklyCalendar = dataStr
+})
+
+function filterTaskListByDateRange(taskList: any[], storage: any) {
+  // 根据日期范围进行过滤
+  const isShowWeekCalendarInDocker: boolean =
+    storage['plugin-task-list-filters']?.['isShowWeekCalendarInDocker']
+  if (isShowWeekCalendarInDocker) {
+    taskList = taskList.filter((task: any) => {
+      return (
+        (dateForWeeklyCalendar || date.formatDate(new Date())).substring(
+          0,
+          8
+        ) === task.handleAt.substring(0, 8)
+      )
+    })
+  } else {
+    const isDynamicDateRange: boolean =
+      storage['plugin-task-list-filters']?.['isDynamicDateRange']
+
+    if (typeof isDynamicDateRange === 'boolean') {
+      let startDate = ''
+      let endDate = ''
+      // 动态日期范围
+      if (isDynamicDateRange) {
+        const dynamicDateRange: string =
+          storage['plugin-task-list-filters']['dynamicDateRange']
+        if (dynamicDateRange) {
+          startDate = date.getDateRangeByEnumValue(dynamicDateRange).start
+          endDate = date.getDateRangeByEnumValue(dynamicDateRange).end
+
+          taskList = taskList.filter((task: any) => {
+            return date.isDateInRange(task.handleAt, startDate, endDate)
+          })
+        }
+      }
+      // 静态日期范围
+      else {
+        const staticDateRange: string[] =
+          storage['plugin-task-list-filters']['staticDateRange']
+        if (staticDateRange.length) {
+          startDate = staticDateRange[0]
+          endDate = staticDateRange[1]
+
+          taskList = taskList.filter((task: any) => {
+            return date.isDateInRange(task.handleAt, startDate, endDate)
+          })
+        }
+      }
+    }
+  }
+  return taskList
 }

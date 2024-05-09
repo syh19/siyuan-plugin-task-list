@@ -57,12 +57,23 @@
               <use xlink:href="#icon-search3"></use>
             </svg>
           </el-tooltip>
+          <el-badge is-dot>
+            <el-tooltip effect="dark" :content="'过滤'" placement="bottom">
+              <svg
+                class="icon"
+                aria-hidden="true"
+                @click="isTaskFilterDialogVisible = true"
+              >
+                <use xlink:href="#icon-setting"></use>
+              </svg>
+            </el-tooltip>
+          </el-badge>
           <el-tooltip
             effect="dark"
             :content="i18n.setting.title"
             placement="bottom"
           >
-            <svg class="icon" aria-hidden="true" @click="openDrawer">
+            <svg class="icon" aria-hidden="true" @click="openSettingDrawer">
               <use xlink:href="#icon-setting"></use>
             </svg>
           </el-tooltip>
@@ -76,6 +87,16 @@
           @keyup.enter="triggerFiltrateTreeNode(filterText)"
         ></el-input>
       </div>
+
+      <DatePicker
+        v-if="isShowWeekDateFilter"
+        expanded
+        view="weekly"
+        v-model="dateForShowTask"
+        mode="date"
+        @dayclick="dateClicked"
+      />
+
       <!-- tabs选项 -->
       <el-tabs v-model="range" stretch type="card" @tab-change="refreshData">
         <!-- 文档 -->
@@ -134,6 +155,7 @@
             v-else-if="data.status === 'todo'"
             class="icon icon-todo"
             aria-hidden="true"
+            @click.stop="changeTaskHandleDate(data)"
           >
             <use xlink:href="#icon-time-circle-fill"></use>
           </svg>
@@ -150,7 +172,12 @@
     </el-tree>
 
     <Setting ref="settingRef" />
-    <TaskFilter />
+    <TaskFilter
+      :visible="isTaskFilterDialogVisible"
+      @close="isTaskFilterDialogVisible = false"
+      @submit-success="taskFilterSubmitSuccess"
+    />
+
     <AddHandleDate
       :visible="isAddHandleDateDialogVisible"
       :task-id="taskIdToAddHandleDate"
@@ -162,7 +189,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, watch } from 'vue'
-// import { toRaw } from '@vue/reactivity'
+import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
 import * as API from '../api'
@@ -174,18 +201,28 @@ import TaskFilter from './TaskFilter.vue'
 import eventBus from '../utils/eventBus'
 import * as treeFn from '../utils/handleTreeData'
 import infoCard from './infoCard/index'
+import { Calendar, DatePicker } from 'v-calendar'
+import 'v-calendar/style.css'
+import * as date from '../utils/date'
 
 interface Tree {
   [key: string]: any
 }
 
 let settingRef = ref<InstanceType<typeof Setting>>()
+let dateForShowTask = ref<Date>(new Date())
+const dateClicked = (dateObj: any) => {
+  const dateParam: string = date.formatDate(dateObj.date)
+  eventBus.emit('weekly-date-clicked', dateParam)
+  refreshData()
+}
 
-let isAddHandleDateDialogVisible = ref<boolean>(true)
+let isTaskFilterDialogVisible = ref<boolean>(false)
+let isAddHandleDateDialogVisible = ref<boolean>(false)
 /** 需要添加处理日期的任务ID */
 let taskIdToAddHandleDate = ref<string>('')
 
-const openDrawer = () => {
+const openSettingDrawer = () => {
   settingRef.value?.open()
   nextTick(() => {
     document.body.style.width = '100%'
@@ -233,6 +270,12 @@ const toggleTaskStatus = () => {
 
 const range = ref<IRange>('doc')
 const filterText = ref<string>('')
+
+let isShowWeekDateFilter = ref<boolean>(false)
+const taskFilterSubmitSuccess = (isShowWeekCalendarInDocker: boolean) => {
+  isShowWeekDateFilter.value = isShowWeekCalendarInDocker
+  refreshData()
+}
 
 /**
  * 刷新数据重新获取el-tree的数据
@@ -284,6 +327,10 @@ const triggerFiltrateTreeNode = (val: string) => {
   treeRef.value!.filter(val)
 }
 
+const changeTaskHandleDate = (taskInfo: any) => {
+  isAddHandleDateDialogVisible.value = true
+  taskIdToAddHandleDate.value = toRaw(taskInfo).key
+}
 /**
  * 过滤树节点
  * @param value
