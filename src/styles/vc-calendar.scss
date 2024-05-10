@@ -1,0 +1,19 @@
+@import './themes-style.scss';
+
+.vc-container {
+  button {
+    background-color: var(--color-background) !important;
+  }
+}
+
+.vc-popover-content-wrapper {
+  button {
+    background-color: var(--b3-theme-surface) !important;
+  }
+  button.is-active {
+    background-color: var(--b3-border-color) !important;
+  }
+  button.is-current {
+    background-color: var(--b3-border-color) !important;
+  }
+}

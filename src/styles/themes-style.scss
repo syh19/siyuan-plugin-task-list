@@ -1,0 +1,18 @@
+// https://juejin.cn/post/7177668180943306789
+
+// 定义基础色值
+:root {
+  --tl-c-light-red: red;
+
+  --tl-c-dark-red: rgb(64, 0, 0);
+}
+
+// Light 默认主题色
+html[data-theme-mode='light'] {
+  --color-background: var(--tl-c-light-red);
+}
+
+// Dark 默认主题色
+html[data-theme-mode='dark'] {
+  --color-background: var(--tl-c-dark-red);
+}

@@ -44,10 +44,9 @@ export async function addDock() {
  * @param e
  */
 export function addBlockMenuForTaskNode(e: CustomEvent<any>): void {
-  const detail = e.detail // 获取菜单信息
-  const taskId: string = isClickedTaskNodeIcon(detail)
+  const taskId: string = isClickedTaskNodeIcon(e.detail)
   if (taskId) {
-    detail.menu.addItem({
+    e.detail.menu.addItem({
       icon: 'icon-task3',
       label: '任务处理时间',
       click: () => {
@@ -65,8 +64,8 @@ export function addBlockMenuForTaskNode(e: CustomEvent<any>): void {
 function isClickedTaskNodeIcon(detail: any): string {
   const blockEle: HTMLElement = detail.blockElements[0]
 
-  // const dataType: string =
-  //   blockEle.attributes.getNamedItem('data-type').nodeValue
+  const dataType: string =
+    blockEle.attributes.getNamedItem('data-type').nodeValue
 
   const dataSubType: string =
     blockEle.attributes.getNamedItem('data-subtype').nodeValue
@@ -74,8 +73,16 @@ function isClickedTaskNodeIcon(detail: any): string {
   const dataNodeId: string =
     blockEle.attributes.getNamedItem('data-node-id').nodeValue
 
+  // 点击的是任务列表子节点才会展示设置
   if (dataSubType === 't') {
-    return dataNodeId
+    if (dataType === 'NodeListItem') {
+      return dataNodeId
+    } else if (dataType === 'NodeList') {
+      const realTaskBlock: HTMLElement = blockEle.querySelector(
+        'div[data-subtype="t"][data-subtype="t"][data-type="NodeListItem"]'
+      )
+      return realTaskBlock.attributes.getNamedItem('data-node-id').nodeValue
+    }
   } else {
     return ''
   }

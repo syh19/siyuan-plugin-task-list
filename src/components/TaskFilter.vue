@@ -21,78 +21,82 @@
           </el-radio-group>
         </div>
       </div>
-      <!-- 是否使用动态日期范围 -->
-      <div class="setting-item setting-item__horizontal">
-        <div class="setting-item__label">
-          {{ '是否显示动态日期范围' }}
+      <template v-if="!localFilters.isShowWeekCalendarInDocker">
+        <!-- 是否使用动态日期范围 -->
+        <div class="setting-item setting-item__horizontal">
+          <div class="setting-item__label">
+            {{ '是否显示动态日期范围' }}
+          </div>
+          <div class="setting-item__content">
+            <el-radio-group
+              v-model="localFilters.isDynamicDateRange"
+              class="ml-4"
+            >
+              <el-radio :value="false" :label="'否'" size="large" />
+              <el-radio :value="true" :label="'是'" size="large" />
+            </el-radio-group>
+          </div>
         </div>
-        <div class="setting-item__content">
-          <el-radio-group
-            v-model="localFilters.isDynamicDateRange"
-            class="ml-4"
-          >
-            <el-radio :value="false" :label="'否'" size="large" />
-            <el-radio :value="true" :label="'是'" size="large" />
-          </el-radio-group>
+        <!-- 静态日期范围：日历视图 -->
+        <div
+          v-if="!localFilters.isDynamicDateRange"
+          class="setting-item setting-item__horizontal"
+        >
+          <div class="setting-item__label">
+            {{ '请选择日期范围' }}
+          </div>
+          <div class="setting-item__content">
+            <DatePicker
+              v-model="dateRange"
+              :is-dark="false"
+              :locale="datePickerLocale"
+              :first-day-of-week="1"
+              is-range
+              :popover="datePickerPopover"
+            >
+              <template #default="{ inputValue, inputEvents }">
+                <div class="date-range-input-wrap">
+                  <el-input
+                    readonly
+                    :value="inputValue.start"
+                    v-on="inputEvents.start"
+                  />
+                  <!-- <IconArrowRight /> -->
+                  <span>哈哈哈</span>
+                  <el-input
+                    readonly
+                    :value="inputValue.end"
+                    v-on="inputEvents.end"
+                  />
+                </div>
+              </template>
+            </DatePicker>
+            <span @click="clearDateRange">清空</span>
+          </div>
         </div>
-      </div>
-      <!-- 静态日期范围：日历视图 -->
-      <div
-        v-if="!localFilters.isDynamicDateRange"
-        class="setting-item setting-item__horizontal"
-      >
-        <div class="setting-item__label">
-          {{ '请选择日期范围' }}
+        <!-- 动态日期:范围下拉框 -->
+        <div v-else class="setting-item setting-item__horizontal">
+          <div class="setting-item__label">
+            {{ '请选择日期范围' }}
+          </div>
+          <div class="setting-item__content">
+            <el-select
+              v-model="localFilters.dynamicDateRange"
+              :placeholder="i18n.setting.sortItem.placeholder"
+              clearable
+              size="default"
+              style="width: 240px"
+            >
+              <el-option
+                v-for="item in staticDateRangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
         </div>
-        <div class="setting-item__content">
-          <DatePicker
-            v-model="dateRange"
-            :first-day-of-week="1"
-            is-range
-            :popover="datePickerPopover"
-          >
-            <template #default="{ inputValue, inputEvents }">
-              <div class="date-range-input-wrap">
-                <el-input
-                  readonly
-                  :value="inputValue.start"
-                  v-on="inputEvents.start"
-                />
-                <!-- <IconArrowRight /> -->
-                <span>哈哈哈</span>
-                <el-input
-                  readonly
-                  :value="inputValue.end"
-                  v-on="inputEvents.end"
-                />
-              </div>
-            </template>
-          </DatePicker>
-          <span @click="clearDateRange">清空</span>
-        </div>
-      </div>
-      <!-- 动态日期:范围下拉框 -->
-      <div v-else class="setting-item setting-item__horizontal">
-        <div class="setting-item__label">
-          {{ '请选择日期范围' }}
-        </div>
-        <div class="setting-item__content">
-          <el-select
-            v-model="localFilters.dynamicDateRange"
-            :placeholder="i18n.setting.sortItem.placeholder"
-            clearable
-            size="default"
-            style="width: 240px"
-          >
-            <el-option
-              v-for="item in staticDateRangeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-      </div>
+      </template>
 
       <template #footer>
         <div class="dialog-footer">
@@ -125,6 +129,12 @@ const props = withDefaults(defineProps<Props>(), {
 const datePickerPopover = ref({
   visibility: 'click',
   placement: 'right',
+})
+
+const datePickerLocale = ref({
+  id: i18n.language === 'English' ? 'en' : 'cn',
+  firstDayOfWeek: 2,
+  masks: { weekdays: 'WWW' },
 })
 
 let dateRange = ref<any>({
@@ -167,7 +177,7 @@ const submit = async () => {
     localFilters.value.staticDateRange = []
   }
   setLocalStorageVal().then(() => {
-    emit('submit-success', localFilters.value.isShowWeekCalendarInDocker)
+    emit('submit-success')
   })
 }
 

@@ -90,7 +90,7 @@ const dayClicked = (day: any, mouseEvent: MouseEvent) => {
 const emit = defineEmits(['submit-success', 'close'])
 
 const setTaskNodeHandleDate = async (taskId: string, handleDate: string) => {
-  await API.setBlockAttrs({
+  return await API.setBlockAttrs({
     id: taskId,
     attrs: {
       'custom-plugin-task-list-handleAt': handleDate,

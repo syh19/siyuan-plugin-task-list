@@ -57,14 +57,14 @@
               <use xlink:href="#icon-search3"></use>
             </svg>
           </el-tooltip>
-          <el-badge is-dot>
+          <el-badge is-dot :hidden="isHideBadge">
             <el-tooltip effect="dark" :content="'过滤'" placement="bottom">
               <svg
                 class="icon"
                 aria-hidden="true"
                 @click="isTaskFilterDialogVisible = true"
               >
-                <use xlink:href="#icon-setting"></use>
+                <use xlink:href="#icon-filter-records-fill"></use>
               </svg>
             </el-tooltip>
           </el-badge>
@@ -90,10 +90,12 @@
 
       <DatePicker
         v-if="isShowWeekDateFilter"
+        v-model="dateForShowTask"
         expanded
         view="weekly"
-        v-model="dateForShowTask"
+        transparent
         mode="date"
+        :locale="datePickerLocale"
         @dayclick="dateClicked"
       />
 
@@ -182,7 +184,7 @@
       :visible="isAddHandleDateDialogVisible"
       :task-id="taskIdToAddHandleDate"
       @close="isAddHandleDateDialogVisible = false"
-      @submit-success="refreshData"
+      @submit-success="addHandleDateSbumitSuccess"
     />
   </div>
 </template>
@@ -247,6 +249,11 @@ const taskStatusMap = ref<any>({
   all: i18n.taskStatus.all,
 })
 
+const datePickerLocale = ref({
+  id: i18n.language === 'English' ? 'en' : 'cn',
+  firstDayOfWeek: 2,
+  masks: { weekdays: 'WWW' },
+})
 const handleMouseEnter = (e: any, data: any) => {
   infoCard.update(data, e.target)
 }
@@ -272,9 +279,16 @@ const range = ref<IRange>('doc')
 const filterText = ref<string>('')
 
 let isShowWeekDateFilter = ref<boolean>(false)
-const taskFilterSubmitSuccess = (isShowWeekCalendarInDocker: boolean) => {
-  isShowWeekDateFilter.value = isShowWeekCalendarInDocker
+const taskFilterSubmitSuccess = () => {
   refreshData()
+  initConfig()
+}
+
+const addHandleDateSbumitSuccess = () => {
+  // syh-fixeme 这里接口很慢，需要延迟刷新
+  setTimeout(() => {
+    refreshData()
+  }, 3000)
 }
 
 /**
@@ -352,6 +366,50 @@ const toggleExpand = (isExpandNew: boolean) => {
     nodes[i].expanded = isExpandNew
   }
 }
+
+const isHideBadge = ref<boolean>(true)
+/**
+ * 初始化时显示周视图以及判断是否显示badge
+ */
+const initConfig = async () => {
+  const { data: storage } = await API.getLocalStorage()
+  const isShowWeekCalendarInDocker: boolean =
+    storage['plugin-task-list-filters']?.['isShowWeekCalendarInDocker']
+  isShowWeekDateFilter.value = !!isShowWeekCalendarInDocker
+
+  if (isShowWeekDateFilter.value) {
+    isHideBadge.value = true
+  } else {
+    const isDynamicDateRange: boolean =
+      storage['plugin-task-list-filters']?.['isDynamicDateRange']
+    if (typeof isDynamicDateRange === 'boolean') {
+      // 动态日期范围
+      if (isDynamicDateRange) {
+        const dynamicDateRange: string =
+          storage['plugin-task-list-filters']['dynamicDateRange']
+        if (dynamicDateRange) {
+          isHideBadge.value = false
+        } else {
+          isHideBadge.value = true
+        }
+      }
+      // 静态日期范围
+      else {
+        const staticDateRange: string[] =
+          storage['plugin-task-list-filters']['staticDateRange']
+        if (staticDateRange.length) {
+          isHideBadge.value = false
+        } else {
+          isHideBadge.value = true
+        }
+      }
+    } else {
+      isHideBadge.value = true
+    }
+  }
+}
+
+initConfig()
 
 const isExpand = ref<boolean>(true)
 watch(
