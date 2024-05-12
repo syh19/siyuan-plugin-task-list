@@ -2,18 +2,29 @@
 
 .vc-container {
   button {
-    background-color: var(--color-background) !important;
+    background-color: var(--tl-color-btn-bg) !important;
   }
 }
 
 .vc-popover-content-wrapper {
-  button {
-    background-color: var(--b3-theme-surface) !important;
+  .vc-popover-content {
+    background-color: var(--tl-color-surface-deep-bg);
+    button {
+      background-color: var(--tl-color-btn-bg) !important;
+    }
+    button.is-active {
+      background-color: var(--tl-color-btn-active-bg) !important;
+    }
+    button.is-current {
+      background-color: var(--tl-color-btn-hover-bg) !important;
+      color: var(--tl-color-text);
+    }
   }
-  button.is-active {
-    background-color: var(--b3-border-color) !important;
-  }
-  button.is-current {
-    background-color: var(--b3-border-color) !important;
+}
+
+.plugin-task-list-wrap {
+  .vc-container.vc-weekly {
+    border-bottom: none;
+    border-radius: 0;
   }
 }

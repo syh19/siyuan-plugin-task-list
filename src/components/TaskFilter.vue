@@ -49,7 +49,9 @@
             <DatePicker
               v-model="dateRange"
               :is-dark="false"
+              transparent
               :locale="datePickerLocale"
+              :attributes="datePickerAttributes"
               :first-day-of-week="1"
               is-range
               :popover="datePickerPopover"
@@ -131,6 +133,7 @@ const datePickerPopover = ref({
   placement: 'right',
 })
 
+const datePickerAttributes = ref([{ dates: new Date(), dot: true }])
 const datePickerLocale = ref({
   id: i18n.language === 'English' ? 'en' : 'cn',
   firstDayOfWeek: 2,
@@ -260,7 +263,7 @@ const setLocalStorageVal = async () => {
     margin-bottom: 20px;
     // 通用样式
     .setting-item__label {
-      color: var(--b3-text-color);
+      color: var(--tl-color-text);
     }
 
     // 特殊样式
@@ -271,10 +274,10 @@ const setLocalStorageVal = async () => {
         display: none;
       }
 
-      border: 1px solid var(--b3-border-color);
+      border: 1px solid var(--tl-color-border);
       border-radius: 8px;
       padding: 10px;
-      background-color: var(--b3-theme-surface);
+      background-color: var(--tl-color-surface-deep-bg);
     }
   }
 

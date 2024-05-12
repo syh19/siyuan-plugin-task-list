@@ -208,14 +208,14 @@ defineExpose({
 
 <style lang="scss">
 .plugin-task-list-config-wrap {
-  background-color: var(--b3-theme-background) !important;
+  background-color: var(--tl-color-surface-bg) !important;
 
   .el-drawer__body {
     .setting-item {
       margin-bottom: 20px;
       // 通用样式
       .setting-item__label {
-        color: var(--b3-text-color);
+        color: var(--tl-color-text);
       }
 
       // 特殊样式
@@ -226,10 +226,10 @@ defineExpose({
           display: none;
         }
 
-        border: 1px solid var(--b3-border-color);
+        border: 1px solid var(--tl-color-border);
         border-radius: 8px;
         padding: 10px;
-        background-color: var(--b3-theme-surface);
+        background-color: var(--tl-color-surface-deep-bg);
       }
     }
 

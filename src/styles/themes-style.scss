@@ -2,17 +2,28 @@
 
 // 定义基础色值
 :root {
-  --tl-c-light-red: red;
+  /** 公共主题 */
+  --tl-color-surface-bg: var(--b3-theme-background);
+  --tl-color-surface-deep-bg: var(--b3-theme-surface);
+  --tl-color-text: var(--b3-text-color);
+  --tl-color-border: var(--b3-border-color);
+  --tl-color-btn-bg: var(--b3-toolbar-hover);
+  --tl-color-btn-hover-bg: var(--b3-scroll-color-hover);
+  --tl-color-btn-active-bg: var(--b3-toolbar-color);
 
-  --tl-c-dark-red: rgb(64, 0, 0);
+  /** light 主题 */
+  // --tl-color-surface-light: var(--b3-theme-background);
+
+  /** dark 主题 */
+  // --tl-c-dark-red: rgb(64, 0, 0);
 }
 
 // Light 默认主题色
 html[data-theme-mode='light'] {
-  --color-background: var(--tl-c-light-red);
+  // --tl-color-surface-bg: var(--b3-theme-background)
 }
 
 // Dark 默认主题色
 html[data-theme-mode='dark'] {
-  --color-background: var(--tl-c-dark-red);
+  // --color-background: var(--tl-c-dark-red);
 }

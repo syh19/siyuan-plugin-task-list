@@ -95,8 +95,9 @@
         view="weekly"
         transparent
         mode="date"
+        :attributes="datePickerAttributes"
         :locale="datePickerLocale"
-        @dayclick="dateClicked"
+        @update:modelValue="dateChanged"
       />
 
       <!-- tabs选项 -->
@@ -212,9 +213,11 @@ interface Tree {
 }
 
 let settingRef = ref<InstanceType<typeof Setting>>()
+
 let dateForShowTask = ref<Date>(new Date())
-const dateClicked = (dateObj: any) => {
-  const dateParam: string = date.formatDate(dateObj.date)
+const dateChanged = (e: Date) => {
+  let dateParam: string = ''
+  e && (dateParam = date.formatDate(e))
   eventBus.emit('weekly-date-clicked', dateParam)
   refreshData()
 }
@@ -254,6 +257,7 @@ const datePickerLocale = ref({
   firstDayOfWeek: 2,
   masks: { weekdays: 'WWW' },
 })
+const datePickerAttributes = ref([{ dates: new Date(), dot: true }])
 const handleMouseEnter = (e: any, data: any) => {
   infoCard.update(data, e.target)
 }

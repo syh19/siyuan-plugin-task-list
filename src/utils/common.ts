@@ -311,7 +311,7 @@ function formatSqlTaskList(sqlTaskList: any[]) {
 }
 
 /** 周视图中选择的日期；通过事件weekly-date-clicked进行更新 */
-let dateForWeeklyCalendar: string = ''
+let dateForWeeklyCalendar: string = date.formatDate(new Date())
 eventBus.on('weekly-date-clicked', (dataStr: string) => {
   dateForWeeklyCalendar = dataStr
 })
@@ -322,12 +322,16 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
     storage['plugin-task-list-filters']?.['isShowWeekCalendarInDocker']
   if (isShowWeekCalendarInDocker) {
     taskList = taskList.filter((task: any) => {
-      return (
-        (dateForWeeklyCalendar || date.formatDate(new Date())).substring(
-          0,
-          8
-        ) === task.handleAt.substring(0, 8)
-      )
+      if (dateForWeeklyCalendar) {
+        return (
+          (dateForWeeklyCalendar || date.formatDate(new Date())).substring(
+            0,
+            8
+          ) === task.handleAt.substring(0, 8)
+        )
+      } else {
+        return true
+      }
     })
   } else {
     const isDynamicDateRange: boolean =

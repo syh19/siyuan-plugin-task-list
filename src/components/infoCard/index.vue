@@ -104,12 +104,12 @@ onUpdated(() => {
   position: fixed;
   z-index: 3000;
   display: none;
-  background-color: var(--b3-theme-background) !important;
+  background-color: var(--tl-color-surface-bg) !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
-  color: var(--b3-text-color);
+  color: var(--tl-color-text);
   max-width: 300px;
   min-width: 250px;
   // white-space: nowrap;
@@ -124,12 +124,12 @@ onUpdated(() => {
     .info-card-item__label {
       flex-shrink: 0;
       width: 80px;
-      color: var(--b3-text-color);
+      color: var(--tl-color-text);
     }
     .info-card-item__value {
       word-break: break-all;
       flex: 1;
-      color: var(--b3-text-color);
+      color: var(--tl-color-text);
     }
   }
   .info-card-item + .info-card-item {

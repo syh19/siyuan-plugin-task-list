@@ -2,7 +2,15 @@
   <div class="plugin-task-list__add-handle-date-dialog-wrap">
     <el-dialog v-model="visible" title="添加任务处理时间" width="500">
       <div>
-        <Calendar expanded :attributes="attrs" @dayclick="dayClicked" />
+        <DatePicker
+          v-model="handleDate"
+          expanded
+          transparent
+          mode="date"
+          :attributes="datePickerAttributes"
+          :locale="datePickerLocale"
+          @update:modelValue="dateChanged"
+        />
       </div>
       <template #footer>
         <div class="dialog-footer">
@@ -57,16 +65,16 @@ const getTaskNodeInfo = async () => {
 
   // 优先使用实际的处理时间，如果没有就使用创建时间
   const handleAt: string = realHandleDate || created
-  const handleDateAttr: any = attrs.value.find(
+  const handleDateAttr: any = datePickerAttributes.value.find(
     (item: any) => item.key === 'handleDate'
   )
   handleDateAttr.dates = new Date(handleAt)
 }
 
-const attrs = ref([
+const datePickerAttributes = ref([
   {
     key: 'today',
-    highlight: true,
+    dot: true,
     dates: new Date(),
   },
   {
@@ -78,14 +86,19 @@ const attrs = ref([
   },
 ])
 
-const handleDate = ref<string>('')
-const dayClicked = (day: any, mouseEvent: MouseEvent) => {
-  handleDate.value = day.id
+const datePickerLocale = ref({
+  id: i18n.language === 'English' ? 'en' : 'cn',
+  firstDayOfWeek: 2,
+  masks: { weekdays: 'WWW' },
+})
 
-  const handleDateAttr: any = attrs.value.find(
+const handleDate = ref<Date>(new Date())
+
+const dateChanged = (e: Date) => {
+  const handleDateAttr: any = datePickerAttributes.value.find(
     (item: any) => item.key === 'handleDate'
   )
-  handleDateAttr.dates = new Date(day.id)
+  handleDateAttr.dates = e
 }
 const emit = defineEmits(['submit-success', 'close'])
 
@@ -108,4 +121,10 @@ const submit = async () => {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.plugin-task-list__add-handle-date-dialog-wrap {
+  div.el-dialog {
+    background-color: var(--tl-color-surface-bg);
+  }
+}
+</style>
