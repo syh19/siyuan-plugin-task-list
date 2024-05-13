@@ -18,7 +18,7 @@ export async function addDock() {
     config: {
       position: 'RightTop',
       size: { width: 200, height: 0 },
-      icon: `icon-task3`,
+      icon: `icon-task`,
       title: i18n.pluginTitle,
       show: false,
     },
@@ -47,7 +47,7 @@ export function addBlockMenuForTaskNode(e: CustomEvent<any>): void {
   const taskId: string = isClickedTaskNodeIcon(e.detail)
   if (taskId) {
     e.detail.menu.addItem({
-      icon: 'icon-task3',
+      icon: 'icon-task-green',
       label: i18n.addHandleDate,
       click: () => {
         eventBus.emit('add-handle-date-for-task-node', taskId)

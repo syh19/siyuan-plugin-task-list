@@ -6,7 +6,7 @@
         <div class="title-text">
           <h3>
             <svg style="margin-right: 5px" class="icon" aria-hidden="true">
-              <use xlink:href="#icon-task3"></use></svg
+              <use xlink:href="#icon-task-green"></use></svg
             >{{ i18n.pluginTitle }}
           </h3>
           <span @click="toggleTaskStatus"
@@ -68,7 +68,7 @@
                 aria-hidden="true"
                 @click="isTaskFilterDialogVisible = true"
               >
-                <use xlink:href="#icon-filter-records-fill"></use>
+                <use xlink:href="#icon-filter1"></use>
               </svg>
             </el-tooltip>
           </el-badge>
