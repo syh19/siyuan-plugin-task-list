@@ -1,6 +1,9 @@
-@import './themes-style.scss';
+@import './themes.scss';
 
 .vc-container {
+  .vc-highlight-content-solid {
+    background-color: var(--tl-color-todo-icon) !important;
+  }
   color: var(--tl-color-text);
   &.vc-bordered {
     border-color: var(--tl-color-border);
