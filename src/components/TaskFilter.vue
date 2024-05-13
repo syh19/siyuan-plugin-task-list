@@ -1,127 +1,134 @@
 <template>
-  <div class="plugin-task-list__task-filter-dialog-wrap">
-    <el-dialog
-      v-model="visible"
-      class="plugin-task-list__task-filter-dialog-wrap"
-      :title="i18n.filterConfig.title"
-      width="600"
-    >
-      <!-- 是否显示周视图 -->
+  <el-dialog
+    v-model="visible"
+    :show-close="false"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    class="plugin-task-list__task-filter-dialog-wrap"
+    :title="i18n.filterConfig.title"
+    width="700"
+  >
+    <!-- 是否显示周视图 -->
+    <div class="setting-item setting-item__horizontal">
+      <div class="setting-item__label">
+        {{ i18n.filterConfig.taskFilterWay }}
+      </div>
+      <div class="setting-item__content">
+        <el-radio-group v-model="localFilters.taskFilterWay">
+          <el-radio
+            value="monthRange"
+            :label="i18n.filterConfig.monthRange"
+            size="large"
+          />
+          <el-radio
+            value="weekSingle"
+            :label="i18n.filterConfig.weekSingle"
+            size="large"
+          />
+        </el-radio-group>
+      </div>
+    </div>
+    <template v-if="localFilters.taskFilterWay === 'monthRange'">
+      <!-- 日期范围筛选形式：动态 OR 静态 -->
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
-          {{ i18n.filterConfig.taskFilterWay }}
+          {{ i18n.filterConfig.dateRangeFormat }}
         </div>
         <div class="setting-item__content">
-          <el-radio-group v-model="localFilters.taskFilterWay" class="ml-4">
+          <el-radio-group v-model="localFilters.dateRangeFormat">
             <el-radio
-              value="monthRange"
-              :label="i18n.filterConfig.monthRange"
+              value="static"
+              :label="i18n.filterConfig.static"
               size="large"
             />
             <el-radio
-              value="weekSingle"
-              :label="i18n.filterConfig.weekSingle"
+              value="dynamic"
+              :label="i18n.filterConfig.dynamic"
               size="large"
             />
           </el-radio-group>
         </div>
       </div>
-      <template v-if="localFilters.taskFilterWay === 'monthRange'">
-        <!-- 日期范围筛选形式：动态 OR 静态 -->
-        <div class="setting-item setting-item__horizontal">
-          <div class="setting-item__label">
-            {{ i18n.filterConfig.dateRangeFormat }}
-          </div>
-          <div class="setting-item__content">
-            <el-radio-group v-model="localFilters.dateRangeFormat" class="ml-4">
-              <el-radio
-                value="static"
-                :label="i18n.filterConfig.static"
-                size="large"
-              />
-              <el-radio
-                value="dynamic"
-                :label="i18n.filterConfig.dynamic"
-                size="large"
-              />
-            </el-radio-group>
-          </div>
+      <!-- 静态日期范围：日历视图 -->
+      <div
+        v-if="localFilters.dateRangeFormat === 'static'"
+        class="setting-item setting-item__horizontal"
+      >
+        <div class="setting-item__label">
+          {{ i18n.filterConfig.dateRangeValue }}
         </div>
-        <!-- 静态日期范围：日历视图 -->
-        <div
-          v-if="localFilters.dateRangeFormat === 'static'"
-          class="setting-item setting-item__horizontal"
-        >
-          <div class="setting-item__label">
-            {{ i18n.filterConfig.dateRangeValue }}
-          </div>
-          <div class="setting-item__content">
-            <DatePicker
-              v-model="dateRange"
-              :is-dark="false"
-              transparent
-              :locale="datePickerLocale"
-              :attributes="datePickerAttributes"
-              :first-day-of-week="1"
-              is-range
-              :popover="datePickerPopover"
-            >
-              <template #default="{ inputValue, inputEvents }">
-                <div class="date-range-input-wrap">
-                  <el-input
-                    readonly
-                    :value="inputValue.start"
-                    v-on="inputEvents.start"
-                  />
-                  <!-- <IconArrowRight /> -->
-                  <span>哈哈哈</span>
-                  <el-input
-                    readonly
-                    :value="inputValue.end"
-                    v-on="inputEvents.end"
-                  />
-                </div>
-              </template>
-            </DatePicker>
-            <span @click="clearDateRange">{{
-              i18n.filterConfig.clearBtn
-            }}</span>
-          </div>
-        </div>
-        <!-- 动态日期:范围下拉框 -->
-        <div v-else class="setting-item setting-item__horizontal">
-          <div class="setting-item__label">
-            {{ i18n.filterConfig.dateRangeValue }}
-          </div>
-          <div class="setting-item__content">
-            <el-select
-              v-model="localFilters.dynamicDateRange"
-              :placeholder="i18n.setting.sortItem.placeholder"
-              clearable
-              size="default"
-              style="width: 240px"
-            >
-              <el-option
-                v-for="item in staticDateRangeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-        </div>
-      </template>
-
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="close">{{ i18n.cancel }}</el-button>
-          <el-button type="primary" @click="submit">
-            {{ i18n.confirm }}
+        <div class="setting-item__content flex-wrap">
+          <DatePicker
+            v-model="dateRange"
+            :is-dark="false"
+            transparent
+            :locale="datePickerLocale"
+            :attributes="datePickerAttributes"
+            :first-day-of-week="1"
+            is-range
+            :popover="datePickerPopover"
+          >
+            <template #default="{ inputValue, inputEvents }">
+              <div class="date-range-input-wrap">
+                <el-input
+                  readonly
+                  :value="inputValue.start"
+                  v-on="inputEvents.start"
+                />
+                <svg style="width: 50px" class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-arrow-right"></use>
+                </svg>
+                <el-input
+                  readonly
+                  :value="inputValue.end"
+                  v-on="inputEvents.end"
+                />
+              </div>
+            </template>
+          </DatePicker>
+          <el-button
+            style="margin-left: 20px"
+            size="small"
+            type="danger"
+            @click="clearDateRange"
+          >
+            {{ i18n.filterConfig.clearBtn }}
           </el-button>
         </div>
-      </template>
-    </el-dialog>
-  </div>
+      </div>
+      <!-- 动态日期:范围下拉框 -->
+      <div v-else class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ i18n.filterConfig.dateRangeValue }}
+        </div>
+        <div class="setting-item__content">
+          <el-select
+            v-model="localFilters.dynamicDateRange"
+            :placeholder="i18n.setting.sortItem.placeholder"
+            clearable
+            size="default"
+            style="width: 240px"
+          >
+            <el-option
+              v-for="item in staticDateRangeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
+    </template>
+
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="close">{{ i18n.cancel }}</el-button>
+        <el-button type="primary" @click="submit">
+          {{ i18n.confirm }}
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -287,6 +294,11 @@ const setLocalStorageVal = async () => {
       padding: 10px;
       background-color: var(--tl-color-surface-deep-bg);
     }
+
+    .setting-item__content.flex-wrap {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .setting-item__horizontal {
@@ -295,7 +307,8 @@ const setLocalStorageVal = async () => {
     justify-content: flex-start;
     align-items: center;
     .setting-item__label {
-      margin-right: 80px;
+      // margin-right: 80px;
+      width: 220px;
     }
   }
   .setting-item__vertical {

@@ -1,12 +1,17 @@
 @import './themes-style.scss';
 
 .vc-container {
+  color: var(--tl-color-text);
+  &.vc-bordered {
+    border-color: var(--tl-color-border);
+  }
   button {
     background-color: var(--tl-color-btn-bg) !important;
   }
 }
 
 .vc-popover-content-wrapper {
+  color: var(--tl-color-text);
   .vc-popover-content {
     background-color: var(--tl-color-surface-deep-bg);
     button {

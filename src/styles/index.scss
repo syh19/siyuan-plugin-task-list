@@ -42,3 +42,12 @@
     white-space: nowrap;
   }
 }
+
+.el-dialog {
+  background: var(--tl-color-surface-bg);
+  header {
+    .el-dialog__title {
+      color: var(--tl-color-text);
+    }
+  }
+}

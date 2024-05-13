@@ -163,8 +163,10 @@
             class="icon icon-todo"
             aria-hidden="true"
             @click.stop="changeTaskHandleDate(data)"
+            @mouseenter="data.todoIcon = '#icon-handle'"
+            @mouseleave="data.todoIcon = '#icon-time-circle-fill'"
           >
-            <use xlink:href="#icon-time-circle-fill"></use>
+            <use :xlink:href="data.todoIcon || '#icon-time-circle-fill'"></use>
           </svg>
           <svg
             v-else-if="data.status === 'done'"
@@ -578,6 +580,7 @@ const defaultProps = {
     }
     .el-tree {
       background-color: transparent !important;
+      --el-tree-node-hover-bg-color: var(--tl-color-hover-bg);
       height: calc(100% - 103px);
       overflow: auto;
       padding-bottom: 30px;

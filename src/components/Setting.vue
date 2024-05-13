@@ -35,10 +35,7 @@
           {{ i18n.setting.taskListDisplayLabel }}
         </div>
         <div class="setting-item__content">
-          <el-radio-group
-            v-model="localSettings.taskTreeDisplayMode"
-            class="ml-4"
-          >
+          <el-radio-group v-model="localSettings.taskTreeDisplayMode">
             <el-radio
               value="box-doc-task"
               :label="i18n.setting.boxDocTask"
