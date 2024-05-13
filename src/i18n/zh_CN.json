@@ -11,6 +11,7 @@
     "expand": "展开",
     "collapse": "收起",
     "switch": "切换状态",
+    "filter": "筛选",
     "search": "搜索"
   },
   "searchPlaceholder": "请输入要搜索的任务",
@@ -49,5 +50,26 @@
     "finished": "完成时间",
     "box": "笔记本",
     "docPath": "文档路径"
-  }
+  },
+  "filterConfig": {
+    "title": "任务筛选配置",
+    "taskFilterWay": "任务筛选方式",
+    "monthRange": "月视图范围筛选",
+    "weekSingle": "周视图日期筛选",
+    "dateRangeFormat": "日期范围筛选形式",
+    "static": "静态日期筛选",
+    "dynamic": "动态日期筛选",
+    "dateRangeValue": "请选择日期范围",
+    "clearBtn": "清空",
+    "dynamicDateRangeList": {
+      "month": "本月",
+      "week": "本周",
+      "pastThreeDays": "过去三天",
+      "futureThreeDays": "未来三天",
+      "today": "今天"
+    }
+  },
+  "addHandleDate": "添加任务处理时间",
+  "cancel": "取消",
+  "confirm": "确认"
 }

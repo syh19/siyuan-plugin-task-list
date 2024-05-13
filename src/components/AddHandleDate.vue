@@ -5,7 +5,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
-      title="添加任务处理时间"
+      :title="i18n.addHandleDate"
       width="500"
     >
       <div>
@@ -21,8 +21,10 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="close">取消</el-button>
-          <el-button type="primary" @click="submit"> 确认 </el-button>
+          <el-button @click="close">{{ i18n.cancel }}</el-button>
+          <el-button type="primary" @click="submit">
+            {{ i18n.confirm }}
+          </el-button>
         </div>
       </template>
     </el-dialog>

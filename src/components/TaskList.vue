@@ -58,7 +58,11 @@
             </svg>
           </el-tooltip>
           <el-badge is-dot :hidden="isHideBadge">
-            <el-tooltip effect="dark" :content="'过滤'" placement="bottom">
+            <el-tooltip
+              effect="dark"
+              :content="i18n.options.filter"
+              placement="bottom"
+            >
               <svg
                 class="icon"
                 aria-hidden="true"

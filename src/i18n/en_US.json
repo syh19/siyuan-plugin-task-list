@@ -11,6 +11,7 @@
     "expand": "expand",
     "collapse": "collapse",
     "switch": "switch status",
+    "filter": "filter",
     "search": "search"
   },
   "searchPlaceholder": "Please enter the task you want to search for",
@@ -49,5 +50,26 @@
     "finished": "finished",
     "box": "notebook",
     "docPath": "doc path"
-  }
+  },
+  "filterConfig": {
+    "title": "Task Filter Config",
+    "taskFilterWay": "task filter method",
+    "monthRange": "range filter in month view",
+    "weekSingle": "date filter in week view",
+    "dateRangeFormat": "date range filter format",
+    "static": "static date filter",
+    "dynamic": "dynamic date filter",
+    "dateRangeValue": "please select the date range",
+    "clearBtn": "clear",
+    "dynamicDateRangeList": {
+      "month": "current month",
+      "week": "current week",
+      "pastThreeDays": "past three days",
+      "futureThreeDays": "future three days",
+      "today": "today"
+    }
+  },
+  "addHandleDate": "add task handle date",
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 }

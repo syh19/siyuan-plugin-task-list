@@ -48,7 +48,7 @@ export function addBlockMenuForTaskNode(e: CustomEvent<any>): void {
   if (taskId) {
     e.detail.menu.addItem({
       icon: 'icon-task3',
-      label: '任务处理时间',
+      label: i18n.addHandleDate,
       click: () => {
         eventBus.emit('add-handle-date-for-task-node', taskId)
       },

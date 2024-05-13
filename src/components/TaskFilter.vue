@@ -3,31 +3,47 @@
     <el-dialog
       v-model="visible"
       class="plugin-task-list__task-filter-dialog-wrap"
-      title="任务筛选"
+      :title="i18n.filterConfig.title"
       width="600"
     >
       <!-- 是否显示周视图 -->
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
-          {{ '任务过滤方式' }}
+          {{ i18n.filterConfig.taskFilterWay }}
         </div>
         <div class="setting-item__content">
           <el-radio-group v-model="localFilters.taskFilterWay" class="ml-4">
-            <el-radio value="monthRange" label="月视图范围筛选" size="large" />
-            <el-radio value="weekSingle" label="周视图日期筛选" size="large" />
+            <el-radio
+              value="monthRange"
+              :label="i18n.filterConfig.monthRange"
+              size="large"
+            />
+            <el-radio
+              value="weekSingle"
+              :label="i18n.filterConfig.weekSingle"
+              size="large"
+            />
           </el-radio-group>
         </div>
       </div>
       <template v-if="localFilters.taskFilterWay === 'monthRange'">
-        <!-- 是否使用动态日期范围 -->
+        <!-- 日期范围筛选形式：动态 OR 静态 -->
         <div class="setting-item setting-item__horizontal">
           <div class="setting-item__label">
-            {{ '日期范围筛选形式' }}
+            {{ i18n.filterConfig.dateRangeFormat }}
           </div>
           <div class="setting-item__content">
             <el-radio-group v-model="localFilters.dateRangeFormat" class="ml-4">
-              <el-radio value="static" label="静态日期范围" size="large" />
-              <el-radio value="dynamic" label="动态日期范围" size="large" />
+              <el-radio
+                value="static"
+                :label="i18n.filterConfig.static"
+                size="large"
+              />
+              <el-radio
+                value="dynamic"
+                :label="i18n.filterConfig.dynamic"
+                size="large"
+              />
             </el-radio-group>
           </div>
         </div>
@@ -37,7 +53,7 @@
           class="setting-item setting-item__horizontal"
         >
           <div class="setting-item__label">
-            {{ '请选择日期范围' }}
+            {{ i18n.filterConfig.dateRangeValue }}
           </div>
           <div class="setting-item__content">
             <DatePicker
@@ -67,13 +83,15 @@
                 </div>
               </template>
             </DatePicker>
-            <span @click="clearDateRange">清空</span>
+            <span @click="clearDateRange">{{
+              i18n.filterConfig.clearBtn
+            }}</span>
           </div>
         </div>
         <!-- 动态日期:范围下拉框 -->
         <div v-else class="setting-item setting-item__horizontal">
           <div class="setting-item__label">
-            {{ '请选择日期范围' }}
+            {{ i18n.filterConfig.dateRangeValue }}
           </div>
           <div class="setting-item__content">
             <el-select
@@ -96,8 +114,10 @@
 
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="close">取消</el-button>
-          <el-button type="primary" @click="submit"> 确认 </el-button>
+          <el-button @click="close">{{ i18n.cancel }}</el-button>
+          <el-button type="primary" @click="submit">
+            {{ i18n.confirm }}
+          </el-button>
         </div>
       </template>
     </el-dialog>
@@ -195,23 +215,23 @@ const localFilters = ref<any>({
 const staticDateRangeOptions = ref<Array<{ value: string; label: string }>>([
   {
     value: 'currentMonth',
-    label: '本月',
+    label: i18n.filterConfig.dynamicDateRangeList.month,
   },
   {
     value: 'currentWeek',
-    label: '本周',
+    label: i18n.filterConfig.dynamicDateRangeList.week,
   },
   {
     value: 'pastThreeDays',
-    label: '过去三天',
+    label: i18n.filterConfig.dynamicDateRangeList.pastThreeDays,
   },
   {
     value: 'futureThreeDays',
-    label: '未来三天',
+    label: i18n.filterConfig.dynamicDateRangeList.futureThreeDays,
   },
   {
     value: 'today',
-    label: '今天',
+    label: i18n.filterConfig.dynamicDateRangeList.today,
   },
 ])
 
