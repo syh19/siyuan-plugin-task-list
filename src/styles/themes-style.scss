@@ -11,19 +11,62 @@
   --tl-color-btn-hover-bg: var(--b3-scroll-color-hover);
   --tl-color-btn-active-bg: var(--b3-toolbar-color);
 
+  --tl-color-todo-icon: #f4538a;
+
   /** light 主题 */
+  --tl-color-notebook-icon-light: #0077c6;
+  --tl-color-doc-icon-light: #6a097d;
+  --tl-color-todo-icon-light: #d74b76;
+  --tl-color-done-icon-light: #58a399;
+  --tl-color-active-bg-light: #e3e2e2;
+  --tl-color-hover-bg-light: #f3f3f3;
+  --tl-color-tabs-border-light: #d3d1cc;
+
+  // // 笔记本图标颜色
+  // // 文档图标颜色
+  // // 待办图标颜色
+  // // 已办图标颜色
   // --tl-color-surface-light: var(--b3-theme-background);
 
   /** dark 主题 */
+  --tl-color-notebook-icon-dark: #faa300;
+  --tl-color-doc-icon-dark: #8b93ff;
+  --tl-color-todo-icon-dark: #f4538a;
+  --tl-color-done-icon-dark: #59d5e0;
+  --tl-color-active-bg-dark: #27374d;
+  --tl-color-hover-bg-dark: #2c2f32;
+  --tl-color-tabs-border-dark: #000000;
+
+  // // 笔记本图标颜色
+  // notebookColor: #faa300,
+  // // 文档图标颜色
+  // docColor: #8b93ff,
+  // // 待办图标颜色
+  // todoColor: #f4538a,
+  // // 已办图标颜色
+  // doneColor: #59d5e0,
   // --tl-c-dark-red: rgb(64, 0, 0);
 }
 
 // Light 默认主题色
 html[data-theme-mode='light'] {
   // --tl-color-surface-bg: var(--b3-theme-background)
+  --tl-color-notebook-icon: var(--tl-color-notebook-icon-light);
+  --tl-color-doc-icon: var(--tl-color-doc-icon-light);
+  --tl-color-todo-icon: var(--tl-color-todo-icon-light);
+  --tl-color-done-icon: var(--tl-color-done-icon-light);
+  --tl-color-active-bg: var(--tl-color-active-bg-light);
+  --tl-color-hover-bg: var(--tl-color-hover-bg-light);
+  --tl-color-tabs-border: var(--tl-color-tabs-border-light);
 }
 
 // Dark 默认主题色
 html[data-theme-mode='dark'] {
-  // --color-background: var(--tl-c-dark-red);
+  --tl-color-notebook-icon: var(--tl-color-notebook-icon-dark);
+  --tl-color-doc-icon: var(--tl-color-doc-icon-dark);
+  --tl-color-todo-icon: var(--tl-color-todo-icon-dark);
+  --tl-color-done-icon: var(--tl-color-done-icon-dark);
+  --tl-color-active-bg: var(--tl-color-active-bg-dark);
+  --tl-color-hover-bg: var(--tl-color-hover-bg-dark);
+  --tl-color-tabs-border: var(--tl-color-tabs-border-dark);
 }

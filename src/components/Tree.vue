@@ -314,7 +314,6 @@ const defaultProps = {
 </script>
 
 <style lang="scss">
-@import '../styles/handle.scss';
 .tree-wrap {
   .el-tree {
     background-color: transparent !important;
@@ -332,18 +331,18 @@ const defaultProps = {
         .el-tree-node__content {
           background-color: transparent !important;
           &:hover {
-            @include background_color('hoverBgColor');
+            background-color: var('--tl-color-hover-bg');
           }
         }
       }
       &.is-current.tree-task-node {
         .el-tree-node__content {
-          @include background_color('activeBgColor');
+          background-color: var('--tl-color-active-bg');
         }
       }
       .el-tree-node__content {
         &:hover {
-          @include background_color('hoverBgColor');
+          background-color: var('--tl-color-hover-bg');
         }
 
         // 修改el-checkbox的位置为右侧对齐
@@ -357,21 +356,21 @@ const defaultProps = {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          @include color('fontColor');
+          color: var(--tl-color-text);
           font-size: var(--el-font-size-base) !important;
           svg.icon {
             font-size: 24px !important;
             &.icon-box {
-              @include color('notebookColor');
+              color: var(--tl-color-notebook-icon);
             }
             &.icon-doc {
-              @include color('docColor');
+              color: var(--tl-color-doc-icon);
             }
             &.icon-todo {
-              @include color('todoColor');
+              color: var(--tl-color-todo-icon);
             }
             &.icon-done {
-              @include color('doneColor');
+              color: var(--tl-color-done-icon);
             }
           }
           span {
@@ -392,7 +391,7 @@ const defaultProps = {
                 width: 16px;
               }
               .el-checkbox__label {
-                @include color('fontColor');
+                color: var(--tl-color-text);
               }
             }
             .el-checkbox:first-child {

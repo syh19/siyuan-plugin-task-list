@@ -1,6 +1,13 @@
 <template>
   <div class="plugin-task-list__add-handle-date-dialog-wrap">
-    <el-dialog v-model="visible" title="添加任务处理时间" width="500">
+    <el-dialog
+      v-model="visible"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      title="添加任务处理时间"
+      width="500"
+    >
       <div>
         <DatePicker
           v-model="handleDate"
@@ -75,12 +82,13 @@ const datePickerAttributes = ref([
   {
     key: 'today',
     dot: true,
+    // highlight: false,
     dates: new Date(),
   },
   {
     key: 'handleDate',
     highlight: {
-      style: 'background-color: #f4538a',
+      style: 'background-color: var(--tl-color-todo-icon)',
     },
     dates: new Date(),
   },

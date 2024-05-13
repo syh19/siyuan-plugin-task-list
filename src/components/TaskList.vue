@@ -490,8 +490,6 @@ const defaultProps = {
 </script>
 
 <style lang="scss">
-@import '../styles/handle.scss';
-
 #siyuan-plugin-task-list {
   .plugin-task-list-wrap {
     height: 100%;
@@ -516,7 +514,7 @@ const defaultProps = {
             padding: 2px 4px;
             border-radius: 4px;
             &:hover {
-              @include background_color('activeBgColor');
+              background-color: var('--tl-color-active-bg');
             }
           }
         }
@@ -532,7 +530,7 @@ const defaultProps = {
             border-radius: 5px;
             &:hover {
               cursor: pointer;
-              @include background_color('activeBgColor');
+              background-color: var('--tl-color-active-bg');
             }
             svg.icon {
               font-size: 18px;
@@ -551,20 +549,20 @@ const defaultProps = {
       .el-tabs {
         --el-tabs-header-height: 36px;
         .el-tabs__header {
-          // @include border_color('tabsBorderColor');
+          // border-color: var('--tl-color-tabs-border');
           margin: 0px !important;
           .el-tabs__nav {
-            @include border_color('tabsBorderColor');
+            border-color: var('--tl-color-tabs-border');
             border-radius: 0px;
             .el-tabs__item {
-              @include border_color('tabsBorderColor');
-              @include color('fontColor');
+              border-color: var('--tl-color-tabs-border');
+              color: var(--tl-color-text);
               &:hover {
-                @include background_color('hoverBgColor');
+                background-color: var('--tl-color-hover-bg');
               }
               &.is-active {
                 font-weight: bold;
-                @include background_color('activeBgColor');
+                background-color: var('--tl-color-active-bg');
               }
             }
           }
@@ -590,47 +588,22 @@ const defaultProps = {
           .el-tree-node__content {
             background-color: transparent !important;
             &:hover {
-              @include background_color('hoverBgColor');
+              background-color: var('--tl-color-hover-bg');
             }
           }
         }
         &.is-current.tree-task-node {
           .el-tree-node__content {
-            @include background_color('activeBgColor');
+            background-color: var('--tl-color-active-bg');
           }
         }
         .el-tree-node__content {
           &:hover {
-            @include background_color('hoverBgColor');
+            background-color: var('--tl-color-hover-bg');
           }
           div.custom-tree-node {
             width: calc(100% - 20px);
             height: 100%;
-            // display: flex;
-            // justify-content: flex-start;
-            // align-items: center;
-            // @include color('fontColor');
-            // svg.icon {
-            //   font-size: 18px;
-            //   &.icon-box {
-            //     @include color('notebookColor');
-            //   }
-            //   &.icon-doc {
-            //     @include color('docColor');
-            //   }
-            //   &.icon-todo {
-            //     @include color('todoColor');
-            //   }
-            //   &.icon-done {
-            //     @include color('doneColor');
-            //   }
-            // }
-            // span {
-            //   width: 100%;
-            //   overflow: hidden;
-            //   text-overflow: ellipsis;
-            //   white-space: nowrap;
-            // }
           }
         }
       }

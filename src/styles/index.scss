@@ -1,9 +1,8 @@
 @import './vc-calendar.scss';
 
-@import './handle.scss';
 // 高亮选中的taskNode节点
 .plugin-task-list__hightlight-node {
-  @include background_color('activeBgColor');
+  background-color: var('--tl-color-active-bg');
 }
 
 .icon {
@@ -19,20 +18,20 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  @include color('fontColor');
+  color: var(--tl-color-text);
   svg.icon {
     font-size: 18px;
     &.icon-box {
-      @include color('notebookColor');
+      color: var(--tl-color-notebook-icon);
     }
     &.icon-doc {
-      @include color('docColor');
+      color: var(--tl-color-doc-icon);
     }
     &.icon-todo {
-      @include color('todoColor');
+      color: var(--tl-color-todo-icon);
     }
     &.icon-done {
-      @include color('doneColor');
+      color: var(--tl-color-done-icon);
     }
   }
   span {
