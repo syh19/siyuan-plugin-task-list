@@ -318,9 +318,9 @@ eventBus.on('weekly-date-clicked', (dataStr: string) => {
 
 function filterTaskListByDateRange(taskList: any[], storage: any) {
   // 根据日期范围进行过滤
-  const isShowWeekCalendarInDocker: boolean =
-    storage['plugin-task-list-filters']?.['isShowWeekCalendarInDocker']
-  if (isShowWeekCalendarInDocker) {
+  const taskFilterWay: string =
+    storage['plugin-task-list-filters']?.['taskFilterWay']
+  if (taskFilterWay === 'weekSingle') {
     taskList = taskList.filter((task: any) => {
       if (dateForWeeklyCalendar) {
         return (
@@ -334,14 +334,15 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
       }
     })
   } else {
-    const isDynamicDateRange: boolean =
-      storage['plugin-task-list-filters']?.['isDynamicDateRange']
+    const dateRangeFormat: string =
+      storage['plugin-task-list-filters']?.['dateRangeFormat']
 
-    if (typeof isDynamicDateRange === 'boolean') {
+    // 如果设置了筛选范围
+    if (dateRangeFormat) {
       let startDate = ''
       let endDate = ''
       // 动态日期范围
-      if (isDynamicDateRange) {
+      if (dateRangeFormat === 'dynamic') {
         const dynamicDateRange: string =
           storage['plugin-task-list-filters']['dynamicDateRange']
         if (dynamicDateRange) {

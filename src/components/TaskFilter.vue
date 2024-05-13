@@ -9,37 +9,31 @@
       <!-- 是否显示周视图 -->
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
-          {{ '是否显示周视图' }}
+          {{ '任务过滤方式' }}
         </div>
         <div class="setting-item__content">
-          <el-radio-group
-            v-model="localFilters.isShowWeekCalendarInDocker"
-            class="ml-4"
-          >
-            <el-radio :value="false" :label="'否'" size="large" />
-            <el-radio :value="true" :label="'是'" size="large" />
+          <el-radio-group v-model="localFilters.taskFilterWay" class="ml-4">
+            <el-radio value="monthRange" label="月视图范围筛选" size="large" />
+            <el-radio value="weekSingle" label="周视图日期筛选" size="large" />
           </el-radio-group>
         </div>
       </div>
-      <template v-if="!localFilters.isShowWeekCalendarInDocker">
+      <template v-if="localFilters.taskFilterWay === 'monthRange'">
         <!-- 是否使用动态日期范围 -->
         <div class="setting-item setting-item__horizontal">
           <div class="setting-item__label">
-            {{ '是否显示动态日期范围' }}
+            {{ '日期范围筛选形式' }}
           </div>
           <div class="setting-item__content">
-            <el-radio-group
-              v-model="localFilters.isDynamicDateRange"
-              class="ml-4"
-            >
-              <el-radio :value="false" :label="'否'" size="large" />
-              <el-radio :value="true" :label="'是'" size="large" />
+            <el-radio-group v-model="localFilters.dateRangeFormat" class="ml-4">
+              <el-radio value="static" label="静态日期范围" size="large" />
+              <el-radio value="dynamic" label="动态日期范围" size="large" />
             </el-radio-group>
           </div>
         </div>
         <!-- 静态日期范围：日历视图 -->
         <div
-          v-if="!localFilters.isDynamicDateRange"
+          v-if="localFilters.dateRangeFormat === 'static'"
           class="setting-item setting-item__horizontal"
         >
           <div class="setting-item__label">
@@ -188,10 +182,10 @@ const submit = async () => {
  * 本地设置
  */
 const localFilters = ref<any>({
-  /** 是否在docker栏中显示周日历视图 */
-  isShowWeekCalendarInDocker: false,
-  /** 是否是动态日期范围 */
-  isDynamicDateRange: false,
+  /** 任务筛选方式：月视图范围筛选 OR 周视图日期筛选 */
+  taskFilterWay: 'monthRange',
+  /** 日期范围筛选格式：动态 OR 静态 */
+  dateRangeFormat: 'static',
   /** 动态日期范围：下拉框选择的值 */
   dynamicDateRange: '',
   /** 静态日期范围：日历视图选择的日期 */
@@ -223,17 +217,11 @@ const staticDateRangeOptions = ref<Array<{ value: string; label: string }>>([
 
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
-  let {
-    isShowWeekCalendarInDocker,
-    isDynamicDateRange,
-    dynamicDateRange,
-    staticDateRange,
-  } = storage['plugin-task-list-filters']
+  let { taskFilterWay, dateRangeFormat, dynamicDateRange, staticDateRange } =
+    storage['plugin-task-list-filters']
 
-  typeof isShowWeekCalendarInDocker === 'boolean' &&
-    (localFilters.value.isShowWeekCalendarInDocker = isShowWeekCalendarInDocker)
-  typeof isDynamicDateRange === 'boolean' &&
-    (localFilters.value.isDynamicDateRange = isDynamicDateRange)
+  taskFilterWay && (localFilters.value.taskFilterWay = taskFilterWay)
+  dateRangeFormat && (localFilters.value.dateRangeFormat = dateRangeFormat)
   dynamicDateRange && (localFilters.value.dynamicDateRange = dynamicDateRange)
   staticDateRange?.length &&
     (localFilters.value.staticDateRange = staticDateRange)
@@ -248,8 +236,8 @@ const setLocalStorageVal = async () => {
   await API.setLocalStorageVal({
     key: 'plugin-task-list-filters',
     val: {
-      isShowWeekCalendarInDocker: localFilters.value.isShowWeekCalendarInDocker,
-      isDynamicDateRange: localFilters.value.isDynamicDateRange,
+      taskFilterWay: localFilters.value.taskFilterWay,
+      dateRangeFormat: localFilters.value.dateRangeFormat,
       dynamicDateRange: localFilters.value.dynamicDateRange || '',
       staticDateRange: localFilters.value.staticDateRange,
     },

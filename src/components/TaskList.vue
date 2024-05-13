@@ -377,18 +377,18 @@ const isHideBadge = ref<boolean>(true)
  */
 const initConfig = async () => {
   const { data: storage } = await API.getLocalStorage()
-  const isShowWeekCalendarInDocker: boolean =
-    storage['plugin-task-list-filters']?.['isShowWeekCalendarInDocker']
-  isShowWeekDateFilter.value = !!isShowWeekCalendarInDocker
+  const taskFilterWay: string =
+    storage['plugin-task-list-filters']?.['taskFilterWay']
+  isShowWeekDateFilter.value = taskFilterWay === 'weekSingle'
 
   if (isShowWeekDateFilter.value) {
     isHideBadge.value = true
   } else {
-    const isDynamicDateRange: boolean =
-      storage['plugin-task-list-filters']?.['isDynamicDateRange']
-    if (typeof isDynamicDateRange === 'boolean') {
+    const dateRangeFormat: string =
+      storage['plugin-task-list-filters']?.['dateRangeFormat']
+    if (dateRangeFormat) {
       // 动态日期范围
-      if (isDynamicDateRange) {
+      if (dateRangeFormat === 'dynamicDateRange') {
         const dynamicDateRange: string =
           storage['plugin-task-list-filters']['dynamicDateRange']
         if (dynamicDateRange) {
@@ -514,7 +514,7 @@ const defaultProps = {
             padding: 2px 4px;
             border-radius: 4px;
             &:hover {
-              background-color: var('--tl-color-active-bg');
+              background-color: var(--tl-color-active-bg);
             }
           }
         }
@@ -530,7 +530,7 @@ const defaultProps = {
             border-radius: 5px;
             &:hover {
               cursor: pointer;
-              background-color: var('--tl-color-active-bg');
+              background-color: var(--tl-color-active-bg);
             }
             svg.icon {
               font-size: 18px;
@@ -549,20 +549,20 @@ const defaultProps = {
       .el-tabs {
         --el-tabs-header-height: 36px;
         .el-tabs__header {
-          // border-color: var('--tl-color-tabs-border');
+          // border-color: var(--tl-color-tabs-border);
           margin: 0px !important;
           .el-tabs__nav {
-            border-color: var('--tl-color-tabs-border');
+            border-color: var(--tl-color-tabs-border);
             border-radius: 0px;
             .el-tabs__item {
-              border-color: var('--tl-color-tabs-border');
+              border-color: var(--tl-color-tabs-border);
               color: var(--tl-color-text);
               &:hover {
-                background-color: var('--tl-color-hover-bg');
+                background-color: var(--tl-color-hover-bg);
               }
               &.is-active {
                 font-weight: bold;
-                background-color: var('--tl-color-active-bg');
+                background-color: var(--tl-color-active-bg);
               }
             }
           }
@@ -588,18 +588,18 @@ const defaultProps = {
           .el-tree-node__content {
             background-color: transparent !important;
             &:hover {
-              background-color: var('--tl-color-hover-bg');
+              background-color: var(--tl-color-hover-bg);
             }
           }
         }
         &.is-current.tree-task-node {
           .el-tree-node__content {
-            background-color: var('--tl-color-active-bg');
+            background-color: var(--tl-color-active-bg);
           }
         }
         .el-tree-node__content {
           &:hover {
-            background-color: var('--tl-color-hover-bg');
+            background-color: var(--tl-color-hover-bg);
           }
           div.custom-tree-node {
             width: calc(100% - 20px);

@@ -331,18 +331,18 @@ const defaultProps = {
         .el-tree-node__content {
           background-color: transparent !important;
           &:hover {
-            background-color: var('--tl-color-hover-bg');
+            background-color: var(--tl-color-hover-bg);
           }
         }
       }
       &.is-current.tree-task-node {
         .el-tree-node__content {
-          background-color: var('--tl-color-active-bg');
+          background-color: var(--tl-color-active-bg);
         }
       }
       .el-tree-node__content {
         &:hover {
-          background-color: var('--tl-color-hover-bg');
+          background-color: var(--tl-color-hover-bg);
         }
 
         // 修改el-checkbox的位置为右侧对齐
