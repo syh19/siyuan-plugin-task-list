@@ -2,7 +2,7 @@
   "name": "siyuan-plugin-task-list",
   "author": "syh19",
   "url": "https://github.com/syh19/siyuan-plugin-task-list",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "minAppVersion": "2.10.13",
   "backends": [
     "all"
@@ -15,8 +15,8 @@
     "zh_CN": "任务列表"
   },
   "description": {
-    "default": "Summarize tasks scattered throughout your workspace",
-    "zh_CN": "汇总散落在整个工作空间的任务"
+    "default": "Summarize tasks scattered throughout your workspace and rely on <strong>task list</strong> to achieve <code class='fn__code'>schedule management</code> and <code class='fn__code'>to-do list</code> management",
+    "zh_CN": "汇总散落在整个工作空间的任务，依托<strong>任务列表</strong>实现<code class='fn__code'>日程管理</code>和<code class='fn__code'>待办事项</code>管理"
   },
   "readme": {
     "default": "README.md",
