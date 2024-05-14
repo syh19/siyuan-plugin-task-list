@@ -1,5 +1,29 @@
 # CHANGE LOG
 
+## v0.1.4
+
+> **2024-05-08**
+
+**Bugfix**
+
+- The **sorting function** fails when the task list display mode is "notebook & doc & task". #19
+
+## v0.1.3
+
+> **2024-04-27**
+
+**Enhancement**
+
+- Display the number of tasks. #14
+
+## v0.1.2
+
+> **2024-04-24**
+
+**Bugfix**
+
+- The plug-in reports an error when no setting configuration is saved in the drawer.
+
 ## v0.1.1
 
 > **2024-04-23**

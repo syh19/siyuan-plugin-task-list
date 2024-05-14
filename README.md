@@ -1,16 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.1.1` change log
-
-**Enhancement**
-
-- `v0.1.0` [Add time-based sorting functionality to task nodes](https://github.com/syh19/siyuan-plugin-task-list/issues/9)
-- `v0.1.0` Reduce packaged file size
+# Latest version `v0.1.4` change log
 
 **Bugfix**
 
-- `v0.1.0` Moving the `dock` bar plugin icon causes the plugin to become unusable
-- `v0.1.1` Task nodes cannot be displayed normally under the document dimension
+- `v0.1.4` [The **sorting function** fails when the task list display mode is "notebook & doc & task".](https://github.com/syh19/siyuan-plugin-task-list/issues/19)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

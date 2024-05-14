@@ -166,13 +166,13 @@ const sortNodeMethod = (a: any, b: any, sortBy: string) => {
 }
 
 /** 判断某个节点下是否有任务节点 */
-const isNodeHasChildrenTask = (node: any): boolean => {
-  if (node.children?.length) {
-    return node.children.some((item: any) => item.type === 'task')
-  } else {
-    return false
-  }
-}
+// const isNodeHasChildrenTask = (node: any): boolean => {
+//   if (node.children?.length) {
+//     return node.children.some((item: any) => item.type === 'task')
+//   } else {
+//     return false
+//   }
+// }
 
 /**
  * 任务节点的排序方法
@@ -182,7 +182,7 @@ const isNodeHasChildrenTask = (node: any): boolean => {
  */
 export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
   function sortTaskNode(node: any): any {
-    if (isNodeHasChildrenTask(node)) {
+    if (node.children) {
       node.children.sort((a: any, b: any) => {
         return sortNodeMethod(a, b, sortBy)
       })
@@ -206,4 +206,36 @@ export const sortTaskTreeData = (treeData: any, sortBy: string): Array<any> => {
     })
   }
   return treeData
+}
+
+/**
+ * 统计各个维度的任务数量或者统计某个笔记本下的任务数量
+ * @param treeData 树形数据
+ * @param boxId 笔记本ID，统计某个笔记本中的任务数量
+ * @returns 任务数量
+ */
+export const getTaskNodeCountsInTree = (
+  treeData: any = [],
+  boxId?: string
+): number => {
+  let count = 0
+  function getTaskNodeCounts(node: any) {
+    if (node.type === 'task') {
+      count++
+    }
+    if (node.children?.length) {
+      node.children.forEach((item: any) => {
+        getTaskNodeCounts(item)
+      })
+    }
+  }
+  for (let i = 0; i < treeData.length; i++) {
+    if (boxId && treeData[i].key === boxId) {
+      count = 0
+      getTaskNodeCounts(treeData[i])
+      break
+    }
+    getTaskNodeCounts(treeData[i])
+  }
+  return count
 }

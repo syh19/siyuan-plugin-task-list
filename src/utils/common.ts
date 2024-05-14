@@ -6,7 +6,7 @@ import type { IRange, TSqlResItem, TResponse } from '../types'
 import * as func from './func'
 import eventBus from './eventBus'
 import * as date from './date'
-import * as tree from './handleTreeData'
+import * as treeFn from './handleTreeData'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -284,9 +284,9 @@ export async function getTaskListForDisplay({
     }
   }
 
-  treeData = tree.sortTaskTreeData(
+  treeData = treeFn.sortTaskTreeData(
     treeData,
-    storage['plugin-task-list-settings']['taskSortBy'] || 'createdAsc'
+    storage?.['plugin-task-list-settings']?.['taskSortBy'] || 'createdAsc'
   )
   return treeData
 }
