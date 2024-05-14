@@ -1,10 +1,11 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.1.4` change log
+# Latest version `v0.2.0` change log
 
-**Bugfix**
+**Enhancement**
 
-- `v0.1.4` [The **sorting function** fails when the task list display mode is "notebook & doc & task".](https://github.com/syh19/siyuan-plugin-task-list/issues/19)
+- ✨✨✨ Task nodes implement customized processing time through calendar view [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
+- ✨✨✨ Implement calendar view filtering of task nodes [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

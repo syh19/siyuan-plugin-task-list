@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## v0.2.0
+
+> **2024-05-14**
+
+**Enhancement**
+
+- ✨✨✨ Task nodes implement customized processing time through calendar view #7 #15
+- ✨✨✨ Implement calendar view filtering of task nodes #7 #15
+
 ## v0.1.4
 
 > **2024-05-08**

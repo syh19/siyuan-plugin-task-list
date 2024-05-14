@@ -1,10 +1,11 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.1.4`更新记录
+# 最新版本`v0.2.0`更新记录
 
-**修复缺陷**
+**改进功能**
 
-- `v0.1.4` [任务列表展示方式为“笔记本 & 文档 & 任务”时**排序功能**失效](https://github.com/syh19/siyuan-plugin-task-list/issues/19)
+- ✨✨✨ 任务节点通过日历视图实现自定义处理时间 [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
+- ✨✨✨ 实现日历视图对任务节点的过滤筛选 [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
