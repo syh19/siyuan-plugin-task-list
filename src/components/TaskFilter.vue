@@ -245,17 +245,17 @@ const staticDateRangeOptions = ref<Array<{ value: string; label: string }>>([
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
   let { taskFilterWay, dateRangeFormat, dynamicDateRange, staticDateRange } =
-    storage['plugin-task-list-filters']
+    storage?.['plugin-task-list-filters'] || {}
 
   taskFilterWay && (localFilters.value.taskFilterWay = taskFilterWay)
   dateRangeFormat && (localFilters.value.dateRangeFormat = dateRangeFormat)
   dynamicDateRange && (localFilters.value.dynamicDateRange = dynamicDateRange)
-  staticDateRange?.length &&
-    (localFilters.value.staticDateRange = staticDateRange)
-
-  dateRange.value = {
-    start: date.formatDateTime(staticDateRange[0]),
-    end: date.formatDateTime(staticDateRange[1]),
+  if (staticDateRange?.length) {
+    localFilters.value.staticDateRange = staticDateRange
+    dateRange.value = {
+      start: date.formatDateTime(staticDateRange[0]),
+      end: date.formatDateTime(staticDateRange[1]),
+    }
   }
 }
 

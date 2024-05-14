@@ -409,7 +409,7 @@ const initConfig = async () => {
       // 动态日期范围
       if (dateRangeFormat === 'dynamicDateRange') {
         const dynamicDateRange: string =
-          storage['plugin-task-list-filters']['dynamicDateRange']
+          storage['plugin-task-list-filters']?.['dynamicDateRange']
         if (dynamicDateRange) {
           isHideBadge.value = false
         } else {
@@ -419,7 +419,7 @@ const initConfig = async () => {
       // 静态日期范围
       else {
         const staticDateRange: string[] =
-          storage['plugin-task-list-filters']['staticDateRange']
+          storage['plugin-task-list-filters']?.['staticDateRange']
         if (staticDateRange.length) {
           isHideBadge.value = false
         } else {

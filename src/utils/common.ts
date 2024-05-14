@@ -344,7 +344,7 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
       // 动态日期范围
       if (dateRangeFormat === 'dynamic') {
         const dynamicDateRange: string =
-          storage['plugin-task-list-filters']['dynamicDateRange']
+          storage['plugin-task-list-filters']?.['dynamicDateRange']
         if (dynamicDateRange) {
           startDate = date.getDateRangeByEnumValue(dynamicDateRange).start
           endDate = date.getDateRangeByEnumValue(dynamicDateRange).end
@@ -357,7 +357,7 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
       // 静态日期范围
       else {
         const staticDateRange: string[] =
-          storage['plugin-task-list-filters']['staticDateRange']
+          storage['plugin-task-list-filters']?.['staticDateRange']
         if (staticDateRange.length) {
           startDate = staticDateRange[0]
           endDate = staticDateRange[1]
