@@ -210,7 +210,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, watch } from 'vue'
-import { toRaw } from '@vue/reactivity'
+// import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
 import * as API from '../api'
@@ -366,7 +366,7 @@ const triggerFiltrateTreeNode = (val: string) => {
 
 const changeTaskHandleDate = (taskInfo: any) => {
   isAddHandleDateDialogVisible.value = true
-  taskIdToAddHandleDate.value = toRaw(taskInfo).key
+  taskIdToAddHandleDate.value = taskInfo.key
 }
 /**
  * 过滤树节点
