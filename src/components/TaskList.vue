@@ -105,7 +105,7 @@
       />
 
       <!-- tabs选项 -->
-      <el-tabs v-model="range" stretch type="card" @tab-change="refreshData">
+      <el-tabs v-model="range" stretch type="card" @tab-change="tabChanged">
         <!-- 文档 -->
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
@@ -261,6 +261,15 @@ const showInput = () => {
 }
 const isInputShow = ref<boolean>(false)
 
+const tabChanged = (e: string) => {
+  API.setLocalStorageVal({
+    key: 'plugin-task-list-taskRangeTabClicked',
+    val: e,
+  })
+
+  refreshData()
+}
+
 const app = ref<sy.App>({ plugins: [], appId: '' })
 let treeData = ref<any>([])
 let taskStatus = ref<string>('todo')
@@ -391,15 +400,24 @@ const toggleExpand = (isExpandNew: boolean) => {
 }
 
 const isHideBadge = ref<boolean>(true)
+const initTaskRangeTab = (storage: any) => {
+  const currentTab: IRange = storage['plugin-task-list-taskRangeTabClicked']
+  currentTab && (range.value = currentTab)
+}
+
 /**
  * 初始化时显示周视图以及判断是否显示badge
  */
 const initConfig = async () => {
   const { data: storage } = await API.getLocalStorage()
+  // 初始化展示哪个维度的TAB
+  initTaskRangeTab(storage)
+
   const taskFilterWay: string =
     storage['plugin-task-list-filters']?.['taskFilterWay']
   isShowWeekDateFilter.value = taskFilterWay === 'weekSingle'
 
+  // 控制是否展示已经设置了过滤项的小红点
   if (isShowWeekDateFilter.value) {
     isHideBadge.value = true
   } else {
