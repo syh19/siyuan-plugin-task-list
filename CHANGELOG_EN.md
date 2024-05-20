@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.2.1
+
+> **2024-05-20**
+
+**Enhancement**
+
+- Task dimension TAB supports persistent storage
+
 ## v0.2.0
 
 > **2024-05-14**

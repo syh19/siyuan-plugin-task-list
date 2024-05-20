@@ -1,11 +1,12 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.2.0` change log
+# Latest version `v0.2.1` change log
 
 **Enhancement**
 
-- ✨✨✨ Task nodes implement customized processing time through calendar view [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
-- ✨✨✨ Implement calendar view filtering of task nodes [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
+- ✨✨✨ `v0.2.0` Task nodes implement customized processing time through calendar view [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
+- ✨✨✨ `v0.2.0` Implement calendar view filtering of task nodes [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
+- `v0.2.1` Task dimension TAB supports persistent storage
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
