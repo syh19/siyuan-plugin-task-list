@@ -136,7 +136,6 @@
 
     <!-- 树形数据区域 -->
     <el-tree
-      style="max-width: 600px"
       :data="treeData"
       ref="treeRef"
       :empty-text="i18n.emptyText"
