@@ -425,7 +425,7 @@ const initConfig = async () => {
       storage['plugin-task-list-filters']?.['dateRangeFormat']
     if (dateRangeFormat) {
       // 动态日期范围
-      if (dateRangeFormat === 'dynamicDateRange') {
+      if (dateRangeFormat === 'dynamic') {
         const dynamicDateRange: string =
           storage['plugin-task-list-filters']?.['dynamicDateRange']
         if (dynamicDateRange) {
