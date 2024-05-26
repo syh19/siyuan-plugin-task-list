@@ -1,12 +1,19 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.2.1`更新记录
+# 最新版本`v0.2.2`更新记录
 
 **改进功能**
 
+- ✨✨✨ `v0.2.2` 添加打开关闭插件`dock`栏的快捷键 [#20](https://github.com/syh19/siyuan-plugin-task-list/issues/20)
+- `v0.2.2` 取消任务列表的最大宽度限制
+- `v0.2.1` 任务维度 TAB 支持持久化存储
 - ✨✨✨ `v0.2.0` 任务节点通过日历视图实现自定义处理时间 [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
 - ✨✨✨ `v0.2.0` 实现日历视图对任务节点的过滤筛选 [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
-- `v0.2.1` 任务维度 TAB 支持持久化存储
+
+**修复缺陷**
+
+- `v0.2.2` 筛选图标右上角红点显示时机不准确
+- `v0.2.2` `dock`栏中有周视图时任务列表高度不准确
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

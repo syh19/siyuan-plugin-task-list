@@ -1,5 +1,19 @@
 # CHANGE LOG
 
+## v0.2.2
+
+> **2024-05-26**
+
+**Enhancement**
+
+- Add a hotkey key to open and close the plug-in `dock` bar #20
+- Remove the maximum width limit for task lists
+
+**Bugfix**
+
+- The timing of the red dot display in the upper right corner of the filter icon is inaccurate
+- The height of the task list is inaccurate when there is a week view in the `dock` bar
+
 ## v0.2.1
 
 > **2024-05-20**

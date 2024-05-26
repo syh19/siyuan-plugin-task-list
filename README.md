@@ -4,9 +4,16 @@
 
 **Enhancement**
 
+- ✨✨✨ `v0.2.2` Add a hotkey key to open and close the plug-in `dock` bar [#20](https://github.com/syh19/siyuan-plugin-task-list/issues/20)
+- `v0.2.2` Remove the maximum width limit for task lists
+- `v0.2.1` Task dimension TAB supports persistent storage
 - ✨✨✨ `v0.2.0` Task nodes implement customized processing time through calendar view [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
 - ✨✨✨ `v0.2.0` Implement calendar view filtering of task nodes [#7](https://github.com/syh19/siyuan-plugin-task-list/issues/7) [#15](https://github.com/syh19/siyuan-plugin-task-list/issues/15)
-- `v0.2.1` Task dimension TAB supports persistent storage
+
+**Bugfix**
+
+- `v0.2.2` The timing of the red dot display in the upper right corner of the filter icon is inaccurate
+- `v0.2.2` The height of the task list is inaccurate when there is a week view in the `dock` bar
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
