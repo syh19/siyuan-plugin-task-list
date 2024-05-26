@@ -646,6 +646,9 @@ const defaultProps = {
         }
       }
     }
+    &:has(.vc-container) .el-tree {
+      height: calc(100% - 214px);
+    }
   }
 }
 </style>
