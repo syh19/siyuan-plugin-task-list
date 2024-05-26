@@ -19,6 +19,7 @@ export async function addDock() {
       position: 'RightTop',
       size: { width: 200, height: 0 },
       icon: `icon-task`,
+      hotkey: '⇧⌘T',
       title: i18n.pluginTitle,
       show: false,
     },
