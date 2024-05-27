@@ -233,7 +233,7 @@ export async function getTaskListForDisplay({
   status,
 }: {
   range: IRange
-  status: string
+  status: 'todo' | 'done' | 'all'
 }) {
   let params = {
     status,
@@ -250,13 +250,27 @@ export async function getTaskListForDisplay({
   }
   const res: TResponse<Array<TSqlResItem>> = await API.getTaskListBySql({
     ...params,
-    isGetAll: false,
+    isGetAll: true,
   })
 
   let taskList: any[] = formatSqlTaskList(res.data)
+
+  console.log('格式化后的任务列表数据', JSON.parse(JSON.stringify(taskList)))
   const { data: storage } = await API.getLocalStorage()
 
+  taskList = await filterTaskListByHidden(taskList, storage)
+
+  // 将任务放置在日历视图指定的日期上
+
+  // 根据日期范围进行过滤
   taskList = filterTaskListByDateRange(taskList, storage)
+
+  // 根据状态过滤任务列表：todo / done / all
+  taskList = filterTaskListByStatus(taskList, status)
+
+  // 根据范围过滤任务列表：doc / box
+  taskList = filterTaskListByRange(taskList, range)
+
   let treeData = convertSqlToTree(taskList)
 
   if (
@@ -316,6 +330,12 @@ eventBus.on('weekly-date-clicked', (dataStr: string) => {
   dateForWeeklyCalendar = dataStr
 })
 
+/**
+ * 根据日期范围进行过滤
+ * @param taskList
+ * @param storage
+ * @returns
+ */
 function filterTaskListByDateRange(taskList: any[], storage: any) {
   // 根据日期范围进行过滤
   const taskFilterWay: string =
@@ -369,5 +389,85 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
       }
     }
   }
+  return taskList
+}
+
+/**
+ * 根据隐藏节点情况对任务进行隐藏
+ * @param taskList
+ * @returns
+ */
+async function filterTaskListByHidden(
+  taskList: Array<any>,
+  storage: any
+): Promise<Array<any>> {
+  // 根据配置项排除特定任务
+  const nodeListForHideTask: Array<any> =
+    storage['plugin-task-list-settings']?.['nodeListForHideTask']
+
+  if (nodeListForHideTask) {
+    taskList = taskList.filter((task: any) => {
+      let isHide = false
+      nodeListForHideTask.forEach((item: any) => {
+        if (item.type === 'box') {
+          if (task.box === item.key) {
+            isHide = true
+          }
+        } else if (item.type === 'doc') {
+          if (item.hideTaskInNodeStatus === 1) {
+            if (task.root_id === item.key) {
+              isHide = true
+            }
+          } else if (item.hideTaskInNodeStatus === 2) {
+            if (task.path.indexOf(item.key) > -1) {
+              isHide = true
+            }
+          }
+        }
+      })
+      return !isHide
+    })
+  }
+
+  return taskList
+}
+
+/**
+ * 根据状态过滤任务列表：todo / done / all
+ */
+function filterTaskListByStatus(
+  taskList: Array<any>,
+  status: 'todo' | 'done' | 'all'
+): Array<any> {
+  if (status === 'todo') {
+    taskList = taskList.filter((task: any) => {
+      return task.status === 'todo'
+    })
+  } else if (status === 'done') {
+    taskList = taskList.filter((task: any) => {
+      return task.status === 'done'
+    })
+  }
+
+  return taskList
+}
+
+/**
+ * 根据状态过滤任务列表：todo / done / all
+ */
+function filterTaskListByRange(
+  taskList: Array<any>,
+  range: IRange
+): Array<any> {
+  if (range === 'doc') {
+    taskList = taskList.filter((task: any) => {
+      return task.root_id === currentDocId && task.box === currentBoxId
+    })
+  } else if (range === 'box') {
+    taskList = taskList.filter((task: any) => {
+      return task.box === currentBoxId
+    })
+  }
+
   return taskList
 }

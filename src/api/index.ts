@@ -18,7 +18,7 @@ export async function getTaskListBySql(
 ): Promise<TResponse<Array<TSqlResItem>>> {
   let stmtStr = "SELECT * FROM blocks WHERE type = 'i' AND subtype = 't'"
 
-  if (!params.isGetAll) {
+  if (!params.isGetAll && false) {
     // 根据配置项排除特定任务
     const { data: storage } = await getLocalStorage()
     if (storage['plugin-task-list-settings']?.['nodeListForHideTask']) {
@@ -49,7 +49,7 @@ export async function getTaskListBySql(
     params.boxId && (stmtStr += ` AND box = '${params.boxId}'`)
   }
 
-  stmtStr += ` ORDER BY created ASC LIMIT 1000`
+  stmtStr += ` ORDER BY created ASC LIMIT 2000`
 
   let taskRes: any = await client.sql({
     stmt: stmtStr,
