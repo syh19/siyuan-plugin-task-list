@@ -255,7 +255,8 @@ export async function getTaskListForDisplay({
 
   let taskList: any[] = formatSqlTaskList(res.data)
 
-  console.log('格式化后的任务列表数据', JSON.parse(JSON.stringify(taskList)))
+  getEachDayTaskList(taskList)
+
   const { data: storage } = await API.getLocalStorage()
 
   taskList = await filterTaskListByHidden(taskList, storage)
@@ -343,11 +344,12 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
   if (taskFilterWay === 'weekSingle') {
     taskList = taskList.filter((task: any) => {
       if (dateForWeeklyCalendar) {
+        let dateStr: string =
+          dateForWeeklyCalendar || date.formatDate(new Date())
+
         return (
-          (dateForWeeklyCalendar || date.formatDate(new Date())).substring(
-            0,
-            8
-          ) === task.handleAt.substring(0, 8)
+          dateStr.substring(0, 8) === task.handleAt.substring(0, 8) ||
+          dateStr.substring(0, 8) === task.finished.substring(0, 8)
         )
       } else {
         return true
@@ -470,4 +472,73 @@ function filterTaskListByRange(
   }
 
   return taskList
+}
+
+/**
+ * 获取每天的待处理任务以及已完成任务的数量
+ * @param taskList
+ */
+function getEachDayTaskList(taskList: Array<any>): void {
+  const todoTaskPopover: any = {
+    dot: 'pink',
+    dates: new Set(),
+    dateNumMap: new Map(),
+    popover: {
+      label: '',
+    },
+  }
+  const doneTaskPopover: any = {
+    dot: 'green',
+    dates: new Set(),
+    dateNumMap: new Map(),
+    popover: {
+      label: '',
+    },
+  }
+
+  taskList.forEach((task: any) => {
+    if (task.finished) {
+      const date = task.finished.slice(0, 8)
+      const dataStr = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(
+        6,
+        8
+      )}`
+      doneTaskPopover.dates.add(dataStr)
+      if (doneTaskPopover.dateNumMap.has(dataStr)) {
+        doneTaskPopover.dateNumMap.set(
+          dataStr,
+          doneTaskPopover.dateNumMap.get(dataStr) + 1
+        )
+      } else {
+        doneTaskPopover.dateNumMap.set(dataStr, 1)
+      }
+    } else {
+      const date = task.handleAt.slice(0, 8)
+      const dataStr = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(
+        6,
+        8
+      )}`
+      todoTaskPopover.dates.add(dataStr)
+      if (todoTaskPopover.dateNumMap.has(dataStr)) {
+        todoTaskPopover.dateNumMap.set(
+          dataStr,
+          todoTaskPopover.dateNumMap.get(dataStr) + 1
+        )
+      } else {
+        todoTaskPopover.dateNumMap.set(dataStr, 1)
+      }
+    }
+  })
+
+  todoTaskPopover.dates = Array.from(todoTaskPopover.dates).map(
+    (item: string) => new Date(item)
+  )
+  doneTaskPopover.dates = Array.from(doneTaskPopover.dates).map(
+    (item: string) => new Date(item)
+  )
+
+  eventBus.emit('each-day-task-list-changed', {
+    todoTaskPopover,
+    doneTaskPopover,
+  })
 }

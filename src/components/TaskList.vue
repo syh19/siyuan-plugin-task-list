@@ -102,6 +102,7 @@
         :attributes="datePickerAttributes"
         :locale="datePickerLocale"
         @update:modelValue="dateChanged"
+        @daymouseenter="handleDayMouseEnter"
       />
 
       <!-- tabs选项 -->
@@ -239,6 +240,20 @@ const dateChanged = (e: Date) => {
   refreshData()
 }
 
+const handleDayMouseEnter = (day: any) => {
+  const todoTaskNumInCurrentDay = datePickerAttributes.value[0].dateNumMap.get(
+    day.id
+  )
+  const doneTaskNumInCurrentDay = datePickerAttributes.value[1].dateNumMap.get(
+    day.id
+  )
+
+  datePickerAttributes.value[0].popover.label =
+    '待处理 任务数量：' + todoTaskNumInCurrentDay
+  datePickerAttributes.value[1].popover.label =
+    '已完成 任务数量：' + doneTaskNumInCurrentDay
+}
+
 let isTaskFilterDialogVisible = ref<boolean>(false)
 let isAddHandleDateDialogVisible = ref<boolean>(false)
 /** 需要添加处理日期的任务ID */
@@ -283,10 +298,25 @@ const datePickerLocale = ref({
   firstDayOfWeek: 2,
   masks: { weekdays: 'WWW' },
 })
-const datePickerAttributes = ref([{ dates: new Date(), dot: true }])
+const datePickerAttributes = ref([])
 const handleMouseEnter = (e: any, data: any) => {
   infoCard.update(data, e.target)
 }
+
+const updateDateTask = () => {
+  eventBus.on('each-day-task-list-changed', (e: any) => {
+    datePickerAttributes.value = [
+      e.todoTaskPopover,
+      e.doneTaskPopover,
+      // 今天的日期样式
+      {
+        content: 'blue',
+        dates: new Date(),
+      },
+    ]
+  })
+}
+updateDateTask()
 
 /** 高亮搜索的关键字 */
 const handleHighLightSearchText = (text: string) => {
