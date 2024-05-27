@@ -255,19 +255,20 @@ export async function getTaskListForDisplay({
 
   let taskList: any[] = formatSqlTaskList(res.data)
 
-  getEachDayTaskList(taskList)
-
   const { data: storage } = await API.getLocalStorage()
 
   taskList = await filterTaskListByHidden(taskList, storage)
 
   // 将任务放置在日历视图指定的日期上
+  getEachDayTaskList(taskList)
 
   // 根据日期范围进行过滤
   taskList = filterTaskListByDateRange(taskList, storage)
 
   // 根据状态过滤任务列表：todo / done / all
   taskList = filterTaskListByStatus(taskList, status)
+
+  getTaskCountsInThreeRanges(taskList)
 
   // 根据范围过滤任务列表：doc / box
   taskList = filterTaskListByRange(taskList, range)
@@ -408,6 +409,7 @@ async function filterTaskListByHidden(
     storage['plugin-task-list-settings']?.['nodeListForHideTask']
 
   if (nodeListForHideTask) {
+    // #syh-fixme 过滤未生效
     taskList = taskList.filter((task: any) => {
       let isHide = false
       nodeListForHideTask.forEach((item: any) => {
@@ -540,5 +542,30 @@ function getEachDayTaskList(taskList: Array<any>): void {
   eventBus.emit('each-day-task-list-changed', {
     todoTaskPopover,
     doneTaskPopover,
+  })
+}
+
+/**
+ * 获取三个维度下的任务数量
+ */
+function getTaskCountsInThreeRanges(taskList: Array<any>): void {
+  let taskCountInDoc: number = 0
+  let taskCountForEachBox: any = {}
+
+  taskList.forEach((task: any) => {
+    if (task.root_id === currentDocId && task.box === currentBoxId) {
+      taskCountInDoc++
+    }
+
+    if (taskCountForEachBox[task.box]) {
+      taskCountForEachBox[task.box]++
+    } else {
+      taskCountForEachBox[task.box] = 1
+    }
+  })
+
+  eventBus.emit('task-counts-in-three-ranges-changed', {
+    taskCountInDoc,
+    taskCountForEachBox,
   })
 }

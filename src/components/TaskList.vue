@@ -110,25 +110,20 @@
         <!-- 文档 -->
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
-            <span>{{
-              i18n.range.doc + (range === 'doc' ? ` (${taskCounter})` : '')
-            }}</span>
+            <span>{{ i18n.range.doc + ` (${docRangetaskCounter})` }}</span>
           </template>
         </el-tab-pane>
         <!-- 笔记本 -->
         <el-tab-pane name="box" :label="i18n.range.box">
           <template #label>
-            <span>{{
-              i18n.range.box + (range === 'box' ? ` (${taskCounter})` : '')
-            }}</span>
+            <span>{{ i18n.range.box + ` (${boxRangetaskCounter})` }}</span>
           </template>
         </el-tab-pane>
         <!-- 工作空间 -->
         <el-tab-pane name="workspace" :label="i18n.range.workspace">
           <template #label>
             <span>{{
-              i18n.range.workspace +
-              (range === 'workspace' ? ` (${taskCounter})` : '')
+              i18n.range.workspace + ` (${workBenchRangetaskCounter})`
             }}</span>
           </template>
         </el-tab-pane>
@@ -185,7 +180,7 @@
           <span>
             <span v-html="data.highlightLabel || data.label"> </span>
             <span v-if="data.type === 'box'">
-              {{ ` (${treeFn.getTaskNodeCountsInTree(treeData, data.key)})` }}
+              {{ ' (' + taskCountForEachBox[data.key] + ')' }}
             </span>
           </span>
         </div>
@@ -350,24 +345,40 @@ const addHandleDateSbumitSuccess = () => {
     refreshData()
   }, 3000)
 }
-const taskCounter = ref<number>(0)
+const workBenchRangetaskCounter = ref<number>(0)
+const boxRangetaskCounter = ref<number>(0)
+const docRangetaskCounter = ref<number>(0)
 /**
  * 刷新数据重新获取el-tree的数据
  */
 const refreshData = async () => {
   let res = await utils.getTaskListForDisplay({
     range: range.value,
-    status: taskStatus.value,
+    status: taskStatus.value as any,
   })
   // treeData.value = await treeFn.refreshTaskAfterHideDocChecked(res)
   treeData.value = res
-  taskCounter.value = treeFn.getTaskNodeCountsInTree(treeData.value)
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {
     toggleExpand(isExpand.value)
   })
 }
+
+const taskCountForEachBox = ref<any>({})
+
+eventBus.on('task-counts-in-three-ranges-changed', (e: any) => {
+  taskCountForEachBox.value = e.taskCountForEachBox
+
+  docRangetaskCounter.value = e.taskCountInDoc
+  boxRangetaskCounter.value = e.taskCountForEachBox[utils.currentBoxId] || 0
+  workBenchRangetaskCounter.value = Object.keys(e.taskCountForEachBox).reduce(
+    (prev, cur) => {
+      return prev + e.taskCountForEachBox[cur]
+    },
+    0
+  )
+})
 
 eventBus.on('node-list-for-hide-task-changed', refreshData)
 eventBus.on('add-handle-date-for-task-node', (taskId: string) => {
