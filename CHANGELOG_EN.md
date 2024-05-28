@@ -1,5 +1,16 @@
 # CHANGE LOG
 
+## v0.2.3
+
+> **2024-05-28**
+
+**Enhancement**
+
+- The calendar display mode in the dock bar supports choosing week view or month view
+- Reduce the size of the calendar in the dock bar to display more tasks
+- ✨✨✨ Mark the number of daily todo and done tasks in the calendar view in the dock bar
+- Documents, notebooks, and workspace TAB support simultaneously displaying the number of tasks in the current dimension
+
 ## v0.2.2
 
 > **2024-05-26**
