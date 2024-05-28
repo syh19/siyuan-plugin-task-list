@@ -55,7 +55,10 @@
     "title": "任务筛选配置",
     "taskFilterWay": "任务筛选方式",
     "monthRange": "月视图范围筛选",
-    "weekSingle": "周视图日期筛选",
+    "dockCalendar": "Dock栏日期筛选",
+    "dockCalendarDisplayMode": "日历显示模式",
+    "dockWeekMode": "周视图",
+    "dockMonthMode": "月视图",
     "dateRangeFormat": "日期范围筛选形式",
     "static": "静态日期筛选",
     "dynamic": "动态日期筛选",
@@ -68,6 +71,10 @@
       "futureThreeDays": "未来三天",
       "today": "今天"
     }
+  },
+  "dockCalendar": {
+    "todoTaskNumPopover": "待处理 任务数量：",
+    "doneTaskNumPopover": "已完成 任务数量："
   },
   "addHandleDate": "添加任务处理时间",
   "cancel": "取消",

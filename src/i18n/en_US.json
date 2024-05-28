@@ -55,7 +55,10 @@
     "title": "Task Filter Config",
     "taskFilterWay": "task filter method",
     "monthRange": "range filter in month view",
-    "weekSingle": "date filter in week view",
+    "dockCalendar": "date filter in dock bar",
+    "dockCalendarDisplayMode": "calendar display mode",
+    "dockWeekMode": "week mode",
+    "dockMonthMode": "month mode",
     "dateRangeFormat": "date range filter format",
     "static": "static date filter",
     "dynamic": "dynamic date filter",
@@ -68,6 +71,10 @@
       "futureThreeDays": "future three days",
       "today": "today"
     }
+  },
+  "dockCalendar": {
+    "todoTaskNumPopover": "Todo Task Counts: ",
+    "doneTaskNumPopover": "Done Task Counts: "
   },
   "addHandleDate": "add task handle date",
   "cancel": "Cancel",

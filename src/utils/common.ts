@@ -494,6 +494,8 @@ function getEachDayTaskList(taskList: Array<any>): void {
     dateNumMap: new Map(),
     popover: {
       label: '',
+      visibility: 'hover',
+      hideIndicator: true,
     },
   }
 

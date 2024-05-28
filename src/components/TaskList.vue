@@ -244,9 +244,9 @@ const handleDayMouseEnter = (day: any) => {
   )
 
   datePickerAttributes.value[0].popover.label =
-    '待处理 任务数量：' + todoTaskNumInCurrentDay
+    i18n.dockCalendar.todoTaskNumPopover + todoTaskNumInCurrentDay
   datePickerAttributes.value[1].popover.label =
-    '已完成 任务数量：' + doneTaskNumInCurrentDay
+    i18n.dockCalendar.doneTaskNumPopover + doneTaskNumInCurrentDay
 }
 
 let isTaskFilterDialogVisible = ref<boolean>(false)
