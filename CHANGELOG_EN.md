@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.2.4
+
+> **2024-05-29**
+
+**Bugfix**
+
+- Daily task quantity information may display abnormally
+
 ## v0.2.3
 
 > **2024-05-28**
