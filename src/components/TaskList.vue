@@ -96,7 +96,7 @@
         v-if="isShowWeekDateFilter"
         v-model="dateForShowTask"
         expanded
-        view="weekly"
+        :view="dockCalendarDisplayMode"
         transparent
         mode="date"
         :attributes="datePickerAttributes"
@@ -445,6 +445,7 @@ const initTaskRangeTab = (storage: any) => {
   currentTab && (range.value = currentTab)
 }
 
+const dockCalendarDisplayMode = ref<'weekly' | 'monthly'>('weekly')
 /**
  * 初始化时显示周视图以及判断是否显示badge
  */
@@ -455,7 +456,7 @@ const initConfig = async () => {
 
   const taskFilterWay: string =
     storage['plugin-task-list-filters']?.['taskFilterWay']
-  isShowWeekDateFilter.value = taskFilterWay === 'weekSingle'
+  isShowWeekDateFilter.value = taskFilterWay === 'dockCalendar'
 
   // 控制是否展示已经设置了过滤项的小红点
   if (isShowWeekDateFilter.value) {
@@ -488,6 +489,11 @@ const initConfig = async () => {
       isHideBadge.value = true
     }
   }
+
+  // 设置日历视图的显示形式：周视图 OR 月视图
+  const calendarMode: 'weekly' | 'monthly' =
+    storage['plugin-task-list-filters']?.['dockCalendarDisplayMode']
+  calendarMode && (dockCalendarDisplayMode.value = calendarMode)
 }
 
 initConfig()

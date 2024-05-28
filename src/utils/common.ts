@@ -342,7 +342,7 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
   // 根据日期范围进行过滤
   const taskFilterWay: string =
     storage['plugin-task-list-filters']?.['taskFilterWay']
-  if (taskFilterWay === 'weekSingle') {
+  if (taskFilterWay === 'dockCalendar') {
     taskList = taskList.filter((task: any) => {
       if (dateForWeeklyCalendar) {
         let dateStr: string =
@@ -409,7 +409,6 @@ async function filterTaskListByHidden(
     storage['plugin-task-list-settings']?.['nodeListForHideTask']
 
   if (nodeListForHideTask) {
-    // #syh-fixme 过滤未生效
     taskList = taskList.filter((task: any) => {
       let isHide = false
       nodeListForHideTask.forEach((item: any) => {

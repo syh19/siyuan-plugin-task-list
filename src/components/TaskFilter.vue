@@ -21,13 +21,35 @@
             size="large"
           />
           <el-radio
-            value="weekSingle"
-            :label="i18n.filterConfig.weekSingle"
+            value="dockCalendar"
+            :label="i18n.filterConfig.dockCalendar"
             size="large"
           />
         </el-radio-group>
       </div>
     </div>
+    <template v-if="localFilters.taskFilterWay === 'dockCalendar'">
+      <!-- Dock栏中日期筛选方式：周视图 OR 月视图 -->
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ i18n.filterConfig.dockCalendarDisplayMode }}
+        </div>
+        <div class="setting-item__content">
+          <el-radio-group v-model="localFilters.dockCalendarDisplayMode">
+            <el-radio
+              value="weekly"
+              :label="i18n.filterConfig.dockWeekMode"
+              size="large"
+            />
+            <el-radio
+              value="monthly"
+              :label="i18n.filterConfig.dockMonthMode"
+              size="large"
+            />
+          </el-radio-group>
+        </div>
+      </div>
+    </template>
     <template v-if="localFilters.taskFilterWay === 'monthRange'">
       <!-- 日期范围筛选形式：动态 OR 静态 -->
       <div class="setting-item setting-item__horizontal">
@@ -209,8 +231,10 @@ const submit = async () => {
  * 本地设置
  */
 const localFilters = ref<any>({
-  /** 任务筛选方式：月视图范围筛选 OR 周视图日期筛选 */
+  /** 任务筛选方式：月视图范围筛选 OR Dock栏中日历视图日期筛选 */
   taskFilterWay: 'monthRange',
+  /** Dock栏中日历视图日期筛选形式：周视图、月视图 */
+  dockCalendarDisplayMode: 'weekly',
   /** 日期范围筛选格式：动态 OR 静态 */
   dateRangeFormat: 'static',
   /** 动态日期范围：下拉框选择的值 */
@@ -244,10 +268,17 @@ const staticDateRangeOptions = ref<Array<{ value: string; label: string }>>([
 
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
-  let { taskFilterWay, dateRangeFormat, dynamicDateRange, staticDateRange } =
-    storage?.['plugin-task-list-filters'] || {}
+  let {
+    taskFilterWay,
+    dockCalendarDisplayMode,
+    dateRangeFormat,
+    dynamicDateRange,
+    staticDateRange,
+  } = storage?.['plugin-task-list-filters'] || {}
 
   taskFilterWay && (localFilters.value.taskFilterWay = taskFilterWay)
+  dockCalendarDisplayMode &&
+    (localFilters.value.dockCalendarDisplayMode = dockCalendarDisplayMode)
   dateRangeFormat && (localFilters.value.dateRangeFormat = dateRangeFormat)
   dynamicDateRange && (localFilters.value.dynamicDateRange = dynamicDateRange)
   if (staticDateRange?.length) {
@@ -264,6 +295,7 @@ const setLocalStorageVal = async () => {
     key: 'plugin-task-list-filters',
     val: {
       taskFilterWay: localFilters.value.taskFilterWay,
+      dockCalendarDisplayMode: localFilters.value.dockCalendarDisplayMode,
       dateRangeFormat: localFilters.value.dateRangeFormat,
       dynamicDateRange: localFilters.value.dynamicDateRange || '',
       staticDateRange: localFilters.value.staticDateRange,

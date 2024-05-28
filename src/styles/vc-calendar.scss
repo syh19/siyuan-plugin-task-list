@@ -31,9 +31,61 @@
   }
 }
 
+/** dock栏中的日历样式 */
 .plugin-task-list-wrap {
-  .vc-container.vc-weekly {
+  .vc-container {
     border-bottom: none;
     border-radius: 0;
+  }
+
+  .vc-container .vc-pane-container {
+    .vc-pane-header-wrapper {
+      .vc-header {
+        margin-top: 0px;
+        button.vc-arrow {
+          scale: 0.7;
+        }
+      }
+    }
+    .vc-pane-layout {
+      .vc-header {
+        margin-top: 0px;
+        .vc-title-wrapper {
+          scale: 0.8;
+        }
+      }
+
+      .vc-weeks {
+        padding-top: 0px;
+        padding-bottom: 12px;
+        // 周一到周日那一行的样式
+        .vc-weekdays {
+          height: 20px;
+          .vc-weekday {
+            scale: 0.9;
+          }
+        }
+
+        // 下面的日期
+        .vc-week {
+          height: 20px;
+          margin-top: 6px;
+          .vc-day {
+            scale: 0.9;
+          }
+        }
+      }
+    }
+  }
+
+  // 月视图模式下隐藏最后一行没有日期的元素
+  .vc-container.vc-monthly {
+    .vc-pane-container {
+      .vc-pane-layout
+        .vc-weeks
+        .vc-week:last-child:has(.vc-day:first-child.is-not-in-month) {
+        display: none;
+      }
+    }
   }
 }
