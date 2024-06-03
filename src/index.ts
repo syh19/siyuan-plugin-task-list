@@ -6,6 +6,9 @@ import './utils/iconfont.js'
 import * as task from '../src/utils/handleTaskNode'
 import '@/utils/compatible'
 
+import { useGlobalStore } from './store/index'
+const globalStore = useGlobalStore()
+
 export default class TaskListPlugin extends Plugin {
   async onload() {
     console.log(
@@ -16,7 +19,11 @@ export default class TaskListPlugin extends Plugin {
     await addBtn.addDock()
     this.eventBus.on('switch-protyle', (e: any) => {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)
+
+      globalStore.setCurrentDocInfo(e.detail.protyle.block.rootID)
+
       utils.setCurrentBoxId(e.detail.protyle.notebookId)
+      globalStore.setCurrentBoxInfo(e.detail.protyle.notebookId)
       // utils.addOperationForTaskNode(e)
     })
 
@@ -32,7 +39,7 @@ export default class TaskListPlugin extends Plugin {
   }
 
   onLayoutReady(): void {
-    utils.setWorkSpaceName()
+    globalStore.setCurrentWorkSpaceName()
     console.log('当前APP对象：', this.app)
   }
 

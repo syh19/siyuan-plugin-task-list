@@ -111,12 +111,14 @@
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
             <span>{{ i18n.range.doc + ` (${docRangetaskCounter})` }}</span>
+            <span>{{ globalStore.currentDocInfo.name }}</span>
           </template>
         </el-tab-pane>
         <!-- 笔记本 -->
         <el-tab-pane name="box" :label="i18n.range.box">
           <template #label>
             <span>{{ i18n.range.box + ` (${boxRangetaskCounter})` }}</span>
+            <span>{{ globalStore.currentBoxInfo.name }}</span>
           </template>
         </el-tab-pane>
         <!-- 工作空间 -->
@@ -125,6 +127,7 @@
             <span>{{
               i18n.range.workspace + ` (${workBenchRangetaskCounter})`
             }}</span>
+            <span>{{ globalStore.currentWorkSpaceName }}</span>
           </template>
         </el-tab-pane>
       </el-tabs>
@@ -220,6 +223,9 @@ import infoCard from './infoCard/index'
 import { Calendar, DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
 import * as date from '../utils/date'
+
+import { useGlobalStore } from '../store/index'
+const globalStore = useGlobalStore()
 
 interface Tree {
   [key: string]: any
@@ -573,6 +579,8 @@ const defaultProps = {
 </script>
 
 <style lang="scss">
+@import '../styles/index.scss';
+
 #siyuan-plugin-task-list {
   .plugin-task-list-wrap {
     height: 100%;
@@ -635,9 +643,26 @@ const defaultProps = {
           // border-color: var(--tl-color-tabs-border);
           margin: 0px !important;
           .el-tabs__nav {
+            width: 100%;
             border-color: var(--tl-color-tabs-border);
             border-radius: 0px;
             .el-tabs__item {
+              padding: 0 5px;
+              display: flex;
+              flex-direction: column;
+              flex: 0 0 33.33%;
+              overflow: hidden;
+              span {
+                flex: 1;
+                min-width: 0; /* 确保子元素在容器变小时能收缩 */
+              }
+              span:nth-child(2) {
+                width: 100%;
+                color: gray;
+                font-size: 12px;
+                line-height: 12px;
+                @include text-ellipsis;
+              }
               border-color: var(--tl-color-tabs-border);
               color: var(--tl-color-text);
               &:hover {

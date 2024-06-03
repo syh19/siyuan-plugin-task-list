@@ -3,10 +3,16 @@ import App from '@/App.vue'
 import { createApp } from 'vue'
 import eventBus from '../utils/eventBus'
 
+import { createPinia } from 'pinia'
+
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 const app = () => createApp(App)
+
+const pinia = createPinia()
+app().use(pinia)
+
 // size 用于设置表单组件的默认尺寸，zIndex 用于设置弹出组件的层级，zIndex 的默认值为 2000。
 app().use(ElementPlus, { size: 'small', zIndex: 3000 })
 

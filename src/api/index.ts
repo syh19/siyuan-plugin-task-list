@@ -129,3 +129,23 @@ export async function setBlockAttrs(params: {
 // export async function getBlockAttrs(params: { id: string }): Promise<void> {
 //   await client.getBlockAttrs(params)
 // }
+
+/**
+ * 获取当前文档信息
+ * @param params
+ * @returns
+ */
+export async function getDocInfo(params: { id: string }): Promise<any> {
+  return await client.getDocInfo(params)
+}
+
+/**
+ * 获取当前笔记本信息
+ * @param params
+ * @returns
+ */
+export async function getNotebookConf(params: {
+  notebook: string
+}): Promise<any> {
+  return await client.getNotebookConf(params)
+}

@@ -47,14 +47,6 @@ export function setCurrentBoxId(_currentBoxId: string) {
   currentBoxId = _currentBoxId
 }
 
-/** 当前工作空间的名称 */
-export let workSpaceName: string
-export function setWorkSpaceName() {
-  workSpaceName = document
-    .getElementById('toolbar')
-    .querySelector('#barWorkspace .toolbar__text').innerHTML
-}
-
 /**
  * 将接口返回的数据转换为树形数据
  * @param sqlData 接口返回的数据

@@ -9,6 +9,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "make-link": "node  --no-warnings ./scripts/make_dev_link.js",
+    "start": "vite build --watch",
     "dev": "vite build --watch",
     "build": "vite build",
     "update": "pnpm update -L"
@@ -38,6 +39,7 @@
     "@popperjs/core": "^2.11.8",
     "@siyuan-community/siyuan-sdk": "^0.3.7",
     "element-plus": "^2.6.1",
+    "pinia": "^2.1.7",
     "pnpm": "^8.14.3",
     "v-calendar": "^3.1.2",
     "vue": "^3.4.15"
