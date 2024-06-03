@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.2.5
+
+> **2024-06-03**
+
+**Enhancement**
+
+- ✨✨✨ Dimension TAB supports displaying specific document, notebook, and workspace names
+
 ## v0.2.4
 
 > **2024-05-29**

@@ -111,14 +111,18 @@
         <el-tab-pane name="doc" :label="i18n.range.doc">
           <template #label>
             <span>{{ i18n.range.doc + ` (${docRangetaskCounter})` }}</span>
-            <span>{{ globalStore.currentDocInfo.name }}</span>
+            <span :title="globalStore.currentDocInfo.name">{{
+              globalStore.currentDocInfo.name
+            }}</span>
           </template>
         </el-tab-pane>
         <!-- 笔记本 -->
         <el-tab-pane name="box" :label="i18n.range.box">
           <template #label>
             <span>{{ i18n.range.box + ` (${boxRangetaskCounter})` }}</span>
-            <span>{{ globalStore.currentBoxInfo.name }}</span>
+            <span :title="globalStore.currentBoxInfo.name">{{
+              globalStore.currentBoxInfo.name
+            }}</span>
           </template>
         </el-tab-pane>
         <!-- 工作空间 -->
@@ -127,7 +131,9 @@
             <span>{{
               i18n.range.workspace + ` (${workBenchRangetaskCounter})`
             }}</span>
-            <span>{{ globalStore.currentWorkSpaceName }}</span>
+            <span :title="globalStore.currentWorkSpaceName">{{
+              globalStore.currentWorkSpaceName
+            }}</span>
           </template>
         </el-tab-pane>
       </el-tabs>
