@@ -646,6 +646,7 @@ const defaultProps = {
       .el-tabs {
         --el-tabs-header-height: 36px;
         .el-tabs__header {
+          z-index: 1;
           // border-color: var(--tl-color-tabs-border);
           margin: 0px !important;
           .el-tabs__nav {
