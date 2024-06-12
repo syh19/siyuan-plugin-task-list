@@ -1,14 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.2.5` change log
+# Latest version `v0.2.6` change log
 
-**Enhancement**
+**Bugfix**
 
-- `v.2..5` ✨✨✨ Dimension TAB supports displaying specific document, notebook, and workspace names
-- `v0.2.4` The calendar display mode in the dock bar supports choosing week view or month view
-- `v0.2.4` Reduce the size of the calendar in the dock bar to display more tasks
-- `v0.2.4` ✨✨✨ Mark the number of daily todo and done tasks in the calendar view in the dock bar
-- `v0.2.4` Documents, notebooks, and workspace TAB support simultaneously displaying the number of tasks in the current dimension
+- Fixed the issue where the TAB bar level is too high [#22](https://github.com/syh19/siyuan-plugin-task-list/issues/22)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

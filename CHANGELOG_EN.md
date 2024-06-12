@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.2.6
+
+> **2024-06-12**
+
+**Bugfix**
+
+- Fixed the issue where the TAB bar level is too high [#22](https://github.com/syh19/siyuan-plugin-task-list/issues/22)
+
 ## v0.2.5
 
 > **2024-06-03**
