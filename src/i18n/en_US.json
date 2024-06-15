@@ -20,7 +20,15 @@
     "box": "notebook",
     "workspace": "workspace"
   },
-  "emptyText": "Great, all tasks completed~",
+  "emptyText": {
+    "allNotebooksHidden": "You set the hidden scope of the task: all notebooks",
+    "currentNotebook": "You set the hidden scope of the task: current notebook",
+    "currentDoc": "You set the hidden scope of the task: current document or a document and its subdocuments",
+    "dateFilter": "You have filtered tasks: There are no tasks for the current date",
+    "statusFilter": "You have filtered tasks: There are no tasks in the current state",
+    "rangeStatus": "You have filtered tasks: There are no tasks in the current dimension",
+    "reallyNoTask": "Great, all tasks completed~"
+  },
   "setting": {
     "title": "SETTING",
     "cancel": "Cancel",
