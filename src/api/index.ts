@@ -55,9 +55,10 @@ export async function getTaskListBySql(
     stmt: stmtStr,
     // SELECT * FROM blocks WHERE type = 'i' AND subtype = 't' AND markdown LIKE '%[ ]%' AND root_id = 'xxx' AND box = 'xxx' ORDER BY created DESC LIMIT 1000
   })
-  let notebookRes = await client.lsNotebooks()
+  let notebooks: any = await lsNotebooks()
+  utils.setNotebooks(notebooks)
   let notebooksObj = {}
-  notebookRes.data.notebooks.forEach((item: any) => {
+  notebooks.forEach((item: any) => {
     notebooksObj[item.id] = item.name
   })
   taskRes.data.forEach((item: any) => {
@@ -148,4 +149,9 @@ export async function getNotebookConf(params: {
   notebook: string
 }): Promise<any> {
   return await client.getNotebookConf(params)
+}
+
+export async function lsNotebooks(): Promise<any> {
+  let notebookRes = await client.lsNotebooks()
+  return notebookRes.data.notebooks
 }
