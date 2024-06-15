@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## v0.2.8
+
+> **2024-06-15**
+
+**Bugfix**
+
+- Delete useless console logs
+- Fix the prompt when the task list is empty
+
 ## v0.2.7
 
 > **2024-06-15**

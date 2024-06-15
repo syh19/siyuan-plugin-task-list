@@ -1,6 +1,6 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.2.7` change log
+# Latest version `v0.2.8` change log
 
 **Enhancement**
 
