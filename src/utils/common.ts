@@ -205,6 +205,8 @@ export function convertToList(tree: any) {
   return list
 }
 
+export let taskEmptyReasonAfterFilter: string = ''
+
 /**
  * 获取任务列表
  * @param range {IRange} 模式：doc, box, workspace
@@ -237,6 +239,7 @@ export async function getTaskListForDisplay({
   })
 
   let taskList: any[] = formatSqlTaskList(res.data)
+  getDocPathForTasks(taskList)
 
   const { data: storage } = await API.getLocalStorage()
 
@@ -246,16 +249,28 @@ export async function getTaskListForDisplay({
   // 将任务放置在日历视图指定的日期上
   getEachDayTaskList(taskList)
 
+  const taskNumBeforeFilter: number = taskList.length
   // 根据日期范围进行过滤
   taskList = filterTaskListByDateRange(taskList, storage)
+  const taskNumAfterDateFilter: number = taskList.length
 
   // 根据状态过滤任务列表：todo / done / all
   taskList = filterTaskListByStatus(taskList, status)
+  const taskNumAfterStatusFilter: number = taskList.length
 
   getTaskCountsInThreeRanges(taskList)
 
   // 根据范围过滤任务列表：doc / box
   taskList = filterTaskListByRange(taskList, range)
+
+  const taskNumAfterRangeFilter: number = taskList.length
+
+  taskEmptyReasonAfterFilter = getTaskEmptyReasonAfterFilter({
+    before: taskNumBeforeFilter,
+    afterDate: taskNumAfterDateFilter,
+    afterStatus: taskNumAfterStatusFilter,
+    afterRange: taskNumAfterRangeFilter,
+  })
 
   let treeData = convertSqlToTree(taskList)
 
@@ -289,6 +304,43 @@ export async function getTaskListForDisplay({
     storage?.['plugin-task-list-settings']?.['taskSortBy'] || 'createdAsc'
   )
   return treeData
+}
+
+function getTaskEmptyReasonAfterFilter({
+  before,
+  afterDate,
+  afterStatus,
+  afterRange,
+}: {
+  before: number
+  afterDate: number
+  afterStatus: number
+  afterRange: number
+}) {
+  if (before === 0) {
+    return i18n.emptyText.reallyNoTask
+  } else if (afterDate === 0) {
+    return i18n.emptyText.dateFilter
+  } else if (afterStatus === 0) {
+    return i18n.emptyText.statusFilter
+  } else if (afterRange === 0) {
+    return i18n.emptyText.rangeStatus
+  } else {
+    return i18n.emptyText.reallyNoTask
+  }
+}
+/** 根据所有任务的SQL列表获取去重后的文档全路径 */
+export let docPathSet: any = null
+function getDocPathForTasks(sqlTaskList: any[]) {
+  const docPathList: string[] = sqlTaskList.map((item: any) => {
+    return item.box + item.path
+  })
+  docPathSet = new Set(docPathList)
+}
+
+export let notebooks: any[] = []
+export function setNotebooks(val: any[]) {
+  notebooks = val
 }
 
 function formatSqlTaskList(sqlTaskList: any[]) {

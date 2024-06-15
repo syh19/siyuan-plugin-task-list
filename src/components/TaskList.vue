@@ -143,7 +143,7 @@
     <el-tree
       :data="treeData"
       ref="treeRef"
-      :empty-text="i18n.emptyText"
+      :empty-text="emptyText"
       highlight-current
       :filter-node-method="filterTreeNode"
       :props="defaultProps"
@@ -375,6 +375,9 @@ const refreshData = async () => {
   nextTick(() => {
     toggleExpand(isExpand.value)
   })
+
+  const { data: storage } = await API.getLocalStorage()
+  getEmptyReason(storage)
 }
 
 const taskCountForEachBox = ref<any>({})
@@ -455,6 +458,58 @@ const isHideBadge = ref<boolean>(true)
 const initTaskRangeTab = (storage: any) => {
   const currentTab: IRange = storage['plugin-task-list-taskRangeTabClicked']
   currentTab && (range.value = currentTab)
+}
+
+const emptyText = ref<string>('')
+const getEmptyReason = async (storage: any) => {
+  const hideList = storage['plugin-task-list-settings']['nodeListForHideTask']
+  // 隐藏了整个工作空间的所有笔记本
+  let notebooks = await API.lsNotebooks()
+  let notebooksOpened: any[] = notebooks.filter(
+    (notebook: any) => !notebook.closed
+  )
+
+  let isAllNotebookHidden: boolean = notebooksOpened.every((notebook: any) => {
+    if (
+      hideList.find(
+        (item: any) => item.type === 'box' && item.key === notebook.id
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
+  })
+  if (isAllNotebookHidden) {
+    emptyText.value = i18n.emptyText.allNotebooksHidden
+    return
+  }
+
+  for (let item of hideList) {
+    if (item.type === 'box' && utils.currentBoxId === item.key) {
+      emptyText.value = i18n.emptyText.currentNotebook
+      return
+    }
+  }
+
+  for (let item of hideList) {
+    if (item.type === 'doc') {
+      console.log('sldfjlsdf ', utils.docPathSet)
+      for (let docPath of utils.docPathSet) {
+        const hideDocPathIndex: number = docPath.indexOf(item.key)
+        const currentDocPathIndex: number = docPath.indexOf(utils.currentDocId)
+        console.log('sldfjlsdf ', item.key, utils.currentDocId)
+        if (hideDocPathIndex !== -1 && currentDocPathIndex !== -1) {
+          if (currentDocPathIndex >= hideDocPathIndex) {
+            emptyText.value = i18n.emptyText.currentDoc
+            return
+          }
+        }
+      }
+    }
+  }
+
+  emptyText.value = utils.taskEmptyReasonAfterFilter
 }
 
 const dockCalendarDisplayMode = ref<'weekly' | 'monthly'>('weekly')

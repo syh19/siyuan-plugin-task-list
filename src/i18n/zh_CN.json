@@ -20,7 +20,15 @@
     "box": "笔记本",
     "workspace": "工作空间"
   },
-  "emptyText": "太棒了，所有任务都完成了~",
+  "emptyText": {
+    "allNotebooksHidden": "您在设置了任务的隐藏范围：所有笔记本",
+    "currentNotebook": "您在设置了任务的隐藏范围：当前笔记本",
+    "currentDoc": "您在设置了任务的隐藏范围：当前文档或者文档及其子文档",
+    "dateFilter": "您对任务进行了过滤：当前日期下无任务",
+    "statusFilter": "您对任务进行了过滤：当前状态下无任务",
+    "rangeStatus": "您对任务进行了过滤：当前维度下无任务",
+    "reallyNoTask": "太棒了，所有任务都完成了~"
+  },
   "setting": {
     "title": "设置",
     "cancel": "取消",
