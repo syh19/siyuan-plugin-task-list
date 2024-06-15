@@ -8,7 +8,7 @@
       check-strictly
       :default-expand-all="defaultExpandAll"
       :show-checkbox="false"
-      :empty-text="i18n.emptyText"
+      :empty-text="i18n.docTreeEmptyText"
       highlight-current
       :filter-node-method="filterTreeNode"
       :props="defaultProps"

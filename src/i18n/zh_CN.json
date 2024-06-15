@@ -20,6 +20,7 @@
     "box": "笔记本",
     "workspace": "工作空间"
   },
+  "docTreeEmptyText": "您没有创建任何任务",
   "emptyText": {
     "allNotebooksHidden": "您设置了任务的隐藏范围：所有笔记本",
     "currentNotebook": "您设置了任务的隐藏范围：当前笔记本",
