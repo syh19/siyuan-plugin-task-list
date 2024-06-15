@@ -1,5 +1,23 @@
 # CHANGE LOG
 
+## v0.2.7
+
+> **2024-06-15**
+
+**Enhancement**
+
+- Optimize the prompt when the task list is empty
+  - You set the hidden scope of the task: all notebooks
+  - You set the hidden scope of the task: current notebook
+  - You set the hidden scope of the task: current document or a document and its subdocuments
+  - You have filtered tasks: There are no tasks for the current date
+  - You have filtered tasks: There are no tasks in the current state
+  - You have filtered tasks: There are no tasks in the current dimension
+
+**Bugfix**
+
+- Get the task list data of the document in time during initialization [#23](https://github.com/syh19/siyuan-plugin-task-list/issues/23)
+
 ## v0.2.6
 
 > **2024-06-12**

@@ -1,10 +1,20 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.2.6`更新记录
+# 最新版本`v0.2.7`更新记录
+
+**改进功能**
+
+- 优化任务列表为空的提示语
+  - 您在设置了任务的隐藏范围：所有笔记本
+  - 您在设置了任务的隐藏范围：当前笔记本
+  - 您在设置了任务的隐藏范围：当前文档或者文档及其子文档
+  - 您对任务进行了过滤：当前日期下无任务
+  - 您对任务进行了过滤：当前状态下无任务
+  - 您对任务进行了过滤：当前维度下无任务
 
 **修复缺陷**
 
-- 修复 TAB 选项层级过高的问题 [#22](https://github.com/syh19/siyuan-plugin-task-list/issues/22)
+- 初始化时及时获取文档的任务列表数据 [#23](https://github.com/syh19/siyuan-plugin-task-list/issues/23)
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
@@ -61,3 +71,9 @@
 - [思源笔记官方网站](https://b3log.org/siyuan/)
 - [链滴社区-思源笔记版块](https://ld246.com/tag/siyuan)
 - [仓库地址](https://github.com/syh19/siyuan-plugin-task-list)
+
+# 捐赠
+
+希望本插件能够对您有所帮助，如果您喜欢本插件的话，欢迎充电支持，万分感谢。
+
+<img src="https://xhir-website-blog.oss-cn-beijing.aliyuncs.com/picgo/donate-QR-code.jpg" style="width:90%" align="center" alt="">

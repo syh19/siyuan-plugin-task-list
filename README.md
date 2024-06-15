@@ -1,10 +1,20 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.2.6` change log
+# Latest version `v0.2.7` change log
+
+**Enhancement**
+
+- Optimize the prompt when the task list is empty
+  - You set the hidden scope of the task: all notebooks
+  - You set the hidden scope of the task: current notebook
+  - You set the hidden scope of the task: current document or a document and its subdocuments
+  - You have filtered tasks: There are no tasks for the current date
+  - You have filtered tasks: There are no tasks in the current state
+  - You have filtered tasks: There are no tasks in the current dimension
 
 **Bugfix**
 
-- Fixed the issue where the TAB bar level is too high [#22](https://github.com/syh19/siyuan-plugin-task-list/issues/22)
+- Get the task list data of the document in time during initialization [#23](https://github.com/syh19/siyuan-plugin-task-list/issues/23)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
@@ -59,3 +69,9 @@ This plug-in uses `Vue3` and `Element Plus` to realize the drawing of `UI Layout
 - [Siyuan Notes official website](https://b3log.org/siyuan/en/?lang=en)
 - [SiYuan English Discussion Forum](https://liuyun.io/)
 - [Github Repository Address](https://github.com/syh19/siyuan-plugin-task-list)
+
+# Donate
+
+I hope this plug-in can be helpful to you. If you like this plug-in, please support me. Thank you very much.
+
+<img src="https://xhir-website-blog.oss-cn-beijing.aliyuncs.com/picgo/donate-QR-code.jpg" style="width:90%" align="center" alt="">
