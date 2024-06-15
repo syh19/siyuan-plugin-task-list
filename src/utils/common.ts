@@ -56,17 +56,8 @@ export function convertSqlToTree(sqlData: any) {
   const tree = []
   // 递归函数，将数组转换为树形结构
   function convertToTreeNode(sqlItem: any) {
-    const {
-      box,
-      boxName,
-      hpath,
-      id,
-      fcontent,
-      parent_id,
-      path,
-      markdown,
-      ...otherAttr
-    } = sqlItem
+    const { box, boxName, id, fcontent, parent_id, markdown, ...otherAttr } =
+      sqlItem
 
     // 查找或创建box节点
     let boxNode = tree.find(
@@ -83,20 +74,20 @@ export function convertSqlToTree(sqlData: any) {
     }
 
     // 根据path拆分成数组
-    const pathParts = path.slice(1, -3).split('/').filter(Boolean)
-    const hpathParts = hpath.slice(1).split('/').filter(Boolean)
+    const pathParts = sqlItem.path.slice(1, -3).split('/').filter(Boolean)
+    const hpathParts = sqlItem.hpath.slice(1).split('/').filter(Boolean)
 
     // 查找或创建doc节点
     let parentNode = boxNode
-    pathParts.forEach((path: any, index: number) => {
+    pathParts.forEach((innerPath: string, index: number) => {
       let docNode = parentNode.children.find(
-        (node: any) => node.type === 'doc' && node.key === path
+        (node: any) => node.type === 'doc' && node.key === innerPath
       )
       if (!docNode) {
         docNode = {
           type: 'doc',
           label: hpathParts[index],
-          key: path,
+          key: innerPath,
           children: [],
         }
         parentNode.children.push(docNode)
@@ -114,7 +105,7 @@ export function convertSqlToTree(sqlData: any) {
       key: id,
       pathList: pathParts.map((doc: any, index: number) => ({
         label: hpathParts[index],
-        key: path,
+        key: sqlItem.path,
       })),
       children: null,
     }
@@ -249,6 +240,7 @@ export async function getTaskListForDisplay({
 
   const { data: storage } = await API.getLocalStorage()
 
+  // 根据隐藏节点情况对任务进行隐藏
   taskList = await filterTaskListByHidden(taskList, storage)
 
   // 将任务放置在日历视图指定的日期上
