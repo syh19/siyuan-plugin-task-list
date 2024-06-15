@@ -465,6 +465,7 @@ const initConfig = async () => {
   const { data: storage } = await API.getLocalStorage()
   // 初始化展示哪个维度的TAB
   initTaskRangeTab(storage)
+  refreshData()
 
   const taskFilterWay: string =
     storage['plugin-task-list-filters']?.['taskFilterWay']
@@ -519,7 +520,10 @@ watch(
   { immediate: false }
 )
 
-refreshData()
+// 刷新数据
+// setTimeout(() => {
+//   refreshData()
+// })
 
 /**
  * 打开文档并滚动到指定任务节点

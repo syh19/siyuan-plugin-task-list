@@ -37,7 +37,10 @@ export async function addDock() {
       // 添加id
       this.element.id = 'siyuan-plugin-task-list'
       this.element.style.height = '100%'
-      app().mount(this.element)
+      // 由于本插件依赖于当前编辑区中的文档，所以等到编辑区加载完毕后再初始化组件
+      setTimeout(() => {
+        app().mount(this.element)
+      }, 100)
     },
     destroy() {
       console.log('destroy dock: dock_tab')

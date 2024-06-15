@@ -17,6 +17,9 @@ export default class TaskListPlugin extends Plugin {
     )
     this.init()
     await addBtn.addDock()
+    this.eventBus.on('loaded-protyle-static', (e: any) => {
+      utils.setCurrentDocId(e.detail.protyle.block.rootID)
+    })
     this.eventBus.on('switch-protyle', (e: any) => {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)
 
