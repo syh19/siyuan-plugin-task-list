@@ -43,7 +43,7 @@ export default class TaskListPlugin extends Plugin {
 
   onLayoutReady(): void {
     globalStore.setCurrentWorkSpaceName()
-    console.log('当前APP对象：', this.app)
+    // console.log('当前APP对象：', this.app)
   }
 
   onunload() {

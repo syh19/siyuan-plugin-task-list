@@ -43,7 +43,7 @@ export async function addDock() {
       }, 100)
     },
     destroy() {
-      console.log('destroy dock: dock_tab')
+      // console.log('destroy dock: dock_tab')
     },
   })
 }

@@ -18,8 +18,8 @@ const isWatch = args.watch || args.w || false
 const devDistDir = './dev'
 const distDir = isWatch ? devDistDir : './dist'
 
-console.log('isWatch=>', isWatch)
-console.log('distDir=>', distDir)
+// console.log('isWatch=>', isWatch)
+// console.log('distDir=>', distDir)
 
 export default defineConfig({
   resolve: {

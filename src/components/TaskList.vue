@@ -494,11 +494,9 @@ const getEmptyReason = async (storage: any) => {
 
   for (let item of hideList) {
     if (item.type === 'doc') {
-      console.log('sldfjlsdf ', utils.docPathSet)
       for (let docPath of utils.docPathSet) {
         const hideDocPathIndex: number = docPath.indexOf(item.key)
         const currentDocPathIndex: number = docPath.indexOf(utils.currentDocId)
-        console.log('sldfjlsdf ', item.key, utils.currentDocId)
         if (hideDocPathIndex !== -1 && currentDocPathIndex !== -1) {
           if (currentDocPathIndex >= hideDocPathIndex) {
             emptyText.value = i18n.emptyText.currentDoc
