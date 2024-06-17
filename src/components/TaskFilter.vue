@@ -160,6 +160,7 @@ import 'v-calendar/style.css'
 import { i18n } from '../utils/common'
 import * as API from '../api'
 import * as date from '../utils/date'
+import { useDatePicker } from '../hooks/useDatePicker'
 
 interface Props {
   visible: boolean
@@ -176,12 +177,7 @@ const datePickerPopover = ref({
   placement: 'right',
 })
 
-const datePickerAttributes = ref([{ dates: new Date(), dot: true }])
-const datePickerLocale = ref({
-  id: i18n.language === 'English' ? 'en' : 'cn',
-  firstDayOfWeek: 2,
-  masks: { weekdays: 'WWW' },
-})
+const { datePickerLocale, datePickerAttributes } = useDatePicker('dateFilter')
 
 let dateRange = ref<any>({
   start: new Date(),

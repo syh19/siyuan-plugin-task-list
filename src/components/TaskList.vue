@@ -229,6 +229,7 @@ import infoCard from './infoCard/index'
 import { Calendar, DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
 import * as date from '../utils/date'
+import { useDatePicker } from '../hooks/useDatePicker'
 
 import { useGlobalStore } from '../store/index'
 const globalStore = useGlobalStore()
@@ -245,20 +246,6 @@ const dateChanged = (e: Date) => {
   e && (dateParam = date.formatDate(e))
   eventBus.emit('weekly-date-clicked', dateParam)
   refreshData()
-}
-
-const handleDayMouseEnter = (day: any) => {
-  const todoTaskNumInCurrentDay = datePickerAttributes.value[0].dateNumMap.get(
-    day.id
-  )
-  const doneTaskNumInCurrentDay = datePickerAttributes.value[1].dateNumMap.get(
-    day.id
-  )
-
-  datePickerAttributes.value[0].popover.label =
-    i18n.dockCalendar.todoTaskNumPopover + todoTaskNumInCurrentDay
-  datePickerAttributes.value[1].popover.label =
-    i18n.dockCalendar.doneTaskNumPopover + doneTaskNumInCurrentDay
 }
 
 let isTaskFilterDialogVisible = ref<boolean>(false)
@@ -300,30 +287,12 @@ const taskStatusMap = ref<any>({
   all: i18n.taskStatus.all,
 })
 
-const datePickerLocale = ref({
-  id: i18n.language === 'English' ? 'en' : 'cn',
-  firstDayOfWeek: 2,
-  masks: { weekdays: 'WWW' },
-})
-const datePickerAttributes = ref([])
+const { datePickerLocale, datePickerAttributes, handleDayMouseEnter } =
+  useDatePicker('taskList')
+
 const handleMouseEnter = (e: any, data: any) => {
   infoCard.update(data, e.target)
 }
-
-const updateDateTask = () => {
-  eventBus.on('each-day-task-list-changed', (e: any) => {
-    datePickerAttributes.value = [
-      e.todoTaskPopover,
-      e.doneTaskPopover,
-      // 今天的日期样式
-      {
-        content: 'blue',
-        dates: new Date(),
-      },
-    ]
-  })
-}
-updateDateTask()
 
 /** 高亮搜索的关键字 */
 const handleHighLightSearchText = (text: string) => {

@@ -39,6 +39,7 @@ import { i18n } from '../utils/common'
 import * as API from '../api'
 import * as func from '../utils/func'
 import * as date from '../utils/date'
+import { useDatePicker } from '../hooks/useDatePicker'
 
 interface Props {
   visible: boolean
@@ -80,31 +81,13 @@ const getTaskNodeInfo = async () => {
   handleDateAttr.dates = new Date(handleAt)
 }
 
-const datePickerAttributes = ref([
-  {
-    key: 'today',
-    dot: true,
-    // highlight: false,
-    dates: new Date(),
-  },
-  {
-    key: 'handleDate',
-    highlight: {
-      style: 'background-color: var(--tl-color-todo-icon)',
-    },
-    dates: new Date(),
-  },
-])
-
-const datePickerLocale = ref({
-  id: i18n.language === 'English' ? 'en' : 'cn',
-  firstDayOfWeek: 2,
-  masks: { weekdays: 'WWW' },
-})
+const { datePickerLocale, datePickerAttributes } =
+  useDatePicker('addHandleDate')
 
 const handleDate = ref<Date>(new Date())
 
 const dateChanged = (e: Date) => {
+  // #syh-info hooks中是共用同一个属性值
   const handleDateAttr: any = datePickerAttributes.value.find(
     (item: any) => item.key === 'handleDate'
   )
