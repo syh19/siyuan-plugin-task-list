@@ -151,10 +151,7 @@
       @node-contextmenu="handleNodeContextMenu"
     >
       <template #default="{ node, data }">
-        <div
-          class="custom-tree-node icon-label-wrap"
-          @mouseenter="handleMouseEnter($event, data)"
-        >
+        <div class="custom-tree-node icon-label-wrap">
           <svg
             v-if="data.type === 'box'"
             class="icon icon-box"
@@ -175,8 +172,7 @@
             class="icon icon-todo"
             aria-hidden="true"
             @click.stop="changeTaskHandleDate(data)"
-            @mouseenter="data.todoIcon = '#icon-handle'"
-            @mouseleave="data.todoIcon = '#icon-time-circle-fill'"
+            @mouseenter="handleMouseEnter($event, data)"
           >
             <use :xlink:href="data.todoIcon || '#icon-time-circle-fill'"></use>
           </svg>
@@ -773,6 +769,9 @@ const defaultProps = {
       }
 
       .el-tree-node {
+        svg.icon {
+          height: 100%;
+        }
         &.tree-dir-node.is-current {
           .el-tree-node__content {
             background-color: transparent !important;
