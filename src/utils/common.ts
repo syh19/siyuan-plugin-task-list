@@ -358,6 +358,10 @@ function formatSqlTaskList(sqlTaskList: any[]) {
         func.parseStringToKeyValuePairs(item.ial)[
           'custom-plugin-task-list-handleAt'
         ] || item.created,
+      topNum:
+        +func.parseStringToKeyValuePairs(item.ial)[
+          'custom-plugin-task-list-top-num'
+        ] || 0,
     }
   })
 }

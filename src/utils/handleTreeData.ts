@@ -143,26 +143,29 @@ export const handleTreeDataWithoutTaskNode = (
 
 /** 节点的排序方法 */
 const sortNodeMethod = (a: any, b: any, sortBy: string) => {
+  // const taskTopSorted: number = a.topNum - b.topNum
+  let sortRes: number = 0
   // 根据sortBy进行排序，有创建时间、更新时间、完成时间等
   if (['createdDesc', 'createdAsc'].includes(sortBy)) {
     if (sortBy === 'createdDesc') {
-      return b.created - a.created
+      sortRes = b.created - a.created
     } else {
-      return a.created - b.created
+      sortRes = a.created - b.created
     }
   } else if (['updatedDesc', 'updatedAsc'].includes(sortBy)) {
     if (sortBy === 'updatedDesc') {
-      return b.updated - a.updated
+      sortRes = b.updated - a.updated
     } else {
-      return a.updated - b.updated
+      sortRes = a.updated - b.updated
     }
   } else if (['finishedDesc', 'finishedAsc'].includes(sortBy)) {
     if (sortBy === 'finishedDesc') {
-      return b.finished - a.finished
+      sortRes = b.finished - a.finished
     } else {
-      return a.finished - b.finished
+      sortRes = a.finished - b.finished
     }
   }
+  return sortRes
 }
 
 /** 判断某个节点下是否有任务节点 */

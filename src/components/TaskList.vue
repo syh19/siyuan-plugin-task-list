@@ -148,6 +148,7 @@
       :filter-node-method="filterTreeNode"
       :props="defaultProps"
       @node-click="handleNodeClick"
+      @node-contextmenu="handleNodeContextMenu"
     >
       <template #default="{ node, data }">
         <div
@@ -213,7 +214,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, watch } from 'vue'
+import { ref, nextTick, watch, h } from 'vue'
 // import { toRaw } from '@vue/reactivity'
 import * as utils from '../utils/common'
 import { i18n } from '../utils/common'
@@ -223,6 +224,7 @@ import type { IRange } from '../types/index'
 import { ElTree, ElInput } from 'element-plus'
 import Setting from './Setting.vue'
 import TaskFilter from './TaskFilter.vue'
+import SetTaskNodeTop from './taskMain/SetTaskNodeTop.vue'
 import eventBus from '../utils/eventBus'
 import * as treeFn from '../utils/handleTreeData'
 import infoCard from './infoCard/index'
@@ -230,6 +232,8 @@ import { Calendar, DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
 import * as date from '../utils/date'
 import { useDatePicker } from '../hooks/useDatePicker'
+import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
+import ContextMenu from '@imengyu/vue3-context-menu'
 
 import { useGlobalStore } from '../store/index'
 const globalStore = useGlobalStore()
@@ -596,6 +600,49 @@ const handleNodeClick = async (data: Tree) => {
     openDocAndScrollTaskNode(data.root_id, data.key)
   }
 }
+
+const handleNodeContextMenu = async (e: any, data: any) => {
+  taskNodeTopNum.value = data.topNum
+
+  e.preventDefault()
+  ContextMenu.showContextMenu({
+    x: e.x,
+    y: e.y,
+    items: [
+      {
+        label: '添加任务处理时间',
+        onClick: () => {
+          changeTaskHandleDate(data)
+        },
+      },
+      {
+        label: h(SetTaskNodeTop, {
+          num: taskNodeTopNum.value,
+          onChange(e: number) {
+            taskNodeTopNum.value = e
+          },
+        }),
+        onClick: () => {
+          setTaskNodeTopNum(data.key, taskNodeTopNum.value)
+        },
+      },
+    ],
+  })
+}
+
+const setTaskNodeTopNum = async (blockId: string, topNum: number) => {
+  return await API.setBlockAttrs({
+    id: blockId,
+    attrs: {
+      'custom-plugin-task-list-top-num': topNum === 0 ? '' : topNum + '',
+    },
+  }).then(() => {
+    refreshData()
+  })
+}
+
+/** 任务节点置顶的值 */
+const taskNodeTopNum = ref<number>(0)
 
 const defaultProps = {
   children: 'children',
