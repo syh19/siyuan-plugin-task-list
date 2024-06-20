@@ -360,7 +360,7 @@ function formatSqlTaskList(sqlTaskList: any[]) {
         ] || item.created,
       topNum:
         +func.parseStringToKeyValuePairs(item.ial)[
-          'custom-plugin-task-list-top-num'
+          'custom-plugin-task-list-top-priority'
         ] || 0,
     }
   })

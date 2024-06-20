@@ -652,7 +652,7 @@ const setTaskNodeTopNum = async (blockId: string, topNum: number) => {
   return await API.setBlockAttrs({
     id: blockId,
     attrs: {
-      'custom-plugin-task-list-top-num': topNum === 0 ? '' : topNum + '',
+      'custom-plugin-task-list-top-priority': topNum === 0 ? '' : topNum + '',
     },
   }).then(() => {
     // 需要延时刷新数据，因为setBlockAttrs接口写入数据后更新没那么快
