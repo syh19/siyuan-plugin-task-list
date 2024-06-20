@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.3.1
+
+> **2024-06-21**
+
+**Enhancement**
+
+- Modify the custom attribute name on top in time before going online.
+
 ## v0.3.0
 
 > **2024-06-21**
