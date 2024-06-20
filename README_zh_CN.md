@@ -1,20 +1,14 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.2.8`更新记录
+# 最新版本`v0.3.0`更新记录
 
 **改进功能**
 
-- 优化任务列表为空的提示语
-  - 您设置了任务的隐藏范围：所有笔记本
-  - 您设置了任务的隐藏范围：当前笔记本
-  - 您设置了任务的隐藏范围：当前文档或者文档及其子文档
-  - 您对任务进行了过滤：当前日期下无任务
-  - 您对任务进行了过滤：当前状态下无任务
-  - 您对任务进行了过滤：当前维度下无任务
-
-**修复缺陷**
-
-- 初始化时及时获取文档的任务列表数据 [#23](https://github.com/syh19/siyuan-plugin-task-list/issues/23)
+- ✨✨✨ `dock`栏中任务列表支持右键菜单
+- ✨✨✨ 新增任务置顶功能 [#21](https://github.com/syh19/siyuan-plugin-task-list/issues/21)
+- 将【添加任务处理时间】移动到右键菜单
+- 将信息卡片的触发区域收缩至图标自身
+- 优化`dock`栏中列表的高度
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

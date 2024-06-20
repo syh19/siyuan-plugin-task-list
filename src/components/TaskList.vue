@@ -604,30 +604,45 @@ const handleNodeClick = async (data: Tree) => {
 
 const handleNodeContextMenu = async (e: any, data: any) => {
   taskNodeTopNum.value = data.topNum
+  console.log('哈哈哈哈哈', data)
+  let options: any = []
+  /** 置顶功能操作项 */
+  const setTaskNodeTopOption: any = {
+    label: h(SetTaskNodeTop, {
+      num: taskNodeTopNum.value,
+      onChange(e: number) {
+        taskNodeTopNum.value = e
+      },
+    }),
+    onClick: () => {
+      setTaskNodeTopNum(data.key, taskNodeTopNum.value)
+    },
+  }
+  if (data.type !== 'task') {
+    return
+  } else {
+    if (data.status === 'todo') {
+      options = [
+        {
+          label: i18n.addHandleDate,
+          icon: 'icon-task-green',
+          onClick: () => {
+            changeTaskHandleDate(data)
+          },
+        },
+        setTaskNodeTopOption,
+      ]
+    } else {
+      options = [setTaskNodeTopOption]
+    }
+  }
 
   e.preventDefault()
   ContextMenu.showContextMenu({
     x: e.x,
     y: e.y,
-    items: [
-      {
-        label: '添加任务处理时间',
-        onClick: () => {
-          changeTaskHandleDate(data)
-        },
-      },
-      {
-        label: h(SetTaskNodeTop, {
-          num: taskNodeTopNum.value,
-          onChange(e: number) {
-            taskNodeTopNum.value = e
-          },
-        }),
-        onClick: () => {
-          setTaskNodeTopNum(data.key, taskNodeTopNum.value)
-        },
-      },
-    ],
+    items: options,
+    theme: 'mac',
   })
 }
 

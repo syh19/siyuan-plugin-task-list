@@ -87,5 +87,6 @@
   },
   "addHandleDate": "添加任务处理时间",
   "cancel": "取消",
-  "confirm": "确认"
+  "confirm": "确认",
+  "top": "置顶"
 }

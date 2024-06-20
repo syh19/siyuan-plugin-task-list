@@ -1,20 +1,14 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.2.8` change log
+# Latest version `v0.3.0` change log
 
 **Enhancement**
 
-- Optimize the prompt when the task list is empty
-  - You set the hidden scope of the task: all notebooks
-  - You set the hidden scope of the task: current notebook
-  - You set the hidden scope of the task: current document or a document and its subdocuments
-  - You have filtered tasks: There are no tasks for the current date
-  - You have filtered tasks: There are no tasks in the current state
-  - You have filtered tasks: There are no tasks in the current dimension
-
-**Bugfix**
-
-- Get the task list data of the document in time during initialization [#23](https://github.com/syh19/siyuan-plugin-task-list/issues/23)
+- ✨✨✨ The task list in the `dock` bar supports right-click menu.
+- ✨✨✨ Added task pin function. [#21](https://github.com/syh19/siyuan-plugin-task-list/issues/21)
+- Move [add task handle date] to the right-click menu.
+- Shrink the trigger area of ​​the information card to the icon itself.
+- Optimize the height of the list in the `dock` bar.
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

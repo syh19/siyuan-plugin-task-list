@@ -87,5 +87,6 @@
   },
   "addHandleDate": "add task handle date",
   "cancel": "Cancel",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "top": "sticky on top"
 }

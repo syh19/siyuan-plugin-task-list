@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+## v0.3.0
+
+> **2024-06-21**
+
+**Enhancement**
+
+- ✨✨✨ The task list in the `dock` bar supports right-click menu.
+- ✨✨✨ Added task pin function. [#21](https://github.com/syh19/siyuan-plugin-task-list/issues/21)
+- Move [add task handle date] to the right-click menu.
+- Shrink the trigger area of ​​the information card to the icon itself.
+- Optimize the height of the list in the `dock` bar.
+
 ## v0.2.8
 
 > **2024-06-15**
