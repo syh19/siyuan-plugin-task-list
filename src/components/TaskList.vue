@@ -823,8 +823,11 @@ const defaultProps = {
         }
       }
     }
-    &:has(.vc-container) .el-tree {
-      height: calc(100% - 214px);
+    &:has(.vc-container.vc-weekly) .el-tree {
+      height: calc(100% - 192px);
+    }
+    &:has(.vc-container.vc-monthly) .el-tree {
+      height: calc(100% - 296px);
     }
   }
 }
