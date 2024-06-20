@@ -152,6 +152,11 @@
     >
       <template #default="{ node, data }">
         <div class="custom-tree-node icon-label-wrap">
+          <div v-show="data.topNum" class="top-triangle">
+            <svg class="icon top-pin" aria-hidden="true">
+              <use xlink:href="#iconPin"></use>
+            </svg>
+          </div>
           <svg
             v-if="data.type === 'box'"
             class="icon icon-box"
@@ -174,7 +179,7 @@
             @click.stop="changeTaskHandleDate(data)"
             @mouseenter="handleMouseEnter($event, data)"
           >
-            <use :xlink:href="data.todoIcon || '#icon-time-circle-fill'"></use>
+            <use xlink:href="#icon-time-circle-fill"></use>
           </svg>
           <svg
             v-else-if="data.status === 'done'"
@@ -633,7 +638,10 @@ const setTaskNodeTopNum = async (blockId: string, topNum: number) => {
       'custom-plugin-task-list-top-num': topNum === 0 ? '' : topNum + '',
     },
   }).then(() => {
-    refreshData()
+    // 需要延时刷新数据，因为setBlockAttrs接口写入数据后更新没那么快
+    setTimeout(() => {
+      refreshData()
+    }, 1800)
   })
 }
 
@@ -790,8 +798,27 @@ const defaultProps = {
             background-color: var(--tl-color-hover-bg);
           }
           div.custom-tree-node {
-            width: calc(100% - 20px);
+            width: calc(100% - 24px);
             height: 100%;
+            position: relative;
+
+            .top-triangle {
+              border-color: #999 #999 transparent transparent;
+              border-style: solid;
+              border-width: 9px 12px;
+              right: 0;
+              position: absolute;
+              top: 0;
+            }
+
+            .top-pin {
+              position: absolute;
+              height: 10px;
+              left: -4px;
+              top: -8px;
+              color: #fff;
+              transform: rotate(305deg);
+            }
           }
         }
       }

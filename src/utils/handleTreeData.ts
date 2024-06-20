@@ -141,6 +141,30 @@ export const handleTreeDataWithoutTaskNode = (
   return treeData
 }
 
+/**
+ * 额外的置顶排序
+ * @param a
+ * @param b
+ * @param sortBy
+ * @param isDesc
+ * @returns
+ */
+const sortByTopNum = (a: any, b: any, sortBy: string, isDesc: boolean) => {
+  if (a.topNum > 0 && b.topNum > 0) {
+    return b.topNum - a.topNum // topNum 大的置顶
+  } else if (a.topNum > 0) {
+    return -1 // a 置顶
+  } else if (b.topNum > 0) {
+    return 1 // b 置顶
+  } else {
+    if (isDesc) {
+      return b[sortBy] - a[sortBy]
+    } else {
+      return a[sortBy] - b[sortBy]
+    }
+  }
+}
+
 /** 节点的排序方法 */
 const sortNodeMethod = (a: any, b: any, sortBy: string) => {
   // const taskTopSorted: number = a.topNum - b.topNum
@@ -148,21 +172,21 @@ const sortNodeMethod = (a: any, b: any, sortBy: string) => {
   // 根据sortBy进行排序，有创建时间、更新时间、完成时间等
   if (['createdDesc', 'createdAsc'].includes(sortBy)) {
     if (sortBy === 'createdDesc') {
-      sortRes = b.created - a.created
+      sortRes = sortByTopNum(a, b, 'created', true)
     } else {
-      sortRes = a.created - b.created
+      sortRes = sortByTopNum(a, b, 'created', false)
     }
   } else if (['updatedDesc', 'updatedAsc'].includes(sortBy)) {
     if (sortBy === 'updatedDesc') {
-      sortRes = b.updated - a.updated
+      sortRes = sortByTopNum(a, b, 'updated', true)
     } else {
-      sortRes = a.updated - b.updated
+      sortRes = sortByTopNum(a, b, 'updated', false)
     }
   } else if (['finishedDesc', 'finishedAsc'].includes(sortBy)) {
     if (sortBy === 'finishedDesc') {
-      sortRes = b.finished - a.finished
+      sortRes = sortByTopNum(a, b, 'finished', true)
     } else {
-      sortRes = a.finished - b.finished
+      sortRes = sortByTopNum(a, b, 'finished', false)
     }
   }
   return sortRes

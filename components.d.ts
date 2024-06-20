@@ -23,6 +23,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     InfoCard: typeof import('./src/components/infoCard/index.vue')['default']
     List: typeof import('./src/components/List.vue')['default']
+    SetTaskNodeTop: typeof import('./src/components/taskMain/SetTaskNodeTop.vue')['default']
     Setting: typeof import('./src/components/Setting.vue')['default']
     TaskFilter: typeof import('./src/components/TaskFilter.vue')['default']
     TaskList: typeof import('./src/components/TaskList.vue')['default']
