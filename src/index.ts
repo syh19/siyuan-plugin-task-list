@@ -43,6 +43,7 @@ export default class TaskListPlugin extends Plugin {
 
   onLayoutReady(): void {
     globalStore.setCurrentWorkSpaceName()
+    globalStore.setCurrentThemeMode()
     // console.log('当前APP对象：', this.app)
   }
 

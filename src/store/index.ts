@@ -6,6 +6,7 @@ export const useGlobalStore = defineStore('global', {
     currentDocInfo: { id: '', rootID: '', name: '' },
     currentBoxInfo: { box: '', name: '' },
     currentWorkSpaceName: '',
+    currentThemeMode: 'light',
   }),
 
   actions: {
@@ -25,6 +26,11 @@ export const useGlobalStore = defineStore('global', {
         .querySelector('#barWorkspace .toolbar__text').innerHTML
 
       this.currentWorkSpaceName = workSpaceName
+    },
+
+    setCurrentThemeMode() {
+      this.currentThemeMode =
+        document.documentElement.getAttribute('data-theme-mode')
     },
   },
 })
