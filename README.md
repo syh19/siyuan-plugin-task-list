@@ -1,14 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.3.1` change log
+# Latest version `v0.3.2` change log
 
-**Enhancement**
+**Bugfix**
 
-- ✨✨✨ The task list in the `dock` bar supports right-click menu.
-- ✨✨✨ Added task pin function. [#21](https://github.com/syh19/siyuan-plugin-task-list/issues/21)
-- Move [add task handle date] to the right-click menu.
-- Shrink the trigger area of ​​the information card to the icon itself.
-- Optimize the height of the list in the `dock` bar.
+- Right-click the task list item to fix the console error [#25](https://github.com/syh19/siyuan-plugin-task-list/issues/25)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

@@ -1,14 +1,10 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.3.1`更新记录
+# 最新版本`v0.3.2`更新记录
 
-**改进功能**
+**修复缺陷**
 
-- ✨✨✨ `dock`栏中任务列表支持右键菜单
-- ✨✨✨ 新增任务置顶功能 [#21](https://github.com/syh19/siyuan-plugin-task-list/issues/21)
-- 将【添加任务处理时间】移动到右键菜单
-- 将信息卡片的触发区域收缩至图标自身
-- 优化`dock`栏中列表的高度
+- 右键任务列表项，修复控制台报错 [#25](https://github.com/syh19/siyuan-plugin-task-list/issues/25)
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

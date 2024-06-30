@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.3.2
+
+> **2024-06-30**
+
+**Bugfix**
+
+- Right-click the task list item to fix the console error [#25](https://github.com/syh19/siyuan-plugin-task-list/issues/25)
+
 ## v0.3.1
 
 > **2024-06-21**
