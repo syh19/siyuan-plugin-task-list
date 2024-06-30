@@ -75,13 +75,13 @@ function isClickedTaskNodeIcon(detail: any): string {
   const blockEle: HTMLElement = detail.blockElements[0]
 
   const dataType: string =
-    blockEle.attributes.getNamedItem('data-type').nodeValue
+    blockEle.attributes.getNamedItem('data-type')?.nodeValue
 
   const dataSubType: string =
-    blockEle.attributes.getNamedItem('data-subtype').nodeValue
+    blockEle.attributes.getNamedItem('data-subtype')?.nodeValue
 
   const dataNodeId: string =
-    blockEle.attributes.getNamedItem('data-node-id').nodeValue
+    blockEle.attributes.getNamedItem('data-node-id')?.nodeValue
 
   // 点击的是任务列表子节点才会展示设置
   if (dataSubType === 't') {
