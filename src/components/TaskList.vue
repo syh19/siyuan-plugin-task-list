@@ -185,6 +185,7 @@
             v-else-if="data.status === 'done'"
             class="icon icon-done"
             aria-hidden="true"
+            @mouseenter="handleMouseEnter($event, data)"
           >
             <use xlink:href="#icon-check-circle-fill"></use>
           </svg>
