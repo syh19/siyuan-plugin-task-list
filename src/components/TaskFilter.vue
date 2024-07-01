@@ -172,7 +172,7 @@ const props = withDefaults(defineProps<Props>(), {
   taskId: '',
 })
 
-const datePickerPopover = ref({
+const datePickerPopover = ref<any>({
   visibility: 'click',
   placement: 'right',
 })
@@ -211,9 +211,15 @@ const submit = async () => {
   close()
   let startDate: string = ''
   let endDate: string = ''
-  if (dateRange.value?.start && dateRange.value.end) {
-    startDate = date.formatHandleDateToStorage(dateRange.value.start)
-    endDate = date.formatHandleDateToStorage(dateRange.value.end)
+  if (dateRange.value?.start && dateRange.value?.end) {
+    startDate = date.formatHandleDateToStorage({
+      dateParam: dateRange.value.start,
+      isDateRangeStart: true,
+    })
+    endDate = date.formatHandleDateToStorage({
+      dateParam: dateRange.value.end,
+      isDateInRangeEnd: true,
+    })
     localFilters.value.staticDateRange = [startDate, endDate]
   } else {
     localFilters.value.staticDateRange = []

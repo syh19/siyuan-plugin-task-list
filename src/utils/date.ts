@@ -41,7 +41,15 @@ export function formatDateTime(dateTime: string) {
  * @param dateParam 形如 2024-05-08 或者 Date格式 的日期格式
  * @returns {string} 形如 20240508000000 的日期格式
  */
-export function formatHandleDateToStorage(dateParam: string | Date): string {
+export function formatHandleDateToStorage({
+  dateParam,
+  isDateRangeStart = false,
+  isDateInRangeEnd = false,
+}: {
+  dateParam: string | Date
+  isDateRangeStart?: boolean
+  isDateInRangeEnd?: boolean
+}): string {
   let date: Date = null
   if (typeof dateParam === 'string') {
     // 将日期字符串转换为Date对象
@@ -51,17 +59,21 @@ export function formatHandleDateToStorage(dateParam: string | Date): string {
   }
 
   // 获取年、月、日等信息
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1 // getMonth()返回的月份是从0开始的
-  const day = date.getDate()
-
-  // 将年、月、日转换为字符串，并添加前导零
-  const yearStr = year.toString()
-  const monthStr = month < 10 ? '0' + month : month.toString()
-  const dayStr = day < 10 ? '0' + day : day.toString()
+  let year = date.getFullYear()
+  let month = padZero(date.getMonth() + 1)
+  let day = padZero(date.getDate())
+  let hours = padZero(date.getHours())
+  let minutes = padZero(date.getMinutes())
+  let seconds = padZero(date.getSeconds())
 
   // 拼接字符串
-  const formattedDate = yearStr + monthStr + dayStr + '000000'
+  let formattedDate = year + month + day + hours + minutes + seconds
+  if (isDateRangeStart) {
+    formattedDate = year + month + day + '000000'
+  }
+  if (isDateInRangeEnd) {
+    formattedDate = year + month + day + '235959'
+  }
 
   return formattedDate
 }

@@ -108,7 +108,9 @@ const close = () => {
 }
 const submit = async () => {
   emit('close')
-  let handleData: string = date.formatHandleDateToStorage(handleDate.value)
+  let handleData: string = date.formatHandleDateToStorage({
+    dateParam: handleDate.value,
+  })
   await setTaskNodeHandleDate(props.taskId, handleData)
   emit('submit-success')
 }
