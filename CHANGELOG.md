@@ -1,5 +1,18 @@
 # 更新日志
 
+## v0.3.3
+
+> **2024-07-02**
+
+**修复缺陷**
+
+- 弹窗关闭时控制台报错 [#28](https://github.com/syh19/siyuan-plugin-task-list/issues/28)
+- 静态日期范围筛选时，未包含结束日期当天的任务 [#29](https://github.com/syh19/siyuan-plugin-task-list/issues/29)
+
+**改进功能**
+
+- 已完成任务支持显示信息卡片
+
 ## v0.3.2
 
 > **2024-06-30**

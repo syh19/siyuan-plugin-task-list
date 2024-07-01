@@ -1,10 +1,15 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.3.2` change log
+# Latest version `v0.3.3` change log
 
 **Bugfix**
 
-- Right-click the task list item to fix the console error [#25](https://github.com/syh19/siyuan-plugin-task-list/issues/25)
+- The console reports an error when the pop-up window is closed. [#28](https://github.com/syh19/siyuan-plugin-task-list/issues/28)
+- When filtering with a static date range, tasks with an end date on the current day are not included. [#29](https://github.com/syh19/siyuan-plugin-task-list/issues/29)
+
+**Enhancement**
+
+- Completed tasks support displaying information cards
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

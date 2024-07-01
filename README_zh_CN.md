@@ -1,13 +1,18 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.3.2`更新记录
+# 最新版本`v0.3.3`更新记录
 
 **修复缺陷**
 
-- 右键任务列表项，修复控制台报错 [#25](https://github.com/syh19/siyuan-plugin-task-list/issues/25)
+- 弹窗关闭时控制台报错 [#28](https://github.com/syh19/siyuan-plugin-task-list/issues/28)
+- 静态日期范围筛选时，未包含结束日期当天的任务 [#29](https://github.com/syh19/siyuan-plugin-task-list/issues/29)
 
-> - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
-> - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
+**改进功能**
+
+- 已完成任务支持显示信息卡片
+
+  > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
+  > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
 
 ---
 

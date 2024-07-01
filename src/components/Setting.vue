@@ -4,6 +4,9 @@
     class="plugin-task-list-config-wrap"
     direction="ltr"
     append-to-body
+    close-on-click-modal
+    close-on-press-escape
+    show-close
     size="50%"
     :title="i18n.setting.title"
   >
