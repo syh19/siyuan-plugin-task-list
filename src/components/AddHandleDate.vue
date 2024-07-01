@@ -1,12 +1,13 @@
 <template>
   <div class="plugin-task-list__add-handle-date-dialog-wrap">
     <el-dialog
-      v-model="visible"
-      :show-close="false"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
+      v-model="dialogVisible"
+      show-close
+      close-on-click-modal
+      close-on-press-escape
       :title="i18n.addHandleDate"
       width="500"
+      @close="close"
     >
       <div>
         <DatePicker
@@ -51,9 +52,12 @@ const props = withDefaults(defineProps<Props>(), {
   taskId: '',
 })
 
+const dialogVisible = ref<boolean>(false)
+
 watch(
   () => props.visible,
   (val) => {
+    dialogVisible.value = val
     if (val) {
       init()
     }
@@ -107,7 +111,7 @@ const close = () => {
   emit('close')
 }
 const submit = async () => {
-  emit('close')
+  close()
   let handleData: string = date.formatHandleDateToStorage({
     dateParam: handleDate.value,
   })

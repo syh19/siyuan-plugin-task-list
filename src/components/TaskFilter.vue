@@ -1,12 +1,13 @@
 <template>
   <el-dialog
-    v-model="visible"
-    :show-close="false"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
+    v-model="dialogVisible"
+    show-close
+    close-on-click-modal
+    close-on-press-escape
     class="plugin-task-list__task-filter-dialog-wrap"
     :title="i18n.filterConfig.title"
     width="700"
+    @close="close"
   >
     <!-- 是否显示周视图 -->
     <div class="setting-item setting-item__horizontal">
@@ -172,6 +173,8 @@ const props = withDefaults(defineProps<Props>(), {
   taskId: '',
 })
 
+const dialogVisible = ref<boolean>(false)
+
 const datePickerPopover = ref<any>({
   visibility: 'click',
   placement: 'right',
@@ -192,6 +195,7 @@ const init = () => {
 watch(
   () => props.visible,
   (val) => {
+    dialogVisible.value = val
     if (val) {
       init()
     }
