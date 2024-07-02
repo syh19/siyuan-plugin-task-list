@@ -7,7 +7,7 @@
           <h3>
             <svg style="margin-right: 5px" class="icon" aria-hidden="true">
               <use xlink:href="#icon-task-green"></use></svg
-            >{{ i18n.pluginTitle }}
+            >{{ isSmallWidth ? '' : i18n.pluginTitle }}
           </h3>
           <span @click="toggleTaskStatus"
             >({{ taskStatusMap[taskStatus] }})</span
@@ -238,8 +238,10 @@ import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import ContextMenu from '@imengyu/vue3-context-menu'
 
 import { useGlobalStore } from '../store/index'
+import { useResizeObserver } from '../hooks/useResizeObserver'
 const globalStore = useGlobalStore()
 
+const isSmallWidth = useResizeObserver()
 interface Tree {
   [key: string]: any
 }
@@ -712,13 +714,16 @@ const defaultProps = {
         }
 
         div.btn-list {
+          flex: 1;
+          max-width: 170px;
           display: flex;
           align-items: center;
+          justify-content: space-between;
           span + span {
             margin-left: 4px;
           }
           span {
-            padding: 4px;
+            padding: 0px;
             border-radius: 5px;
             &:hover {
               cursor: pointer;
