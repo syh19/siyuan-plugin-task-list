@@ -6,8 +6,9 @@
         <div class="title-text">
           <h3>
             <svg style="margin-right: 5px" class="icon" aria-hidden="true">
-              <use xlink:href="#icon-task-green"></use></svg
-            >{{ isSmallWidth ? '' : i18n.pluginTitle }}
+              <use xlink:href="#icon-task-green"></use>
+            </svg>
+            {{ isSmallWidth ? '' : i18n.pluginTitle }}
           </h3>
           <span @click="toggleTaskStatus"
             >({{ taskStatusMap[taskStatus] }})</span
@@ -218,27 +219,26 @@
 <script setup lang="ts">
 import { ref, nextTick, watch, h } from 'vue'
 // import { toRaw } from '@vue/reactivity'
-import * as utils from '../utils/common'
-import { i18n } from '../utils/common'
-import * as API from '../api'
+import * as utils from '@/utils/common'
+import { i18n } from '@/utils/common'
+import * as API from '@/api'
 import * as sy from 'siyuan'
-import type { IRange } from '../types/index'
+import type { IRange } from '@/types/index'
 import { ElTree, ElInput } from 'element-plus'
-import Setting from './Setting.vue'
-import TaskFilter from './TaskFilter.vue'
-import SetTaskNodeTop from './taskMain/SetTaskNodeTop.vue'
-import eventBus from '../utils/eventBus'
-import * as treeFn from '../utils/handleTreeData'
-import infoCard from './infoCard/index'
+import SetTaskNodeTop from '@/components/taskMain/SetTaskNodeTop.vue'
+import Setting from '@/components/Setting.vue'
+import eventBus from '@/utils/eventBus'
+import * as treeFn from '@/utils/handleTreeData'
+import infoCard from '@/components/infoCard/index'
 import { Calendar, DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
-import * as date from '../utils/date'
-import { useDatePicker } from '../hooks/useDatePicker'
+import * as date from '@/utils/date'
+import { useDatePicker } from '@/hooks/useDatePicker'
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import ContextMenu from '@imengyu/vue3-context-menu'
 
-import { useGlobalStore } from '../store/index'
-import { useResizeObserver } from '../hooks/useResizeObserver'
+import { useGlobalStore } from '@/store/index'
+import { useResizeObserver } from '@/hooks/useResizeObserver'
 const globalStore = useGlobalStore()
 
 const isSmallWidth = useResizeObserver()

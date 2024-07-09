@@ -8,7 +8,7 @@ export function useResizeObserver(): Ref<boolean> {
     const observer = new ResizeObserver((entries: any) => {
       for (let entry of entries) {
         const rect = getComputedStyle(entry.target)
-        if (+rect.width.slice(0, -2) < 280) {
+        if (+rect.width.slice(0, -2) < 285) {
           isSmallWidth.value = true
         } else {
           isSmallWidth.value = false
