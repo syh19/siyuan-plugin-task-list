@@ -1,5 +1,13 @@
 # 更新日志
 
+## v0.3.4
+
+> **2024-07-09**
+
+**修复缺陷**
+
+- 优化`dock`栏过窄时的显示效果 [#3](https://github.com/syh19/siyuan-plugin-task-list/issues/3)
+
 ## v0.3.3
 
 > **2024-07-02**

@@ -1,15 +1,10 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.3.3`更新记录
+# 最新版本`v0.3.4`更新记录
 
 **修复缺陷**
 
-- 弹窗关闭时控制台报错 [#28](https://github.com/syh19/siyuan-plugin-task-list/issues/28)
-- 静态日期范围筛选时，未包含结束日期当天的任务 [#29](https://github.com/syh19/siyuan-plugin-task-list/issues/29)
-
-**改进功能**
-
-- 已完成任务支持显示信息卡片
+- 优化`dock`栏过窄时的显示效果 [#3](https://github.com/syh19/siyuan-plugin-task-list/issues/3)
 
   > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
   > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

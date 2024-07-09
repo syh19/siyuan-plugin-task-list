@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.3.4
+
+> **2024-07-09**
+
+**Bugfix**
+
+- Optimize the display effect when the `dock` column is too narrow. [#3](https://github.com/syh19/siyuan-plugin-task-list/issues/3)
+
 ## v0.3.3
 
 > **2024-07-02**
