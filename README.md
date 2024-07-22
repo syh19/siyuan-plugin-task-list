@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.3.4` change log
+# Latest version `v0.4.0` change log
 
-**Bugfix**
+**Enhancement**
 
-- Optimize the display effect when the `dock` column is too narrow. [#3](https://github.com/syh19/siyuan-plugin-task-list/issues/3)
+- Information card support configure hidden fields and date formats [#30](https://github.com/syh19/siyuan-plugin-task-list/issues/30)
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v0.4.0
+
+> **2024-07-022**
+
+**Enhancement**
+
+- Information card support configure hidden fields and date formats [#30](https://github.com/syh19/siyuan-plugin-task-list/issues/30)
+
 ## v0.3.4
 
 > **2024-07-09**

@@ -1,11 +1,11 @@
 {
   "name": "siyuan-plugin-task-list",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "type": "module",
   "description": "思源笔记插件：汇总散落在整个工作空间的任务，依托任务列表实现日程管理和待办事项管理",
   "repository": "https://github.com/syh19/siyuan-plugin-task-list",
   "homepage": "https://github.com/syh19",
-  "author": "syh19",
+  "author": "sylwair",
   "license": "GPL-3.0",
   "scripts": {
     "make-link": "node  --no-warnings ./scripts/make_dev_link.js",
