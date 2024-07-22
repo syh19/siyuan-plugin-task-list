@@ -7,6 +7,7 @@ import * as func from './func'
 import eventBus from './eventBus'
 import * as date from './date'
 import * as treeFn from './handleTreeData'
+import * as globalStroage from '@/utils/globalStroage.ts'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -242,6 +243,7 @@ export async function getTaskListForDisplay({
   getDocPathForTasks(taskList)
 
   const { data: storage } = await API.getLocalStorage()
+  globalStroage.setStorage(storage)
 
   // 根据隐藏节点情况对任务进行隐藏
   taskList = await filterTaskListByHidden(taskList, storage)

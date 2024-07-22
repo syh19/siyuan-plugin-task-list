@@ -34,6 +34,8 @@
     "title": "设置",
     "cancel": "取消",
     "confirm": "确认",
+    "infoCardConfigDivider": "信息卡片配置",
+    "taskListConfigDivider": "任务列表配置",
     "hideTaskTreeDesc": "您所勾选的节点，其中的任务会将被隐藏",
     "onlySelf": "仅自身",
     "selfAndChildren": "自身及子节点",
@@ -41,7 +43,7 @@
     "boxDocTask": "笔记本 & 文档 & 任务",
     "boxTask": "笔记本 & 任务",
     "sortItem": {
-      "sortBy": "排序方式",
+      "sortBy": "任务排序方式",
       "placeholder": "请选择排序方式",
       "createdAsc": "创建时间升序",
       "createdDesc": "创建时间降序",
@@ -49,6 +51,13 @@
       "updatedDesc": "更新时间降序",
       "finishedAsc": "完成时间升序",
       "finishedDesc": "完成时间降序"
+    },
+    "infoCardConfig": {
+      "dateTimeDisplayMode": "日期时间展示方式",
+      "dateFormat": "yyyy-mm-dd",
+      "dateTimeFormat": "yyyy-mm-dd hh:mm",
+      "fieldsForHidden": "隐藏所选字段",
+      "fieldsForHiddenPlaceholder": "请选择想要隐藏的字段"
     }
   },
   "infoCard": {

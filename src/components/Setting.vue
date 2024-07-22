@@ -11,6 +11,64 @@
     :title="i18n.setting.title"
   >
     <template #default>
+      <el-divider content-position="center">
+        <h3>
+          {{ i18n.setting.infoCardConfigDivider }}
+        </h3>
+      </el-divider>
+      <!-- 信息卡片时间显示格式 -->
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ i18n.setting.infoCardConfig.dateTimeDisplayMode }}
+        </div>
+        <div class="setting-item__content">
+          <el-radio-group
+            v-model="localSettings.infoCardConfig.dateTimeDisplayMode"
+          >
+            <el-radio
+              value="date"
+              :label="i18n.setting.infoCardConfig.dateFormat"
+              size="large"
+            />
+            <el-radio
+              value="dateTime"
+              :label="i18n.setting.infoCardConfig.dateTimeFormat"
+              size="large"
+            />
+          </el-radio-group>
+        </div>
+      </div>
+      <!-- 信息卡片要隐藏的信息 -->
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ i18n.setting.infoCardConfig.fieldsForHidden }}
+        </div>
+        <div class="setting-item__content">
+          <el-select
+            v-model="localSettings.infoCardConfig.fieldsForHidden"
+            :placeholder="
+              i18n.setting.infoCardConfig.fieldsForHiddenPlaceholder
+            "
+            multiple
+            clearable
+            size="default"
+            style="width: 360px"
+          >
+            <el-option
+              v-for="item in infoCardFieldsForHiddenOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
+
+      <el-divider style="margin-top: 60px" content-position="center">
+        <h3>
+          {{ i18n.setting.taskListConfigDivider }}
+        </h3>
+      </el-divider>
       <!-- 设置任务列表排序方式 -->
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
@@ -21,7 +79,7 @@
             v-model="localSettings.taskSortBy"
             :placeholder="i18n.setting.sortItem.placeholder"
             size="default"
-            style="width: 240px"
+            style="width: 360px"
           >
             <el-option
               v-for="item in sortOptions"
@@ -109,6 +167,11 @@ const init = async () => {
  *
  */
 const localSettings = ref<any>({
+  /** 信息卡片的配置 */
+  infoCardConfig: {
+    dateTimeDisplayMode: 'date',
+    fieldsForHidden: [],
+  },
   /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
   nodeListForHideTask: [],
   /** 任务列表树的显示模式 */
@@ -144,12 +207,47 @@ const sortOptions = ref<Array<{ value: string; label: string }>>([
   },
 ])
 
+/** 信息卡片中要隐藏的字段列表 */
+const infoCardFieldsForHiddenOptions = ref<
+  Array<{ value: string; label: string }>
+>([
+  {
+    label: i18n.infoCard.created,
+    value: 'created',
+  },
+  {
+    label: i18n.infoCard.handleAt,
+    value: 'handleAt',
+  },
+  {
+    label: i18n.infoCard.updated,
+    value: 'updated',
+  },
+  {
+    label: i18n.infoCard.finished,
+    value: 'finished',
+  },
+  {
+    label: i18n.infoCard.box,
+    value: 'box',
+  },
+  {
+    label: i18n.infoCard.docPath,
+    value: 'pathList',
+  },
+])
+
 const getLocalStorage = async () => {
   const { data: storage } = await API.getLocalStorage()
   if (!storage['plugin-task-list-settings']) return
-  const { nodeListForHideTask, taskTreeDisplayMode, taskSortBy } =
-    storage['plugin-task-list-settings']
+  const {
+    infoCardConfig,
+    nodeListForHideTask,
+    taskTreeDisplayMode,
+    taskSortBy,
+  } = storage['plugin-task-list-settings']
 
+  infoCardConfig && (localSettings.value.infoCardConfig = infoCardConfig)
   nodeListForHideTask &&
     (localSettings.value.nodeListForHideTask = nodeListForHideTask)
   taskTreeDisplayMode &&
@@ -184,16 +282,20 @@ const submit = async () => {
   let hiddenTaskNodes: any[] = treeFn.findHiddenTaskNodesInTreeData(
     treeData.value
   )
+
+  const val: any = {
+    /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
+    nodeListForHideTask: hiddenTaskNodes,
+    /** 任务列表树的显示模式 */
+    taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
+    taskSortBy: localSettings.value.taskSortBy,
+    infoCardConfig: localSettings.value.infoCardConfig,
+  }
   await API.setLocalStorageVal({
     key: 'plugin-task-list-settings',
-    val: {
-      /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
-      nodeListForHideTask: hiddenTaskNodes,
-      /** 任务列表树的显示模式 */
-      taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
-      taskSortBy: localSettings.value.taskSortBy,
-    },
+    val,
   })
+
   isShow.value = false
 
   eventBus.emit('node-list-for-hide-task-changed', hiddenTaskNodes)

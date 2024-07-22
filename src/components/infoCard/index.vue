@@ -1,47 +1,67 @@
 <template>
-  <div v-if="info && info.status" class="plugin-task-list__info-card-wrap">
+  <div v-if="infoComputed" class="plugin-task-list__info-card-wrap">
     <div class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.taskName }}</div>
-      <div class="info-card-item__value">{{ info.label }}</div>
+      <div class="info-card-item__value">{{ infoComputed.label }}</div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('created')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.created }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.created) }}
+        {{
+          formatDateTime(
+            infoComputed.created,
+            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+          )
+        }}
       </div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('handleAt')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.handleAt }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.handleAt) }}
+        {{
+          formatDateTime(
+            infoComputed.handleAt,
+            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+          )
+        }}
       </div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('updated')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.updated }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.updated) || '' }}
+        {{
+          formatDateTime(
+            infoComputed.updated,
+            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+          ) || ''
+        }}
       </div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('finished')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.finished }}</div>
       <div class="info-card-item__value">
-        {{ formatDateTime(info.finished) || '' }}
+        {{
+          formatDateTime(
+            infoComputed.finished,
+            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+          ) || ''
+        }}
       </div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('box')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.box }}</div>
-      <div class="info-card-item__value">{{ info.box.label }}</div>
+      <div class="info-card-item__value">{{ infoComputed.box.label }}</div>
     </div>
 
-    <div class="info-card-item">
+    <div v-if="infoComputed.hasOwnProperty('pathList')" class="info-card-item">
       <div class="info-card-item__label">{{ i18n.infoCard.docPath }}</div>
       <div class="info-card-item__value">
-        {{ info.pathList.map((item) => item.label).join(' / ') }}
+        {{ infoComputed.pathList.map((item) => item.label).join(' / ') }}
       </div>
     </div>
   </div>
@@ -50,14 +70,28 @@
 import { ref, onUpdated, computed } from 'vue'
 import { formatDateTime } from '@/utils/date'
 import { i18n } from '@/utils/common'
+import * as globalStroage from '@/utils/globalStroage.ts'
+
 const props = defineProps<{
   reference?: any
   info?: any
 }>()
 
+const infoComputed: any = computed(() => {
+  if (!props.info) return
+  const filteredData = Object.fromEntries(
+    Object.entries(props.info).filter(
+      ([key]) =>
+        !globalStroage?.settings.infoCardConfig.fieldsForHidden.includes(key)
+    )
+  )
+  return filteredData
+})
+
 const infoEle = ref<HTMLElement | null>(
   document.querySelector('.plugin-task-list__info-card-wrap')
 )
+
 const updateXY = (e: MouseEvent) => {
   // 获取鼠标的位置
   let x = e.clientX + 10

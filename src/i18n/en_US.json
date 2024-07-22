@@ -34,6 +34,8 @@
     "title": "SETTING",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "infoCardConfigDivider": "Info card config",
+    "taskListConfigDivider": "Task list config",
     "hideTaskTreeDesc": "The tasks in the nodes you checked will be hidden",
     "onlySelf": "Only Self",
     "selfAndChildren": "Self & Children",
@@ -41,7 +43,7 @@
     "boxDocTask": "notebook & doc & task",
     "boxTask": "notebook & task",
     "sortItem": {
-      "sortBy": "Sort",
+      "sortBy": "Task Sort",
       "placeholder": "Please select a sort method",
       "createdAsc": "Created Time ASC",
       "createdDesc": "Created Time DESC",
@@ -49,6 +51,13 @@
       "updatedDesc": "Updated Time DESC",
       "finishedAsc": "Finished Time ASC",
       "finishedDesc": "Finished Time DESC"
+    },
+    "infoCardConfig": {
+      "dateTimeDisplayMode": "date time display mode",
+      "dateFormat": "yyyy-mm-dd",
+      "dateTimeFormat": "yyyy-mm-dd hh:mm",
+      "fieldsForHidden": "fields selected for hidden",
+      "fieldsForHiddenPlaceholder": "Please select fields for hidden"
     }
   },
   "infoCard": {

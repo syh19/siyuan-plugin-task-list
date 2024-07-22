@@ -237,8 +237,8 @@ import { useDatePicker } from '@/hooks/useDatePicker'
 import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
 import ContextMenu from '@imengyu/vue3-context-menu'
 
-import { useGlobalStore } from '@/store/index'
 import { useResizeObserver } from '@/hooks/useResizeObserver'
+import { useGlobalStore } from '@/store/index'
 const globalStore = useGlobalStore()
 
 const isSmallWidth = useResizeObserver()
