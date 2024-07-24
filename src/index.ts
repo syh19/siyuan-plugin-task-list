@@ -5,6 +5,7 @@ import './styles/index.scss'
 import './utils/iconfont.js'
 import * as task from '../src/utils/handleTaskNode'
 import '@/utils/compatible'
+import { initLocalStorageWhenFirstUsePlugin } from '@/utils/initLocalStorage'
 
 import { useGlobalStore } from './store/index'
 const globalStore = useGlobalStore()
@@ -16,6 +17,7 @@ export default class TaskListPlugin extends Plugin {
       'color: #429077;font-size:22px'
     )
     this.init()
+    await initLocalStorageWhenFirstUsePlugin()
     await addBtn.addDock()
     this.eventBus.on('loaded-protyle-static', (e: any) => {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)

@@ -276,16 +276,20 @@ export async function getTaskListForDisplay({
 
   let treeData = convertSqlToTree(taskList)
 
+  // 笔记本-文档-任务 模式【默认是这个模式】
   if (
+    !storage['plugin-task-list-settings'] || // 最初未进行任何设置的默认模式
     storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] ===
-    'box-doc-task'
+      'box-doc-task' // 设置了 笔记本-文档-任务 模式
   ) {
     if (range === 'doc') {
       treeData = convertToList(treeData)
     } else if (range === 'box') {
       treeData = treeData[0]?.children || []
     }
-  } else if (
+  }
+  // 笔记本-文档 模式
+  else if (
     storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] === 'box-task'
   ) {
     treeData = convertTreeToBoxTaskTree(treeData)

@@ -11,7 +11,7 @@
         {{
           formatDateTime(
             infoComputed.created,
-            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+            globalStroage.settings?.infoCardConfig.dateTimeDisplayMode
           )
         }}
       </div>
@@ -23,7 +23,7 @@
         {{
           formatDateTime(
             infoComputed.handleAt,
-            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+            globalStroage.settings?.infoCardConfig.dateTimeDisplayMode
           )
         }}
       </div>
@@ -35,7 +35,7 @@
         {{
           formatDateTime(
             infoComputed.updated,
-            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+            globalStroage.settings?.infoCardConfig.dateTimeDisplayMode
           ) || ''
         }}
       </div>
@@ -47,7 +47,7 @@
         {{
           formatDateTime(
             infoComputed.finished,
-            globalStroage.settings.infoCardConfig.dateTimeDisplayMode
+            globalStroage.settings?.infoCardConfig.dateTimeDisplayMode
           ) || ''
         }}
       </div>
@@ -82,7 +82,7 @@ const infoComputed: any = computed(() => {
   const filteredData = Object.fromEntries(
     Object.entries(props.info).filter(
       ([key]) =>
-        !globalStroage?.settings.infoCardConfig.fieldsForHidden.includes(key)
+        !globalStroage?.settings?.infoCardConfig?.fieldsForHidden.includes(key)
     )
   )
   return filteredData

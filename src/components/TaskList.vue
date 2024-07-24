@@ -439,7 +439,8 @@ const initTaskRangeTab = (storage: any) => {
 
 const emptyText = ref<string>('')
 const getEmptyReason = async (storage: any) => {
-  const hideList = storage['plugin-task-list-settings']['nodeListForHideTask']
+  const hideList =
+    storage['plugin-task-list-settings']?.['nodeListForHideTask'] || []
   // 隐藏了整个工作空间的所有笔记本
   let notebooks = await API.lsNotebooks()
   let notebooksOpened: any[] = notebooks.filter(
