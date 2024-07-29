@@ -2,7 +2,7 @@
   "name": "siyuan-plugin-task-list",
   "author": "sylwair",
   "url": "https://github.com/syh19/siyuan-plugin-task-list",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "minAppVersion": "2.10.13",
   "backends": [
     "all"
@@ -31,7 +31,7 @@
     "patreon": "",
     "github": "",
     "custom": [
-      "https://afdian.net/a/xhir19"
+      "https://sylwair.com/?utm_source=siyuan-note-app"
     ]
   },
   "keywords": [

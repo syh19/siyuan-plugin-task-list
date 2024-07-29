@@ -1,13 +1,17 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.4.0`更新记录
+# 最新版本`v0.4.1`更新记录
+
+**修复缺陷**
+
+- 第一次使用插件时，没有设置隐藏任务时导致控制台报错，任务列表显示异常。
 
 **改进功能**
 
-- 信息卡片支持配置隐藏字段及日期格式 [#30](https://github.com/syh19/siyuan-plugin-task-list/issues/30)
+- 第一次使用插件时初始化配置数据。
 
-  > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
-  > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
+> - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
+> - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
 
 ---
 

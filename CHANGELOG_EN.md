@@ -1,8 +1,20 @@
 # CHANGE LOG
 
+## v0.4.1
+
+> **2024-07-29**
+
+**Bugfix**
+
+- When using the plug-in for the first time, if no hidden tasks are set, an error will be reported on the console and the task list will display abnormally.
+
+**Enhancement**
+
+- Initialize configuration data when using the plug-in for the first time.
+
 ## v0.4.0
 
-> **2024-07-022**
+> **2024-07-22**
 
 **Enhancement**
 
