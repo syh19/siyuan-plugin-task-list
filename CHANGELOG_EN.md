@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v0.4.2
+
+> **2024-08-09**
+
+- Adjust the font color of some parts of the dock panel [#32](https://github.com/syh19/siyuan-plugin-task-list/issues/32)
+
 ## v0.4.1
 
 > **2024-07-29**

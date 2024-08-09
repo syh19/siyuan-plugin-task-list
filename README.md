@@ -1,14 +1,11 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.4.1` change log
+# Latest version `v0.4.2` change log
 
 **Bugfix**
 
-- When using the plug-in for the first time, if no hidden tasks are set, an error will be reported on the console and the task list will display abnormally.
+- Adjust the font color of some parts of the dock panel [#32](https://github.com/syh19/siyuan-plugin-task-list/issues/32)
 
-**Enhancement**
-
-- Initialize configuration data when using the plug-in for the first time.
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

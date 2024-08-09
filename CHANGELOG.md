@@ -1,5 +1,13 @@
 # 更新日志
 
+## v0.4.2
+
+> **2024-08-09**
+
+**修复缺陷**
+
+- 调整 dock 面板部分字体配色 [#32](https://github.com/syh19/siyuan-plugin-task-list/issues/32)
+
 ## v0.4.1
 
 > **2024-07-29**
