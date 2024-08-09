@@ -766,7 +766,7 @@ const defaultProps = {
               }
               span:nth-child(2) {
                 width: 100%;
-                color: gray;
+                color: var(--tl-color-text);
                 font-size: 12px;
                 line-height: 12px;
                 @include text-ellipsis;
