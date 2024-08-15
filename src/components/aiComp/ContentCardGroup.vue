@@ -5,9 +5,9 @@
     :id="wrapperElementId"
   >
     <ContentCard
-      elementId="ai-profile-card"
-      title="概述"
       v-if="content[0]"
+      elementId="ai-profile-card"
+      title="人物概述"
       :isProfileCard="true"
       class="full-width-card"
     >
@@ -98,5 +98,4 @@ defineProps<{
   max-width: 48%;
   flex-grow: 1;
 }
-
 </style>

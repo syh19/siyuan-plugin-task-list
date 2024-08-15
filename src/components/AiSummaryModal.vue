@@ -46,8 +46,8 @@
 
           <div class="operation-section">
             <el-radio-group v-model="currentOrHistory" size="small">
-              <el-radio-button label="current">当前</el-radio-button>
-              <el-radio-button label="history">历史</el-radio-button>
+              <el-radio-button value="current">当前</el-radio-button>
+              <el-radio-button value="history">历史</el-radio-button>
             </el-radio-group>
             <div class="operation-buttons">
               <el-button size="small" @click="getAiSummary">生成</el-button>
@@ -139,8 +139,10 @@ const formatAiSummary = (aiSummaryContent: object) => {
       });
     }
   });
-  resList.unshift({ title: "人物概述", content: profileList });
-  console.log("resList", resList);
+  resList.unshift({
+    title: "人物概述",
+    content: profileList,
+  });
   return resList;
 };
 
