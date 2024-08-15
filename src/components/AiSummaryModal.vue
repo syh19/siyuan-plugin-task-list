@@ -36,6 +36,12 @@
                   size="small"
                   @click="toggleHideAuthCode"
                 />
+                <el-button
+                  :icon="Refresh"
+                  circle
+                  size="small"
+                  @click="getAuthCodeInfo"
+                />
               </div>
             </div>
             <div class="auth-code-info">
@@ -45,23 +51,45 @@
           </div>
 
           <div class="operation-section">
-            <el-radio-group v-model="currentOrHistory" size="small">
+            <el-radio-group
+              v-model="currentOrHistory"
+              size="small"
+              style="margin-bottom: 4px"
+            >
               <el-radio-button value="current">当前</el-radio-button>
               <el-radio-button value="history">历史</el-radio-button>
             </el-radio-group>
             <div class="operation-buttons">
-              <el-button size="small" @click="getAiSummary">生成</el-button>
-              <el-button
-                size="small"
-                @click="
-                  downloadAsImage({
-                    elementId: 'ai-summary-content-wrapper',
-                    fileName: '全部',
-                  })
-                "
-              >
-                分享为图片
-              </el-button>
+              <template v-if="currentOrHistory === 'current'">
+                <el-input
+                  v-model="name"
+                  size="small"
+                  style="width: 120px"
+                  placeholder="想让我如何称呼您"
+                />
+                <el-button
+                  size="small"
+                  :loading="btnLoading"
+                  @click="getAiSummary"
+                  >AI 生成</el-button
+                >
+                <el-button
+                  size="small"
+                  @click="
+                    downloadAsImage({
+                      elementId: 'ai-summary-content-wrapper',
+                      fileName: '全部',
+                      pcOrMobilePic: pcOrMobilePic,
+                    })
+                  "
+                >
+                  分享为 {{ pcOrMobilePic === "pc" ? "PC" : "Mobile" }} 图片
+                </el-button>
+              </template>
+              <el-radio-group v-model="pcOrMobilePic" size="small">
+                <el-radio-button value="pc">PC</el-radio-button>
+                <el-radio-button value="mobile">Mobile</el-radio-button>
+              </el-radio-group>
             </div>
           </div>
         </div>
@@ -69,8 +97,15 @@
 
       <!-- 内容卡片区域 -->
       <ContentCardGroup
+        v-if="currentOrHistory === 'current'"
         :content="currentAiSummary.content"
+        :pcOrMobilePic="pcOrMobilePic"
         wrapperElementId="ai-summary-content-wrapper"
+      />
+
+      <HistoryContentCard
+        v-if="currentOrHistory === 'history'"
+        :pcOrMobilePic="pcOrMobilePic"
       />
 
       <!-- 底部按钮区域 -->
@@ -87,10 +122,18 @@
 
 <script setup lang="ts">
 import { ElButton, ElMessage } from "element-plus";
-import { Edit, CircleCheck, View, Hide } from "@element-plus/icons-vue";
+import {
+  Edit,
+  CircleCheck,
+  View,
+  Hide,
+  Refresh,
+} from "@element-plus/icons-vue";
 import { downloadAsImage } from "../utils/ai";
+import { formatDateToLocaleString } from "../utils/date";
 import { ref, watch } from "vue";
 import ContentCardGroup from "./aiComp/ContentCardGroup.vue";
+import HistoryContentCard from "./aiComp/HistoryContentCard.vue";
 import * as aiAPI from "../api/ai";
 import * as API from "../api";
 
@@ -108,7 +151,7 @@ const authCodeInfo = ref<{ totalUses: number; remainingUses: number }>({
   remainingUses: 0,
 });
 const hideAuthCode = ref<boolean>(false);
-
+const name = ref<string>("");
 const editAuthCode = () => {
   isEditAuthCode.value = true;
 };
@@ -118,10 +161,15 @@ const toggleHideAuthCode = () => {
 };
 
 const getAuthCodeInfo = () => {
-  aiAPI.getAuthCodeInfo(authCode.value).then((res) => {
-    authCodeInfo.value = res;
-    isEditAuthCode.value = false;
-  });
+  try {
+    aiAPI.getAuthCodeInfo(authCode.value).then((res) => {
+      authCodeInfo.value = res;
+      isEditAuthCode.value = false;
+    });
+  } catch (err) {
+    console.log("啊乐山大佛", err);
+    ElMessage.error("获取授权码信息失败");
+  }
 };
 
 const formatAiSummary = (aiSummaryContent: object) => {
@@ -146,18 +194,30 @@ const formatAiSummary = (aiSummaryContent: object) => {
   return resList;
 };
 
+const btnLoading = ref<boolean>(false);
+const pcOrMobilePic = ref<string>("pc");
 // 使用示例
 const getAiSummary = async () => {
   if (!authCode.value) {
-    ElMessage.error("请输入权码");
+    ElMessage.error("请输入授权码");
     return;
   }
-  const res: any = await aiAPI.getAiSummary({ authCode: authCode.value });
-  currentAiSummary.value = {
-    content: formatAiSummary(res.aiResult),
-    dateTime: new Date().toLocaleString(),
-  };
-
+  btnLoading.value = true;
+  try {
+    const res: any = await aiAPI.getAiSummary({
+      authCode: authCode.value,
+      name: name.value,
+    });
+    currentAiSummary.value = {
+      content: formatAiSummary(res.aiResult),
+      dateTime: formatDateToLocaleString(new Date()),
+    };
+    authCodeInfo.value = res.authCodeInfo;
+  } catch (err) {
+    ElMessage.error("获取AI总结失败");
+  } finally {
+    btnLoading.value = false;
+  }
   const dataForSave: any[] = [currentAiSummary.value, ...allAiSummary.value];
   await API.putFile({
     path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary.json",
@@ -257,6 +317,7 @@ const handleConfirm = () => {
 
   .operation-buttons {
     display: flex;
+    align-items: center;
     gap: 8px;
   }
 
@@ -266,10 +327,6 @@ const handleConfirm = () => {
 
   .el-button.is-circle {
     padding: 8px;
-  }
-
-  .el-radio-group {
-    margin-bottom: 4px;
   }
 
   #ai-summary-content-wrapper {

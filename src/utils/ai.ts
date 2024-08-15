@@ -17,12 +17,31 @@ export function handleTaskListForAI(taskList: any[]) {
   }));
 }
 
+const imgWidthMap = {
+  pc: {
+    whole: 1200,
+    single: 800,
+  },
+  mobile: {
+    whole: 600,
+    single: 450,
+  },
+};
+
+/**
+ * 下载为图片
+ * @param elementId 元素ID
+ * @param fileName 文件名【如果fileName为“全部”，则单独处理图片宽度】
+ * @param pcOrMobilePic pc或mobile
+ */
 export async function downloadAsImage({
   elementId,
   fileName,
+  pcOrMobilePic,
 }: {
   elementId: string;
   fileName: string;
+  pcOrMobilePic: string;
 }) {
   try {
     const originalElement = document.getElementById(elementId);
@@ -31,10 +50,17 @@ export async function downloadAsImage({
       return;
     }
 
+    let wrapperWidth: number = 0;
+    console.log("图片相关", imgWidthMap, pcOrMobilePic);
+    if (fileName === "全部") {
+      wrapperWidth = imgWidthMap[pcOrMobilePic].whole;
+    } else {
+      wrapperWidth = imgWidthMap[pcOrMobilePic].single;
+    }
     // 创建包装元素
     const wrapper = document.createElement("div");
     wrapper.style.padding = "20px";
-    wrapper.style.width = "800px";
+    wrapper.style.width = `${wrapperWidth}px`;
     wrapper.style.background =
       "linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)";
     // wrapper.style.borderRadius = "16px";
@@ -44,13 +70,13 @@ export async function downloadAsImage({
 
     // 克隆原始元素的内容
     const clone = originalElement.cloneNode(true) as HTMLElement;
-    clone.style.background = "transparent";
+    // clone.style.background = "transparent";
     clone.style.borderRadius = "16px";
     clone.style.padding = "20px";
     clone.style.wordBreak = "break-word";
     clone.style.whiteSpace = "pre-wrap";
     clone.style.overflow = "hidden";
-    clone.style.fontSize = "14px";
+    clone.style.fontSize = "16px";
     clone.style.lineHeight = "1.5";
     clone.style.letterSpacing = "0.5px"; // 防止文字粘连
     clone.style.maxWidth = "100%";
@@ -125,7 +151,7 @@ export async function downloadAsImage({
     const image = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = image;
-    link.download = `思源插件任务列表AI—${fileName}.png`;
+    link.download = `思源插件任务列表AI—${fileName}-${pcOrMobilePic}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -3,26 +3,31 @@
     :id="elementId"
     class="ai-summary-content-card-comp"
     :style="{
-      backgroundColor:
-        aiTitleBgColorMap[title],
+      backgroundColor: aiTitleBgColorMap[title],
     }"
     :class="{ 'profile-card': isProfileCard }"
   >
     <div class="ai-summary-content-card">
       <el-tooltip
         effect="dark"
-        content="分享为图片"
+        :content="`分享为 ${pcOrMobilePic === 'pc' ? 'PC' : 'Mobile'} 图片`"
         placement="top"
-        :show-after="10"
       >
-        <svg
-          style="margin-right: 5px"
-          class="icon share-icon"
-          aria-hidden="true"
-          @click="shareCard"
-        >
-          <use xlink:href="#icon-share"></use>
-        </svg>
+        <div class="share-icon-wrapper">
+          <svg
+            class="icon share-icon"
+            aria-hidden="true"
+            @click="
+              downloadAsImage({
+                elementId: elementId,
+                fileName: title,
+                pcOrMobilePic: pcOrMobilePic,
+              })
+            "
+          >
+            <use xlink:href="#icon-share"></use>
+          </svg>
+        </div>
       </el-tooltip>
       <slot name="content"></slot>
       <br />
@@ -55,6 +60,7 @@ const props = defineProps<{
   elementId: string;
   isProfileCard?: boolean;
   title: string;
+  pcOrMobilePic: string;
 }>();
 
 const aiTitleBgColorMap: { [key: string]: string } = {
@@ -65,13 +71,6 @@ const aiTitleBgColorMap: { [key: string]: string } = {
   灵魂双胞胎名人: "#E6F3FF",
   荒诞前世: "#FFE5B4",
   命中注定的职业: "#E0EEE0",
-};
-
-const shareCard = () => {
-  downloadAsImage({
-    elementId: props.elementId,
-    fileName: props.title,
-  });
 };
 </script>
 
@@ -109,14 +108,18 @@ const shareCard = () => {
     flex-direction: column;
     flex: 1;
 
-    &:hover svg.share-icon {
-      visibility: visible;
-    }
-    svg.share-icon {
-      visibility: hidden;
+    .share-icon-wrapper {
       position: absolute;
       top: 10px;
       right: 10px;
+    }
+
+    &:hover .share-icon-wrapper {
+      visibility: visible;
+    }
+
+    .share-icon-wrapper {
+      visibility: hidden;
     }
 
     footer {

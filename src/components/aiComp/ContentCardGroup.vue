@@ -7,6 +7,7 @@
     <ContentCard
       v-if="content[0]"
       elementId="ai-profile-card"
+      :pcOrMobilePic="pcOrMobilePic"
       title="人物概述"
       :isProfileCard="true"
       class="full-width-card"
@@ -25,13 +26,14 @@
     </ContentCard>
     <ContentCard
       :elementId="`ai-content-card-${index}`"
+      :pcOrMobilePic="pcOrMobilePic"
       :title="item.title"
       v-for="(item, index) in content.slice(1)"
       :key="item.title"
     >
       <template #content>
         <h3>{{ item.title }}</h3>
-        <p>{{ item.content }}</p>
+        <p v-html="item.content"></p>
       </template>
     </ContentCard>
     <!-- 添加一个空的占位 div -->
@@ -45,6 +47,7 @@ import ContentCard from "./ContentCard.vue";
 defineProps<{
   content: any[];
   wrapperElementId: string;
+  pcOrMobilePic: string;
 }>();
 </script>
 
