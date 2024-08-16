@@ -4,8 +4,13 @@
       <!-- 头部区域 -->
       <div class="title">
         <div class="title-text">
-          <h3 @click="isShowAiSummaryModal = true">
-            <svg style="margin-right: 5px" class="icon" aria-hidden="true">
+          <h3>
+            <svg
+              style="margin-right: 5px"
+              :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
+              aria-hidden="true"
+              @click="showAiSummaryModal"
+            >
               <use xlink:href="#icon-task-green"></use>
             </svg>
             {{ isSmallWidth ? "" : i18n.pluginTitle }}
@@ -259,6 +264,11 @@ const dateChanged = (e: Date) => {
 };
 
 let isShowAiSummaryModal = ref<boolean>(false);
+const showAiSummaryModal = () => {
+  if (i18n.language === "简体中文") {
+    isShowAiSummaryModal.value = true;
+  }
+};
 
 let isTaskFilterDialogVisible = ref<boolean>(false);
 let isAddHandleDateDialogVisible = ref<boolean>(false);
@@ -705,6 +715,33 @@ const defaultProps = {
           align-items: center;
           h3 {
             margin: 0px;
+            // AI入口动画效果
+            .ai-enter {
+              cursor: pointer;
+              transition: transform 0.1s ease-in-out;
+
+              @keyframes jitter {
+                0% {
+                  transform: translate(0, 0);
+                }
+                25% {
+                  transform: translate(-2px, -2px);
+                }
+                50% {
+                  transform: translate(2px, 2px);
+                }
+                75% {
+                  transform: translate(-2px, 2px);
+                }
+                100% {
+                  transform: translate(2px, -2px);
+                }
+              }
+
+              &:hover {
+                animation: jitter 0.3s infinite;
+              }
+            }
           }
           span {
             margin-left: 5px;
