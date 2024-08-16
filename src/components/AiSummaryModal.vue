@@ -17,21 +17,21 @@
             <div class="auth-code-wrapper">
               <el-input
                 v-model="authCode"
-                :type="hideAuthCode ? 'text' : 'password'"
+                :type="isHideAuthCode ? 'password' : 'text'"
                 :disabled="!isEditAuthCode"
-                placeholder="请输入授权码"
+                placeholder="请输入认证码"
               >
-                <template #prepend>授权码</template>
+                <template #prepend>认证码</template>
               </el-input>
               <div class="auth-code-buttons">
                 <el-button
                   :icon="isEditAuthCode ? CircleCheck : Edit"
                   circle
                   size="small"
-                  @click="isEditAuthCode ? getAuthCodeInfo() : editAuthCode()"
+                  @click="isEditAuthCode ? saveAuthCodeInfo() : editAuthCode()"
                 />
                 <el-button
-                  :icon="hideAuthCode ? View : Hide"
+                  :icon="isHideAuthCode ? View : Hide"
                   circle
                   size="small"
                   @click="toggleHideAuthCode"
@@ -47,6 +47,12 @@
             <div class="auth-code-info">
               <span>总次数：{{ authCodeInfo.totalUses }}</span>
               <span>剩余次数：{{ authCodeInfo.remainingUses }}</span>
+              <a
+                href="https://flowus.cn/sylwair/share/6e1cc6d8-50a4-4b1f-a7fc-cf681dc02817"
+                target="_blank"
+                rel="noopener noreferrer"
+                >获取认证码？</a
+              >
             </div>
           </div>
 
@@ -145,31 +151,43 @@ const currentAiSummary = ref<{ dateTime: string; content: any }>({
   dateTime: "",
   content: [],
 });
-const authCode = ref<string>("clzskkxml0000x4lj8e0v1i17");
+const authCode = ref<string>("");
 const authCodeInfo = ref<{ totalUses: number; remainingUses: number }>({
   totalUses: 0,
   remainingUses: 0,
 });
-const hideAuthCode = ref<boolean>(false);
+const isHideAuthCode = ref<boolean>(true);
 const name = ref<string>("");
 const editAuthCode = () => {
   isEditAuthCode.value = true;
+  isHideAuthCode.value = false;
 };
 
 const toggleHideAuthCode = () => {
-  hideAuthCode.value = !hideAuthCode.value;
+  isHideAuthCode.value = !isHideAuthCode.value;
 };
 
 const getAuthCodeInfo = () => {
-  try {
-    aiAPI.getAuthCodeInfo(authCode.value).then((res) => {
-      authCodeInfo.value = res;
+  aiAPI
+    .getAuthCodeInfo(authCode.value)
+    .then((res: any) => {
+      if (res.code === 0) {
+        authCodeInfo.value = res.data;
+      } else {
+        ElMessage.error(res.msg);
+      }
+    })
+    .finally(() => {
       isEditAuthCode.value = false;
     });
-  } catch (err) {
-    console.log("啊乐山大佛", err);
-    ElMessage.error("获取授权码信息失败");
-  }
+};
+
+const saveAuthCodeInfo = () => {
+  API.putFile({
+    path: "/data/storage/petal/siyuan-plugin-task-list/ai-config.json",
+    file: JSON.stringify({ authCode: authCode.value }),
+  });
+  getAuthCodeInfo();
 };
 
 const formatAiSummary = (aiSummaryContent: object) => {
@@ -198,8 +216,8 @@ const btnLoading = ref<boolean>(false);
 const pcOrMobilePic = ref<string>("pc");
 // 使用示例
 const getAiSummary = async () => {
-  if (!authCode.value) {
-    ElMessage.error("请输入授权码");
+  if (!authCode.value && allAiSummary.value.length >= 3) {
+    ElMessage.error("免费次数已用完，请使用认证码");
     return;
   }
   btnLoading.value = true;
@@ -208,13 +226,15 @@ const getAiSummary = async () => {
       authCode: authCode.value,
       name: name.value,
     });
-    currentAiSummary.value = {
-      content: formatAiSummary(res.aiResult),
-      dateTime: formatDateToLocaleString(new Date()),
-    };
-    authCodeInfo.value = res.authCodeInfo;
-  } catch (err) {
-    ElMessage.error("获取AI总结失败");
+    if (res.code === 0) {
+      currentAiSummary.value = {
+        content: formatAiSummary(res.data.aiJson),
+        dateTime: formatDateToLocaleString(new Date()),
+      };
+      authCodeInfo.value = res.data.authCodeInfo;
+    } else {
+      ElMessage.error(res.msg);
+    }
   } finally {
     btnLoading.value = false;
   }
@@ -227,20 +247,28 @@ const getAiSummary = async () => {
 
 watch(modelValue, async () => {
   if (modelValue.value) {
-    getAuthCodeInfo();
-    getFile();
+    getAiConfigFromFile().then(() => {
+      getAuthCodeInfo();
+    });
+    getAllAiSummaryFromFile();
   }
 });
 
+const getAiConfigFromFile = async () => {
+  const res: any = await API.getFile({
+    path: "/data/storage/petal/siyuan-plugin-task-list/ai-config.json",
+  });
+  if (!res) return;
+  authCode.value = res.authCode;
+};
 const allAiSummary = ref<any[]>([]);
 /**
  * 获取文件并进行回显
  */
-const getFile = async () => {
-  const res = await API.getFile({
+const getAllAiSummaryFromFile = async () => {
+  const res: Array<any> = await API.getFile({
     path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary.json",
   });
-  console.log("res============", res);
   if (!res) return;
   allAiSummary.value = res;
   currentAiSummary.value = allAiSummary.value[0];
@@ -302,10 +330,26 @@ const handleConfirm = () => {
   .auth-code-info {
     margin-top: 3px;
     display: flex;
+    align-items: center;
     gap: 16px;
     font-size: 1.1em;
     // font-weight: bold;
     color: #ffffff;
+    &:hover {
+      a {
+        display: block;
+      }
+    }
+    a {
+      display: none;
+      margin-left: 30px;
+      color: #007bff; /* Link color */
+      text-decoration: none; /* No underline */
+      transition: color 0.2s ease; /* Smooth transition for hover effect */
+    }
+    a:hover {
+      color: #0056b3; /* Hover link color */
+    }
   }
 
   .operation-section {

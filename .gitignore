@@ -9,3 +9,5 @@ dev
 dist
 build
 yarn.lock
+
+.env*

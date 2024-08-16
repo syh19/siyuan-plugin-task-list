@@ -7,8 +7,13 @@ interface ApiResponse<T> {
   msg: string;
 }
 
+const baseURL = "https://siyuan-plugin-task-list.sylwair.com";
+
+// const baseURL = "http://localhost:8787";
+// console.log("当前环境", import.meta.env.MODE);
+
 const instance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8787",
+  baseURL,
   maxBodyLength: Infinity,
   maxContentLength: Infinity,
   timeout: 3 * 60 * 1000,

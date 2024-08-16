@@ -14,7 +14,7 @@
               @click.stop="
                 downloadAsImage({
                   elementId: `history-content-wrapper-${index}`,
-                  fileName: `${record.dateTime}`,
+                  fileName: `全部-${record.dateTime}`,
                   pcOrMobilePic: pcOrMobilePic,
                 })
               "

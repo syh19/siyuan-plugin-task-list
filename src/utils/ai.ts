@@ -31,7 +31,7 @@ const imgWidthMap = {
 /**
  * 下载为图片
  * @param elementId 元素ID
- * @param fileName 文件名【如果fileName为“全部”，则单独处理图片宽度】
+ * @param fileName 文件名【如果fileName以“全部”开头，则单独处理图片宽度】
  * @param pcOrMobilePic pc或mobile
  */
 export async function downloadAsImage({
@@ -51,8 +51,7 @@ export async function downloadAsImage({
     }
 
     let wrapperWidth: number = 0;
-    console.log("图片相关", imgWidthMap, pcOrMobilePic);
-    if (fileName === "全部") {
+    if (fileName.startsWith("全部")) {
       wrapperWidth = imgWidthMap[pcOrMobilePic].whole;
     } else {
       wrapperWidth = imgWidthMap[pcOrMobilePic].single;
