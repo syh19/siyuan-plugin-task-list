@@ -14,13 +14,13 @@
     >
       <template #content>
         <h3>
-          {{ content[0]["content"][0]["宇宙赐予的讽刺绰号"] }}
+          {{ content[0]["content"][0]["content"] }}
         </h3>
         <p class="emoji">
-          {{ content[0]["content"][1]["灵魂表情包"] }}
+          {{ content[0]["content"][1]["content"] }}
         </p>
         <p class="goal">
-          {{ content[0]["content"][2]["讽刺性人生目标"] }}
+          {{ content[0]["content"][2]["content"] }}
         </p>
       </template>
     </ContentCard>

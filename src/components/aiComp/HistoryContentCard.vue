@@ -53,9 +53,9 @@ const historyRecords = ref<HistoryRecord[]>([]);
 const getHistoryRecords = async () => {
   try {
     const response = await API.getFile({
-      path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary.json",
+      path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary-roast.json",
+      emptyDataType: "array",
     });
-    console.log("response============", response);
     historyRecords.value = response;
   } catch (error) {
     console.error("Error fetching history records:", error);

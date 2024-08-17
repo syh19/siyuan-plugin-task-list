@@ -622,7 +622,6 @@ const handleNodeClick = async (data: Tree) => {
 
 const handleNodeContextMenu = async (e: any, data: any) => {
   taskNodeTopNum.value = data.topNum;
-  console.log("哈哈哈哈哈", data);
   const theme: string =
     globalStore.currentThemeMode === "light" ? "mac" : "mac dark";
   let options: any = [];

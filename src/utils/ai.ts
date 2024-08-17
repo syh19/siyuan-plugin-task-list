@@ -23,8 +23,8 @@ const imgWidthMap = {
     single: 800,
   },
   mobile: {
-    whole: 600,
-    single: 450,
+    whole: 800,
+    single: 350,
   },
 };
 
@@ -60,6 +60,7 @@ export async function downloadAsImage({
     const wrapper = document.createElement("div");
     wrapper.style.padding = "20px";
     wrapper.style.width = `${wrapperWidth}px`;
+    // wrapper.style.height = `${wrapperWidth * 1.414}px`;
     wrapper.style.background =
       "linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%)";
     // wrapper.style.borderRadius = "16px";

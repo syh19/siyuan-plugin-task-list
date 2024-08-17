@@ -48,7 +48,7 @@
               <span>总次数：{{ authCodeInfo.totalUses }}</span>
               <span>剩余次数：{{ authCodeInfo.remainingUses }}</span>
               <a
-                href="https://flowus.cn/sylwair/share/6e1cc6d8-50a4-4b1f-a7fc-cf681dc02817"
+                href="https://ccicqyfum6.feishu.cn/wiki/BR9twc5G4imc7jkSRDxcJFISnGf"
                 target="_blank"
                 rel="noopener noreferrer"
                 >获取认证码？</a
@@ -102,17 +102,24 @@
       </template>
 
       <!-- 内容卡片区域 -->
-      <ContentCardGroup
-        v-if="currentOrHistory === 'current'"
-        :content="currentAiSummary.content"
-        :pcOrMobilePic="pcOrMobilePic"
-        wrapperElementId="ai-summary-content-wrapper"
-      />
+      <el-empty v-if="!currentAiSummary.content.length">
+        <template #description>
+          <span> 暂无数据，请点击 AI生成 按钮 </span>
+        </template>
+      </el-empty>
+      <template v-else>
+        <ContentCardGroup
+          v-if="currentOrHistory === 'current'"
+          :content="currentAiSummary.content"
+          :pcOrMobilePic="pcOrMobilePic"
+          wrapperElementId="ai-summary-content-wrapper"
+        />
 
-      <HistoryContentCard
-        v-if="currentOrHistory === 'history'"
-        :pcOrMobilePic="pcOrMobilePic"
-      />
+        <HistoryContentCard
+          v-if="currentOrHistory === 'history'"
+          :pcOrMobilePic="pcOrMobilePic"
+        />
+      </template>
 
       <!-- 底部按钮区域 -->
       <template #footer>
@@ -168,13 +175,16 @@ const toggleHideAuthCode = () => {
 };
 
 const getAuthCodeInfo = () => {
+  if (!authCode.value) {
+    return (isEditAuthCode.value = false);
+  }
   aiAPI
     .getAuthCodeInfo(authCode.value)
     .then((res: any) => {
       if (res.code === 0) {
         authCodeInfo.value = res.data;
       } else {
-        ElMessage.error(res.msg);
+        res.msg && ElMessage.error(res.msg);
       }
     })
     .finally(() => {
@@ -188,28 +198,6 @@ const saveAuthCodeInfo = () => {
     file: JSON.stringify({ authCode: authCode.value }),
   });
   getAuthCodeInfo();
-};
-
-const formatAiSummary = (aiSummaryContent: object) => {
-  let resList: any[] = [];
-  let profileList: any[] = [];
-  Object.entries(aiSummaryContent).forEach(([key, value]) => {
-    if (["宇宙赐予的讽刺绰号", "讽刺性人生目标", "灵魂表情包"].includes(key)) {
-      profileList.push({
-        [key]: value,
-      });
-    } else {
-      resList.push({
-        title: key,
-        content: value,
-      });
-    }
-  });
-  resList.unshift({
-    title: "人物概述",
-    content: profileList,
-  });
-  return resList;
 };
 
 const btnLoading = ref<boolean>(false);
@@ -228,21 +216,28 @@ const getAiSummary = async () => {
     });
     if (res.code === 0) {
       currentAiSummary.value = {
-        content: formatAiSummary(res.data.aiJson),
+        content: res.data.aiJson,
         dateTime: formatDateToLocaleString(new Date()),
       };
       authCodeInfo.value = res.data.authCodeInfo;
+
+      // 将当前的AI总结添加到历史记录中
+      const dataForSave: any[] = [
+        currentAiSummary.value,
+        ...allAiSummary.value,
+      ];
+      await API.putFile({
+        path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary-roast.json",
+        file: JSON.stringify(dataForSave),
+      }).then(() => {
+        getAllAiSummaryFromFile();
+      });
     } else {
       ElMessage.error(res.msg);
     }
   } finally {
     btnLoading.value = false;
   }
-  const dataForSave: any[] = [currentAiSummary.value, ...allAiSummary.value];
-  await API.putFile({
-    path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary.json",
-    file: JSON.stringify(dataForSave),
-  });
 };
 
 watch(modelValue, async () => {
@@ -257,9 +252,10 @@ watch(modelValue, async () => {
 const getAiConfigFromFile = async () => {
   const res: any = await API.getFile({
     path: "/data/storage/petal/siyuan-plugin-task-list/ai-config.json",
+    emptyDataType: "object",
   });
   if (!res) return;
-  authCode.value = res.authCode;
+  authCode.value = res.authCode || "";
 };
 const allAiSummary = ref<any[]>([]);
 /**
@@ -267,9 +263,10 @@ const allAiSummary = ref<any[]>([]);
  */
 const getAllAiSummaryFromFile = async () => {
   const res: Array<any> = await API.getFile({
-    path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary.json",
+    path: "/data/storage/petal/siyuan-plugin-task-list/ai-summary-roast.json",
+    emptyDataType: "array",
   });
-  if (!res) return;
+  if (res.length === 0) return;
   allAiSummary.value = res;
   currentAiSummary.value = allAiSummary.value[0];
 };
@@ -376,6 +373,23 @@ const handleConfirm = () => {
   #ai-summary-content-wrapper {
     padding: 10px;
     // background-color: #80a7e1;
+  }
+
+  ::v-deep(.el-empty) {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    svg {
+      width: 100px;
+      height: 100px;
+      opacity: 0.5;
+    }
+    .el-empty__description {
+      font-size: 1.4em;
+      color: #6b7280;
+      margin-top: 10px;
+    }
   }
 }
 </style>

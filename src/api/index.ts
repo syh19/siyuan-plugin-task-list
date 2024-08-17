@@ -164,11 +164,24 @@ export async function putFile(params: IFile): Promise<any> {
   return await client.putFile(params);
 }
 
-export async function getFile(params: { path: string }): Promise<any> {
-  const res = await client.getFile(params, "arraybuffer");
-  const decoder = new TextDecoder("utf-8");
-  const jsonString = decoder.decode(res);
-  return JSON.parse(jsonString);
+export async function getFile(params: {
+  path: string;
+  emptyDataType: string;
+}): Promise<any> {
+  try {
+    const res: any = await client.getFile(params, "arraybuffer");
+    const decoder = new TextDecoder("utf-8");
+    const jsonString = decoder.decode(res);
+    return JSON.parse(jsonString);
+  } catch (error) {
+    if (params.emptyDataType === "string") {
+      return "";
+    } else if (params.emptyDataType === "object") {
+      return {};
+    } else if (params.emptyDataType === "array") {
+      return [];
+    }
+  }
 }
 
 export async function removeFile(params: { path: string }): Promise<any> {
