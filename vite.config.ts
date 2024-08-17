@@ -13,8 +13,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+// 解析命令行参数
 const args = minimist(process.argv.slice(2))
+// 判断是否为开发模式
 const isWatch = args.watch || args.w || false
+// 设置开发和生产环境的输出目录
 const devDistDir = './dev'
 const distDir = isWatch ? devDistDir : './dist'
 
@@ -22,20 +25,26 @@ const distDir = isWatch ? devDistDir : './dist'
 // console.log('distDir=>', distDir)
 
 export default defineConfig({
+  // 配置路径别名
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     },
   },
+  // 插件列表
   plugins: [
+    // 自动导入插件
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
+    // 自动注册组件插件
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    // Vue插件
     vue(),
 
+    // 静态文件复制插件
     viteStaticCopy({
       targets: [
         {
@@ -75,6 +84,7 @@ export default defineConfig({
     'process.env': {},
   },
 
+  // 构建配置
   build: {
     // 输出路径
     outDir: distDir,
@@ -89,6 +99,7 @@ export default defineConfig({
     // 不压缩，用于调试
     minify: !isWatch,
 
+    // 库模式配置
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, 'src/index.ts'),
@@ -96,10 +107,12 @@ export default defineConfig({
       fileName: 'index',
       formats: ['cjs'],
     },
+    // Rollup 配置
     rollupOptions: {
       plugins: [
         ...(isWatch
           ? [
+              // 热更新插件
               livereload(devDistDir),
               {
                 //监听静态资源文件
@@ -117,6 +130,7 @@ export default defineConfig({
               },
             ]
           : [
+              // 打包插件
               zipPack({
                 inDir: './dist',
                 outDir: './',

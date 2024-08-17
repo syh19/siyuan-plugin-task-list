@@ -5,10 +5,15 @@
       <div class="title">
         <div class="title-text">
           <h3>
-            <svg style="margin-right: 5px" class="icon" aria-hidden="true">
+            <svg
+              style="margin-right: 5px"
+              :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
+              aria-hidden="true"
+              @click="showAiSummaryModal"
+            >
               <use xlink:href="#icon-task-green"></use>
             </svg>
-            {{ isSmallWidth ? '' : i18n.pluginTitle }}
+            {{ isSmallWidth ? "" : i18n.pluginTitle }}
           </h3>
           <span @click="toggleTaskStatus"
             >({{ taskStatusMap[taskStatus] }})</span
@@ -193,7 +198,7 @@
           <span>
             <span v-html="data.highlightLabel || data.label"> </span>
             <span v-if="data.type === 'box'">
-              {{ ' (' + taskCountForEachBox[data.key] + ')' }}
+              {{ " (" + taskCountForEachBox[data.key] + ")" }}
             </span>
           </span>
         </div>
@@ -213,130 +218,139 @@
       @close="isAddHandleDateDialogVisible = false"
       @submit-success="addHandleDateSbumitSuccess"
     />
+    <AiSummaryModal v-model="isShowAiSummaryModal"> </AiSummaryModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, watch, h } from 'vue'
+import { ref, nextTick, watch, h } from "vue";
 // import { toRaw } from '@vue/reactivity'
-import * as utils from '@/utils/common'
-import { i18n } from '@/utils/common'
-import * as API from '@/api'
-import * as sy from 'siyuan'
-import type { IRange } from '@/types/index'
-import { ElTree, ElInput } from 'element-plus'
-import SetTaskNodeTop from '@/components/taskMain/SetTaskNodeTop.vue'
-import Setting from '@/components/Setting.vue'
-import eventBus from '@/utils/eventBus'
-import * as treeFn from '@/utils/handleTreeData'
-import infoCard from '@/components/infoCard/index'
-import { Calendar, DatePicker } from 'v-calendar'
-import 'v-calendar/style.css'
-import * as date from '@/utils/date'
-import { useDatePicker } from '@/hooks/useDatePicker'
-import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css'
-import ContextMenu from '@imengyu/vue3-context-menu'
+import * as utils from "@/utils/common";
+import { i18n } from "@/utils/common";
+import * as sy from "siyuan";
+import * as API from "@/api";
+import * as AI from "@/api/ai";
+import type { IRange } from "@/types/index";
+import { ElTree, ElInput } from "element-plus";
+import SetTaskNodeTop from "@/components/taskMain/SetTaskNodeTop.vue";
+import Setting from "@/components/Setting.vue";
+import eventBus from "@/utils/eventBus";
+import * as treeFn from "@/utils/handleTreeData";
+import infoCard from "@/components/infoCard/index";
+import { Calendar, DatePicker } from "v-calendar";
+import "v-calendar/style.css";
+import * as date from "@/utils/date";
+import { useDatePicker } from "@/hooks/useDatePicker";
+import "@imengyu/vue3-context-menu/lib/vue3-context-menu.css";
+import ContextMenu from "@imengyu/vue3-context-menu";
 
-import { useResizeObserver } from '@/hooks/useResizeObserver'
-import { useGlobalStore } from '@/store/index'
-const globalStore = useGlobalStore()
+import { useResizeObserver } from "@/hooks/useResizeObserver";
+import { useGlobalStore } from "@/store/index";
+const globalStore = useGlobalStore();
 
-const isSmallWidth = useResizeObserver()
+const isSmallWidth = useResizeObserver();
 interface Tree {
-  [key: string]: any
+  [key: string]: any;
 }
 
-let settingRef = ref<InstanceType<typeof Setting>>()
+let settingRef = ref<InstanceType<typeof Setting>>();
 
-let dateForShowTask = ref<Date>(new Date())
+let dateForShowTask = ref<Date>(new Date());
 const dateChanged = (e: Date) => {
-  let dateParam: string = ''
-  e && (dateParam = date.formatDate(e))
-  eventBus.emit('weekly-date-clicked', dateParam)
-  refreshData()
-}
+  let dateParam: string = "";
+  e && (dateParam = date.formatDate(e));
+  eventBus.emit("weekly-date-clicked", dateParam);
+  refreshData();
+};
 
-let isTaskFilterDialogVisible = ref<boolean>(false)
-let isAddHandleDateDialogVisible = ref<boolean>(false)
+let isShowAiSummaryModal = ref<boolean>(false);
+const showAiSummaryModal = () => {
+  if (i18n.language === "简体中文") {
+    isShowAiSummaryModal.value = true;
+  }
+};
+
+let isTaskFilterDialogVisible = ref<boolean>(false);
+let isAddHandleDateDialogVisible = ref<boolean>(false);
 /** 需要添加处理日期的任务ID */
-let taskIdToAddHandleDate = ref<string>('')
+let taskIdToAddHandleDate = ref<string>("");
 
 const openSettingDrawer = () => {
-  settingRef.value?.open()
+  settingRef.value?.open();
   nextTick(() => {
-    document.body.style.width = '100%'
-  })
-}
-const treeRef = ref<InstanceType<typeof ElTree>>()
-const inputRef = ref<InstanceType<typeof ElInput>>()
+    document.body.style.width = "100%";
+  });
+};
+const treeRef = ref<InstanceType<typeof ElTree>>();
+const inputRef = ref<InstanceType<typeof ElInput>>();
 const showInput = () => {
-  isInputShow.value = true
+  isInputShow.value = true;
   nextTick(() => {
-    inputRef.value.focus()
-  })
-}
-const isInputShow = ref<boolean>(false)
+    inputRef.value.focus();
+  });
+};
+const isInputShow = ref<boolean>(false);
 
 const tabChanged = (e: string) => {
   API.setLocalStorageVal({
-    key: 'plugin-task-list-taskRangeTabClicked',
+    key: "plugin-task-list-taskRangeTabClicked",
     val: e,
-  })
+  });
 
-  refreshData()
-}
+  refreshData();
+};
 
-const app = ref<sy.App>({ plugins: [], appId: '' })
-let treeData = ref<any>([])
-let taskStatus = ref<string>('todo')
+const app = ref<sy.App>({ plugins: [], appId: "" });
+let treeData = ref<any>([]);
+let taskStatus = ref<string>("todo");
 const taskStatusMap = ref<any>({
   todo: i18n.taskStatus.todo,
   done: i18n.taskStatus.done,
   all: i18n.taskStatus.all,
-})
+});
 
 const { datePickerLocale, datePickerAttributes, handleDayMouseEnter } =
-  useDatePicker('taskList')
+  useDatePicker("taskList");
 
 const handleMouseEnter = (e: any, data: any) => {
-  infoCard.update(data, e.target)
-}
+  infoCard.update(data, e.target);
+};
 
 /** 高亮搜索的关键字 */
 const handleHighLightSearchText = (text: string) => {
   return text.replace(
-    new RegExp(filterText.value, 'g'),
+    new RegExp(filterText.value, "g"),
     `<span style="color: #5182ee; font-weight: bold">${filterText.value}</span>`
-  )
-}
+  );
+};
 const toggleTaskStatus = () => {
-  const statusList = ['todo', 'done', 'all']
+  const statusList = ["todo", "done", "all"];
   // 循环切换状态
-  let index = statusList.indexOf(taskStatus.value)
-  index = index === statusList.length - 1 ? 0 : index + 1
-  taskStatus.value = statusList[index]
+  let index = statusList.indexOf(taskStatus.value);
+  index = index === statusList.length - 1 ? 0 : index + 1;
+  taskStatus.value = statusList[index];
 
-  refreshData()
-}
+  refreshData();
+};
 
-const range = ref<IRange>('doc')
-const filterText = ref<string>('')
+const range = ref<IRange>("doc");
+const filterText = ref<string>("");
 
-let isShowWeekDateFilter = ref<boolean>(false)
+let isShowWeekDateFilter = ref<boolean>(false);
 const taskFilterSubmitSuccess = () => {
-  refreshData()
-  initConfig()
-}
+  refreshData();
+  initConfig();
+};
 
 const addHandleDateSbumitSuccess = () => {
   // syh-fixeme 这里接口很慢，需要延迟刷新
   setTimeout(() => {
-    refreshData()
-  }, 3000)
-}
-const workBenchRangetaskCounter = ref<number>(0)
-const boxRangetaskCounter = ref<number>(0)
-const docRangetaskCounter = ref<number>(0)
+    refreshData();
+  }, 3000);
+};
+const workBenchRangetaskCounter = ref<number>(0);
+const boxRangetaskCounter = ref<number>(0);
+const docRangetaskCounter = ref<number>(0);
 /**
  * 刷新数据重新获取el-tree的数据
  */
@@ -344,71 +358,71 @@ const refreshData = async () => {
   let res = await utils.getTaskListForDisplay({
     range: range.value,
     status: taskStatus.value as any,
-  })
+  });
   // treeData.value = await treeFn.refreshTaskAfterHideDocChecked(res)
-  treeData.value = res
+  treeData.value = res;
 
   // 根据按钮状态展开或者收起所有节点
   nextTick(() => {
-    toggleExpand(isExpand.value)
-  })
+    toggleExpand(isExpand.value);
+  });
 
-  const { data: storage } = await API.getLocalStorage()
-  getEmptyReason(storage)
-}
+  const { data: storage } = await API.getLocalStorage();
+  getEmptyReason(storage);
+};
 
-const taskCountForEachBox = ref<any>({})
+const taskCountForEachBox = ref<any>({});
 
-eventBus.on('task-counts-in-three-ranges-changed', (e: any) => {
-  taskCountForEachBox.value = e.taskCountForEachBox
+eventBus.on("task-counts-in-three-ranges-changed", (e: any) => {
+  taskCountForEachBox.value = e.taskCountForEachBox;
 
-  docRangetaskCounter.value = e.taskCountInDoc
-  boxRangetaskCounter.value = e.taskCountForEachBox[utils.currentBoxId] || 0
+  docRangetaskCounter.value = e.taskCountInDoc;
+  boxRangetaskCounter.value = e.taskCountForEachBox[utils.currentBoxId] || 0;
   workBenchRangetaskCounter.value = Object.keys(e.taskCountForEachBox).reduce(
     (prev, cur) => {
-      return prev + e.taskCountForEachBox[cur]
+      return prev + e.taskCountForEachBox[cur];
     },
     0
-  )
-})
+  );
+});
 
-eventBus.on('node-list-for-hide-task-changed', refreshData)
-eventBus.on('add-handle-date-for-task-node', (taskId: string) => {
-  isAddHandleDateDialogVisible.value = true
-  taskIdToAddHandleDate.value = taskId
-})
+eventBus.on("node-list-for-hide-task-changed", refreshData);
+eventBus.on("add-handle-date-for-task-node", (taskId: string) => {
+  isAddHandleDateDialogVisible.value = true;
+  taskIdToAddHandleDate.value = taskId;
+});
 
-const trigger = ref<'tab' | 'tree'>('tab')
-utils.plugin.eventBus.on('switch-protyle', () => {
+const trigger = ref<"tab" | "tree">("tab");
+utils.plugin.eventBus.on("switch-protyle", () => {
   // 如果是点击树的节点导致文档TAB切换了，不要重新刷新数据
-  if (trigger.value === 'tree') {
-    trigger.value = 'tab'
-    return
+  if (trigger.value === "tree") {
+    trigger.value = "tab";
+    return;
   }
   // 如果当前的筛选范围是整个工作区，不需要重新刷新数据
-  if (range.value === 'workspace') {
-    return
+  if (range.value === "workspace") {
+    return;
   }
 
-  refreshData()
-})
+  refreshData();
+});
 
 watch(filterText, (val: string) => {
-  triggerFiltrateTreeNode(val)
-})
+  triggerFiltrateTreeNode(val);
+});
 
 /**
  * 触发过滤树节点
  * @param val
  */
 const triggerFiltrateTreeNode = (val: string) => {
-  treeRef.value!.filter(val)
-}
+  treeRef.value!.filter(val);
+};
 
 const changeTaskHandleDate = (taskInfo: any) => {
-  isAddHandleDateDialogVisible.value = true
-  taskIdToAddHandleDate.value = taskInfo.key
-}
+  isAddHandleDateDialogVisible.value = true;
+  taskIdToAddHandleDate.value = taskInfo.key;
+};
 /**
  * 过滤树节点
  * @param value
@@ -416,140 +430,140 @@ const changeTaskHandleDate = (taskInfo: any) => {
  */
 const filterTreeNode = (value: string, data: any) => {
   // if (!value) return true
-  if (data.type !== 'task') return false
-  data.highlightLabel = handleHighLightSearchText(data.label)
-  return data.label.indexOf(value) !== -1
-}
+  if (data.type !== "task") return false;
+  data.highlightLabel = handleHighLightSearchText(data.label);
+  return data.label.indexOf(value) !== -1;
+};
 
 /**
  * 折叠或者展开所有节点
  */
 const toggleExpand = (isExpandNew: boolean) => {
-  let nodes = treeRef.value.store.nodesMap
+  let nodes = treeRef.value.store.nodesMap;
   for (let i in nodes) {
-    nodes[i].expanded = isExpandNew
+    nodes[i].expanded = isExpandNew;
   }
-}
+};
 
-const isHideBadge = ref<boolean>(true)
+const isHideBadge = ref<boolean>(true);
 const initTaskRangeTab = (storage: any) => {
-  const currentTab: IRange = storage['plugin-task-list-taskRangeTabClicked']
-  currentTab && (range.value = currentTab)
-}
+  const currentTab: IRange = storage["plugin-task-list-taskRangeTabClicked"];
+  currentTab && (range.value = currentTab);
+};
 
-const emptyText = ref<string>('')
+const emptyText = ref<string>("");
 const getEmptyReason = async (storage: any) => {
   const hideList =
-    storage['plugin-task-list-settings']?.['nodeListForHideTask'] || []
+    storage["plugin-task-list-settings"]?.["nodeListForHideTask"] || [];
   // 隐藏了整个工作空间的所有笔记本
-  let notebooks = await API.lsNotebooks()
+  let notebooks = await API.lsNotebooks();
   let notebooksOpened: any[] = notebooks.filter(
     (notebook: any) => !notebook.closed
-  )
+  );
 
   let isAllNotebookHidden: boolean = notebooksOpened.every((notebook: any) => {
     if (
       hideList.find(
-        (item: any) => item.type === 'box' && item.key === notebook.id
+        (item: any) => item.type === "box" && item.key === notebook.id
       )
     ) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
-  })
+  });
   if (isAllNotebookHidden) {
-    emptyText.value = i18n.emptyText.allNotebooksHidden
-    return
+    emptyText.value = i18n.emptyText.allNotebooksHidden;
+    return;
   }
 
   for (let item of hideList) {
-    if (item.type === 'box' && utils.currentBoxId === item.key) {
-      emptyText.value = i18n.emptyText.currentNotebook
-      return
+    if (item.type === "box" && utils.currentBoxId === item.key) {
+      emptyText.value = i18n.emptyText.currentNotebook;
+      return;
     }
   }
 
   for (let item of hideList) {
-    if (item.type === 'doc') {
+    if (item.type === "doc") {
       for (let docPath of utils.docPathSet) {
-        const hideDocPathIndex: number = docPath.indexOf(item.key)
-        const currentDocPathIndex: number = docPath.indexOf(utils.currentDocId)
+        const hideDocPathIndex: number = docPath.indexOf(item.key);
+        const currentDocPathIndex: number = docPath.indexOf(utils.currentDocId);
         if (hideDocPathIndex !== -1 && currentDocPathIndex !== -1) {
           if (currentDocPathIndex >= hideDocPathIndex) {
-            emptyText.value = i18n.emptyText.currentDoc
-            return
+            emptyText.value = i18n.emptyText.currentDoc;
+            return;
           }
         }
       }
     }
   }
 
-  emptyText.value = utils.taskEmptyReasonAfterFilter
-}
+  emptyText.value = utils.taskEmptyReasonAfterFilter;
+};
 
-const dockCalendarDisplayMode = ref<'weekly' | 'monthly'>('weekly')
+const dockCalendarDisplayMode = ref<"weekly" | "monthly">("weekly");
 /**
  * 初始化时显示周视图以及判断是否显示badge
  */
 const initConfig = async () => {
-  const { data: storage } = await API.getLocalStorage()
+  const { data: storage } = await API.getLocalStorage();
   // 初始化展示哪个维度的TAB
-  initTaskRangeTab(storage)
-  refreshData()
+  initTaskRangeTab(storage);
+  refreshData();
 
   const taskFilterWay: string =
-    storage['plugin-task-list-filters']?.['taskFilterWay']
-  isShowWeekDateFilter.value = taskFilterWay === 'dockCalendar'
+    storage["plugin-task-list-filters"]?.["taskFilterWay"];
+  isShowWeekDateFilter.value = taskFilterWay === "dockCalendar";
 
   // 控制是否展示已经设置了过滤项的小红点
   if (isShowWeekDateFilter.value) {
-    isHideBadge.value = true
+    isHideBadge.value = true;
   } else {
     const dateRangeFormat: string =
-      storage['plugin-task-list-filters']?.['dateRangeFormat']
+      storage["plugin-task-list-filters"]?.["dateRangeFormat"];
     if (dateRangeFormat) {
       // 动态日期范围
-      if (dateRangeFormat === 'dynamic') {
+      if (dateRangeFormat === "dynamic") {
         const dynamicDateRange: string =
-          storage['plugin-task-list-filters']?.['dynamicDateRange']
+          storage["plugin-task-list-filters"]?.["dynamicDateRange"];
         if (dynamicDateRange) {
-          isHideBadge.value = false
+          isHideBadge.value = false;
         } else {
-          isHideBadge.value = true
+          isHideBadge.value = true;
         }
       }
       // 静态日期范围
       else {
         const staticDateRange: string[] =
-          storage['plugin-task-list-filters']?.['staticDateRange']
+          storage["plugin-task-list-filters"]?.["staticDateRange"];
         if (staticDateRange.length) {
-          isHideBadge.value = false
+          isHideBadge.value = false;
         } else {
-          isHideBadge.value = true
+          isHideBadge.value = true;
         }
       }
     } else {
-      isHideBadge.value = true
+      isHideBadge.value = true;
     }
   }
 
   // 设置日历视图的显示形式：周视图 OR 月视图
-  const calendarMode: 'weekly' | 'monthly' =
-    storage['plugin-task-list-filters']?.['dockCalendarDisplayMode']
-  calendarMode && (dockCalendarDisplayMode.value = calendarMode)
-}
+  const calendarMode: "weekly" | "monthly" =
+    storage["plugin-task-list-filters"]?.["dockCalendarDisplayMode"];
+  calendarMode && (dockCalendarDisplayMode.value = calendarMode);
+};
 
-initConfig()
+initConfig();
 
-const isExpand = ref<boolean>(true)
+const isExpand = ref<boolean>(true);
 watch(
   isExpand,
   (val) => {
-    toggleExpand(val)
+    toggleExpand(val);
   },
   { immediate: false }
-)
+);
 
 // 刷新数据
 // setTimeout(() => {
@@ -570,120 +584,119 @@ const openDocAndScrollTaskNode = async (docId: string, taskNodeId: string) => {
         id: docId,
         zoomIn: false,
       },
-    })
+    });
     // 延时滚动到指定的node节点
-    await utils.sleep(350)
+    await utils.sleep(350);
   }
   let taskEle: any = document.querySelector(
     `.layout-tab-container .protyle-content .protyle-wysiwyg >div:not([data-type="NodeBlockQueryEmbed"]) [data-node-id="${taskNodeId}"][data-type="NodeListItem"] div:nth-child(2)[data-type="NodeParagraph"]`
-  )
+  );
   taskEle?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'center',
-  })
+    behavior: "smooth",
+    block: "center",
+    inline: "center",
+  });
   // 临时高亮节点
   nextTick(async () => {
-    taskEle?.classList.add('plugin-task-list__hightlight-node')
-    await utils.sleep(1500)
-    taskEle?.classList.remove('plugin-task-list__hightlight-node')
-  })
-}
+    taskEle?.classList.add("plugin-task-list__hightlight-node");
+    await utils.sleep(1500);
+    taskEle?.classList.remove("plugin-task-list__hightlight-node");
+  });
+};
 // ---------------------------方法 Start-------------------------
 
 // ---------------------------方法 End-------------------------
 
 interface Tree {
-  label: string
-  children?: Tree[]
+  label: string;
+  children?: Tree[];
 }
 
 const handleNodeClick = async (data: Tree) => {
-  if (data.type === 'task') {
-    trigger.value = 'tree'
-    await utils.sleep(10)
-    openDocAndScrollTaskNode(data.root_id, data.key)
+  if (data.type === "task") {
+    trigger.value = "tree";
+    await utils.sleep(10);
+    openDocAndScrollTaskNode(data.root_id, data.key);
   }
-}
+};
 
 const handleNodeContextMenu = async (e: any, data: any) => {
-  taskNodeTopNum.value = data.topNum
-  console.log('哈哈哈哈哈', data)
+  taskNodeTopNum.value = data.topNum;
   const theme: string =
-    globalStore.currentThemeMode === 'light' ? 'mac' : 'mac dark'
-  let options: any = []
+    globalStore.currentThemeMode === "light" ? "mac" : "mac dark";
+  let options: any = [];
   /** 置顶功能操作项 */
   const setTaskNodeTopOption: any = {
     label: h(SetTaskNodeTop, {
       num: taskNodeTopNum.value,
       onChange(e: number) {
-        taskNodeTopNum.value = e
+        taskNodeTopNum.value = e;
       },
     }),
     onClick: () => {
-      setTaskNodeTopNum(data.key, taskNodeTopNum.value)
+      setTaskNodeTopNum(data.key, taskNodeTopNum.value);
     },
-  }
-  if (data.type !== 'task') {
-    return
+  };
+  if (data.type !== "task") {
+    return;
   } else {
-    if (data.status === 'todo') {
+    if (data.status === "todo") {
       options = [
         {
           label: i18n.addHandleDate,
-          icon: 'icon-task-green',
+          icon: "icon-task-green",
           onClick: () => {
-            changeTaskHandleDate(data)
+            changeTaskHandleDate(data);
           },
         },
         setTaskNodeTopOption,
-      ]
+      ];
     } else {
-      options = [setTaskNodeTopOption]
+      options = [setTaskNodeTopOption];
     }
   }
 
-  e.preventDefault()
+  e.preventDefault();
   ContextMenu.showContextMenu({
     x: e.x,
     y: e.y,
     items: options,
     theme: theme,
-  })
-}
+  });
+};
 
 const setTaskNodeTopNum = async (blockId: string, topNum: number) => {
   return await API.setBlockAttrs({
     id: blockId,
     attrs: {
-      'custom-plugin-task-list-top-priority': topNum === 0 ? '' : topNum + '',
+      "custom-plugin-task-list-top-priority": topNum === 0 ? "" : topNum + "",
     },
   }).then(() => {
     // 需要延时刷新数据，因为setBlockAttrs接口写入数据后更新没那么快
     setTimeout(() => {
-      refreshData()
-    }, 1800)
-  })
-}
+      refreshData();
+    }, 1800);
+  });
+};
 
 /** 任务节点置顶的值 */
-const taskNodeTopNum = ref<number>(0)
+const taskNodeTopNum = ref<number>(0);
 
 const defaultProps = {
-  children: 'children',
-  label: 'label',
-  disabled: 'disabled',
+  children: "children",
+  label: "label",
+  disabled: "disabled",
   isLeaf: (data: any) => {
-    return data.type === 'task'
+    return data.type === "task";
   },
   class: (data: any) => {
-    return data.type === 'task' ? 'tree-task-node' : 'tree-dir-node'
+    return data.type === "task" ? "tree-task-node" : "tree-dir-node";
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '../styles/index.scss';
+@import "../styles/index.scss";
 
 #siyuan-plugin-task-list {
   .plugin-task-list-wrap {
@@ -701,6 +714,33 @@ const defaultProps = {
           align-items: center;
           h3 {
             margin: 0px;
+            // AI入口动画效果
+            .ai-enter {
+              cursor: pointer;
+              transition: transform 0.1s ease-in-out;
+
+              @keyframes jitter {
+                0% {
+                  transform: translate(0, 0);
+                }
+                25% {
+                  transform: translate(-2px, -2px);
+                }
+                50% {
+                  transform: translate(2px, 2px);
+                }
+                75% {
+                  transform: translate(-2px, 2px);
+                }
+                100% {
+                  transform: translate(2px, -2px);
+                }
+              }
+
+              &:hover {
+                animation: jitter 0.3s infinite;
+              }
+            }
           }
           span {
             margin-left: 5px;

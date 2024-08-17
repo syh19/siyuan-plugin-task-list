@@ -8,6 +8,7 @@ import eventBus from './eventBus'
 import * as date from './date'
 import * as treeFn from './handleTreeData'
 import * as globalStroage from '@/utils/globalStroage.ts'
+import { handleTaskListForAI } from './ai'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()
@@ -240,6 +241,7 @@ export async function getTaskListForDisplay({
   })
 
   let taskList: any[] = formatSqlTaskList(res.data)
+  handleTaskListForAI(taskList)
   getDocPathForTasks(taskList)
 
   const { data: storage } = await API.getLocalStorage()
