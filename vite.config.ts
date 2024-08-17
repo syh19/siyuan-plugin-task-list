@@ -141,7 +141,7 @@ export default defineConfig({
 
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['siyuan', 'process'],
+      external: ['siyuan', 'process', '@element-plus/icons-vue'],
 
       output: {
         entryFileNames: '[name].js',
