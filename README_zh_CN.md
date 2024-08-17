@@ -1,11 +1,12 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v0.4.2`更新记录
+# 最新版本`v1.0.0`更新记录
 
-**修复缺陷**
+> **2024-08-17**
 
-- 调整 dock 面板部分字体配色 [#32](https://github.com/syh19/siyuan-plugin-task-list/issues/32)
+**改进功能**
 
+- ✨✨✨ AI 吐槽模式来袭，让你的任务列表不再 boring ！
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
