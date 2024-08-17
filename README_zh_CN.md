@@ -1,6 +1,6 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.0.0`更新记录
+# 最新版本`v1.0.1`更新记录
 
 > **2024-08-17**
 
