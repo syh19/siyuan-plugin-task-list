@@ -2,29 +2,30 @@ import { plugin, i18n } from './common'
 import App from '@/App.vue'
 import { createApp } from 'vue'
 import eventBus from '../utils/eventBus'
-
+import { addIcons } from '../utils/addIcon'
 import { createPinia } from 'pinia'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-const app = () => createApp(App)
+const app = createApp(App)
 
 const pinia = createPinia()
-app().use(pinia)
+app.use(pinia)
 
 // size 用于设置表单组件的默认尺寸，zIndex 用于设置弹出组件的层级，zIndex 的默认值为 2000。
-app().use(ElementPlus, { size: 'small', zIndex: 3000 })
+app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 
 /**
  * 添加右下角 dock 按钮
  */
 export async function addDock() {
+  addIcons()
   plugin.addDock({
     config: {
       position: 'RightTop',
       size: { width: 200, height: 0 },
-      icon: `icon-task`,
+      icon: `tl-task`,
       hotkey: '⇧⌘T',
       title: i18n.pluginTitle,
       show: false,
@@ -39,7 +40,7 @@ export async function addDock() {
       this.element.style.height = '100%'
       // 由于本插件依赖于当前编辑区中的文档，所以等到编辑区加载完毕后再初始化组件
       setTimeout(() => {
-        app().mount(this.element)
+        app.mount(this.element)
       }, 100)
     },
     destroy() {
@@ -57,7 +58,7 @@ export function addBlockMenuForTaskNode(e: CustomEvent<any>): void {
   const taskId: string = isClickedTaskNodeIcon(e.detail)
   if (taskId) {
     e.detail.menu.addItem({
-      icon: 'icon-task-green',
+      icon: 'tl-greenTask',
       label: i18n.addHandleDate,
       click: () => {
         eventBus.emit('add-handle-date-for-task-node', taskId)

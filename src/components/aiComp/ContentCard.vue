@@ -25,7 +25,7 @@
               })
             "
           >
-            <use xlink:href="#icon-share"></use>
+            <use xlink:href="#tl-share"></use>
           </svg>
         </div>
       </el-tooltip>
@@ -41,7 +41,7 @@
         <div class="footer-item">
           <span>插件：<strong>任务列表</strong></span>
           <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-task-green"></use>
+            <use xlink:href="#tl-greenTask"></use>
           </svg>
         </div>
         <div class="footer-item">

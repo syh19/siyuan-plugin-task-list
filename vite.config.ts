@@ -90,7 +90,7 @@ export default defineConfig({
     outDir: distDir,
     emptyOutDir: false,
 
-    // 构建后是否生成 source map 文件
+    // 构建后是否���成 source map 文件
     sourcemap: false,
 
     // 设置为 false 可以禁用最小化混淆

@@ -7,6 +7,7 @@
     "all": "全部"
   },
   "options": {
+    "ai": "AI",
     "refresh": "刷新",
     "expand": "展开",
     "collapse": "收起",

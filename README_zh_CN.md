@@ -1,12 +1,14 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.0.2`更新记录
-
-> **2024-08-17**
+# 最新版本`v1.0.3`更新记录
 
 **改进功能**
 
 - ✨✨✨ AI 吐槽模式来袭，让你的任务列表不再 boring ！
+
+**修复缺陷**
+
+- [切换日间/夜间模式时，图标丢失](https://github.com/syh19/siyuan-plugin-task-list/issues/4)
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

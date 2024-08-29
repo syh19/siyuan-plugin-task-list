@@ -11,7 +11,7 @@
               aria-hidden="true"
               @click="showAiSummaryModal"
             >
-              <use xlink:href="#icon-task-green"></use>
+              <use xlink:href="#tl-greenTask"></use>
             </svg>
             {{ isSmallWidth ? "" : i18n.pluginTitle }}
           </h3>
@@ -22,11 +22,24 @@
         <div v-show="!isInputShow" class="btn-list">
           <el-tooltip
             effect="dark"
+            :content="i18n.options.ai"
+            placement="bottom"
+          >
+            <svg
+              :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
+              aria-hidden="true"
+              @click="showAiSummaryModal"
+            >
+              <use xlink:href="#tl-ai"></use>
+            </svg>
+          </el-tooltip>
+          <el-tooltip
+            effect="dark"
             :content="i18n.options.refresh"
             placement="bottom"
           >
             <svg class="icon" aria-hidden="true" @click="refreshData">
-              <use xlink:href="#icon-sync"></use>
+              <use xlink:href="#tl-sync"></use>
             </svg>
           </el-tooltip>
 
@@ -37,9 +50,7 @@
           >
             <svg class="icon" aria-hidden="true" @click="isExpand = !isExpand">
               <use
-                :xlink:href="
-                  isExpand ? '#icon-vertical-align-middl' : '#icon-colum-height'
-                "
+                :xlink:href="isExpand ? '#tl-verticalAlign' : '#tl-columHeight'"
               ></use>
             </svg>
           </el-tooltip>
@@ -50,7 +61,7 @@
             placement="bottom"
           >
             <svg class="icon" aria-hidden="true" @click="toggleTaskStatus">
-              <use xlink:href="#icon-repeat"></use>
+              <use xlink:href="#tl-repeat"></use>
             </svg>
           </el-tooltip>
 
@@ -60,7 +71,7 @@
             placement="bottom"
           >
             <svg class="icon" aria-hidden="true" @click="showInput">
-              <use xlink:href="#icon-search3"></use>
+              <use xlink:href="#tl-search"></use>
             </svg>
           </el-tooltip>
           <el-badge is-dot :hidden="isHideBadge">
@@ -74,7 +85,7 @@
                 aria-hidden="true"
                 @click="isTaskFilterDialogVisible = true"
               >
-                <use xlink:href="#icon-filter1"></use>
+                <use xlink:href="#tl-filter"></use>
               </svg>
             </el-tooltip>
           </el-badge>
@@ -84,7 +95,7 @@
             placement="bottom"
           >
             <svg class="icon" aria-hidden="true" @click="openSettingDrawer">
-              <use xlink:href="#icon-setting"></use>
+              <use xlink:href="#tl-setting"></use>
             </svg>
           </el-tooltip>
         </div>
@@ -168,7 +179,7 @@
             class="icon icon-box"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-notebook_bookmarked"></use>
+            <use xlink:href="#tl-notebook"></use>
           </svg>
 
           <svg
@@ -176,7 +187,7 @@
             class="icon icon-doc"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-document_text"></use>
+            <use xlink:href="#tl-document"></use>
           </svg>
           <svg
             v-else-if="data.status === 'todo'"
@@ -185,7 +196,7 @@
             @click.stop="changeTaskHandleDate(data)"
             @mouseenter="handleMouseEnter($event, data)"
           >
-            <use xlink:href="#icon-time-circle-fill"></use>
+            <use xlink:href="#tl-timeCircleFill"></use>
           </svg>
           <svg
             v-else-if="data.status === 'done'"
@@ -193,7 +204,7 @@
             aria-hidden="true"
             @mouseenter="handleMouseEnter($event, data)"
           >
-            <use xlink:href="#icon-check-circle-fill"></use>
+            <use xlink:href="#tl-checkCircleFill"></use>
           </svg>
           <span>
             <span v-html="data.highlightLabel || data.label"> </span>
@@ -644,7 +655,7 @@ const handleNodeContextMenu = async (e: any, data: any) => {
       options = [
         {
           label: i18n.addHandleDate,
-          icon: "icon-task-green",
+          icon: "tl-greenTask",
           onClick: () => {
             changeTaskHandleDate(data);
           },
@@ -700,6 +711,34 @@ const defaultProps = {
 
 #siyuan-plugin-task-list {
   .plugin-task-list-wrap {
+    // AI入口动画效果
+    .ai-enter {
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out;
+
+      @keyframes jitter {
+        0% {
+          transform: translate(0, 0);
+        }
+        25% {
+          transform: translate(-2px, -2px);
+        }
+        50% {
+          transform: translate(2px, 2px);
+        }
+        75% {
+          transform: translate(-2px, 2px);
+        }
+        100% {
+          transform: translate(2px, -2px);
+        }
+      }
+
+      &:hover {
+        animation: jitter 0.3s infinite;
+      }
+    }
+
     height: 100%;
     max-width: 100%;
     .head-wrap {
@@ -714,33 +753,6 @@ const defaultProps = {
           align-items: center;
           h3 {
             margin: 0px;
-            // AI入口动画效果
-            .ai-enter {
-              cursor: pointer;
-              transition: transform 0.1s ease-in-out;
-
-              @keyframes jitter {
-                0% {
-                  transform: translate(0, 0);
-                }
-                25% {
-                  transform: translate(-2px, -2px);
-                }
-                50% {
-                  transform: translate(2px, 2px);
-                }
-                75% {
-                  transform: translate(-2px, 2px);
-                }
-                100% {
-                  transform: translate(2px, -2px);
-                }
-              }
-
-              &:hover {
-                animation: jitter 0.3s infinite;
-              }
-            }
           }
           span {
             margin-left: 5px;
@@ -764,14 +776,14 @@ const defaultProps = {
             margin-left: 4px;
           }
           span {
-            padding: 0px;
+            padding: 3px;
             border-radius: 5px;
             &:hover {
               cursor: pointer;
               background-color: var(--tl-color-active-bg);
             }
             svg.icon {
-              font-size: 18px;
+              font-size: 16px;
             }
           }
         }

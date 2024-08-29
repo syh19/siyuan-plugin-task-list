@@ -22,7 +22,7 @@
             class="icon icon-box"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-notebook_bookmarked"></use>
+            <use xlink:href="#tl-notebook"></use>
           </svg>
 
           <svg
@@ -30,21 +30,21 @@
             class="icon icon-doc"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-document_text"></use>
+            <use xlink:href="#tl-document"></use>
           </svg>
           <svg
             v-else-if="data.status === 'todo'"
             class="icon icon-todo"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-time-circle-fill"></use>
+            <use xlink:href="#tl-timeCircleFill"></use>
           </svg>
           <svg
             v-else-if="data.status === 'done'"
             class="icon icon-done"
             aria-hidden="true"
           >
-            <use xlink:href="#icon-check-circle-fill"></use>
+            <use xlink:href="#tl-checkCircleFill"></use>
           </svg>
           <span
             style="padding-left: 10px"

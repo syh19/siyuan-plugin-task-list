@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v0.4.2` change log
+# Latest version `v1.0.3` change log
 
 **Bugfix**
 
-- Adjust the font color of some parts of the dock panel [#32](https://github.com/syh19/siyuan-plugin-task-list/issues/32)
+- [Icon lost when switching between day and night mode](https://github.com/syh19/siyuan-plugin-task-list/issues/4)
 
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)

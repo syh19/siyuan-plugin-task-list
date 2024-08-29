@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.0.3
+
+> **2024-08-29**
+
+**Bugfix**
+
+- [Icon lost when switching between day and night mode](https://github.com/syh19/siyuan-plugin-task-list/issues/4)
+
 ## v0.4.2
 
 > **2024-08-09**
