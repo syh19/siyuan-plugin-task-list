@@ -26,6 +26,7 @@
             placement="bottom"
           >
             <svg
+              v-if="i18n.language === '简体中文'"
               :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
               aria-hidden="true"
               @click="showAiSummaryModal"
