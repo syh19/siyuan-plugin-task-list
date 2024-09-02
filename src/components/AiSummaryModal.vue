@@ -19,29 +19,58 @@
                 v-model="authCode"
                 :type="isHideAuthCode ? 'password' : 'text'"
                 :disabled="!isEditAuthCode"
-                placeholder="请输入认证码"
+                placeholder="点击右侧按钮输入认证码"
               >
                 <template #prepend>认证码</template>
               </el-input>
               <div class="auth-code-buttons">
-                <el-button
-                  :icon="isEditAuthCode ? CircleCheck : Edit"
-                  circle
-                  size="small"
-                  @click="isEditAuthCode ? saveAuthCodeInfo() : editAuthCode()"
-                />
-                <el-button
-                  :icon="isHideAuthCode ? View : Hide"
-                  circle
-                  size="small"
-                  @click="toggleHideAuthCode"
-                />
-                <el-button
-                  :icon="Refresh"
-                  circle
-                  size="small"
-                  @click="getAuthCodeInfo"
-                />
+                <el-tooltip
+                  effect="dark"
+                  :content="isEditAuthCode ? '保存' : '编辑'"
+                  placement="bottom"
+                >
+                  <el-button
+                    circle
+                    size="small"
+                    @click="
+                      isEditAuthCode ? saveAuthCodeInfo() : editAuthCode()
+                    "
+                  >
+                    <svg class="icon" aria-hidden="true">
+                      <use
+                        :xlink:href="
+                          isEditAuthCode ? '#tl-doubleCheck' : '#tl-edit'
+                        "
+                      ></use>
+                    </svg>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip
+                  effect="dark"
+                  :content="isHideAuthCode ? '显示' : '隐藏'"
+                  placement="bottom"
+                >
+                  <el-button circle size="small" @click="toggleHideAuthCode">
+                    <svg class="icon" aria-hidden="true">
+                      <use
+                        :xlink:href="
+                          isHideAuthCode ? '#tl-eye' : '#tl-eyeClose'
+                        "
+                      ></use>
+                    </svg>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip
+                  effect="dark"
+                  :content="'刷新'"
+                  placement="bottom"
+                >
+                  <el-button circle size="small" @click="getAuthCodeInfo">
+                    <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#tl-sync"></use>
+                    </svg>
+                  </el-button>
+                </el-tooltip>
               </div>
             </div>
             <div class="auth-code-info">
@@ -75,6 +104,7 @@
                 />
                 <el-button
                   size="small"
+                  type="primary"
                   :loading="btnLoading"
                   @click="getAiSummary"
                   >AI 生成</el-button
