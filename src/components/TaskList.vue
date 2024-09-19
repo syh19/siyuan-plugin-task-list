@@ -645,6 +645,13 @@ const handleNodeContextMenu = async (e: any, data: any) => {
         taskNodeTopNum.value = e;
       },
     }),
+    icon: h(
+      "svg",
+      {
+        class: "icon",
+      },
+      [h("use", { "xlink:href": "#tl-toTop" })]
+    ),
     onClick: () => {
       setTaskNodeTopNum(data.key, taskNodeTopNum.value);
     },
@@ -653,17 +660,50 @@ const handleNodeContextMenu = async (e: any, data: any) => {
     return;
   } else {
     if (data.status === "todo") {
-      options = [
-        {
-          label: i18n.addHandleDate,
-          icon: "tl-greenTask",
-          onClick: () => {
-            changeTaskHandleDate(data);
+      /** 添加任务处理时间的选项 */
+      let addHandleDateOption = {
+        label: i18n.addHandleDate,
+        icon: h(
+          "svg",
+          {
+            class: "icon",
           },
+          [h("use", { "xlink:href": "#tl-handleDate" })]
+        ),
+        onClick: () => {
+          changeTaskHandleDate(data);
         },
-        setTaskNodeTopOption,
-      ];
+      };
+      // const finishTaskOption = {
+      //   label: "完成任务",
+      //   icon: h(
+      //     "svg",
+      //     {
+      //       class: "icon",
+      //     },
+      //     [h("use", { "xlink:href": "#tl-checkDone" })]
+      //   ),
+      //   onClick: () => {
+      //     console.log("完成任务");
+      //   },
+      // };
+      options = [addHandleDateOption, setTaskNodeTopOption];
     } else {
+      // const unfinishTaskOption = {
+      //   label: "取消完成",
+      //   icon: h(
+      //     "svg",
+      //     {
+      //       width: "16",
+      //       height: "16",
+      //       class: "icon",
+      //     },
+      //     [h("use", { "xlink:href": "#tl-closeCancel" })]
+      //   ),
+      //   onClick: () => {
+      //     console.log("取消完成");
+      //   },
+      // };
       options = [setTaskNodeTopOption];
     }
   }
