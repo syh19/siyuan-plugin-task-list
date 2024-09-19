@@ -1,6 +1,14 @@
 # CHANGE LOG
 
-## v1.0.4
+## v1.0.6
+
+> **2024-09-19**
+
+**Enhancement**
+
+- Add icon to task node right-click menu options
+
+## v1.0.5
 
 > **2024-08-29**
 

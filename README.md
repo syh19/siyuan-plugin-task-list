@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v1.0.5` change log
+# Latest version `v1.0.6` change log
 
-**Bugfix**
+**Enhancement**
 
-- [Icon lost when switching between day and night mode](https://github.com/syh19/siyuan-plugin-task-list/issues/4)
+- Add icon to task node right-click menu options
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

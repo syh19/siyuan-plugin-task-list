@@ -2,7 +2,7 @@
   "name": "siyuan-plugin-task-list",
   "author": "sylwair",
   "url": "https://github.com/syh19/siyuan-plugin-task-list",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "minAppVersion": "2.10.13",
   "backends": [
     "all"
@@ -31,7 +31,7 @@
     "patreon": "",
     "github": "",
     "custom": [
-      "https://emoji.sylwair.com"
+      "https://sylwair.com"
     ]
   },
   "keywords": [
