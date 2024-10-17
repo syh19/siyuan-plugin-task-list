@@ -40,6 +40,9 @@
     "hideTaskTreeDesc": "The tasks in the nodes you checked will be hidden",
     "onlySelf": "Only Self",
     "selfAndChildren": "Self & Children",
+    "singleTaskHiddenDesc": "The tasks below are hidden, you can show them here",
+    "showTask": "Show Task",
+    "noHiddenTask": "No hidden tasks",
     "taskListDisplayLabel": "How task lists are displayed",
     "boxDocTask": "notebook & doc & task",
     "boxTask": "notebook & task",
@@ -96,6 +99,7 @@
     "doneTaskNumPopover": "Done Task Counts: "
   },
   "addHandleDate": "add task handle date",
+  "hideSingleTask": "hide task",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "top": "sticky on top"

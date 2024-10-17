@@ -31,6 +31,7 @@ declare module 'vue' {
     InfoCard: typeof import('./src/components/infoCard/index.vue')['default']
     SetTaskNodeTop: typeof import('./src/components/taskMain/SetTaskNodeTop.vue')['default']
     Setting: typeof import('./src/components/Setting.vue')['default']
+    SingleTaskHidden: typeof import('./src/components/settingComp/SingleTaskHidden.vue')['default']
     TaskFilter: typeof import('./src/components/TaskFilter.vue')['default']
     TaskList: typeof import('./src/components/TaskList.vue')['default']
     Tree: typeof import('./src/components/Tree.vue')['default']

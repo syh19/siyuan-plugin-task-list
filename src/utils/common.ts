@@ -247,8 +247,11 @@ export async function getTaskListForDisplay({
   const { data: storage } = await API.getLocalStorage()
   globalStroage.setStorage(storage)
 
-  // 根据隐藏节点情况对任务进行隐藏
+  // 根据隐藏文档节点情况对任务进行隐藏
   taskList = await filterTaskListByHidden(taskList, storage)
+
+  // 根据隐藏单个任务情况对任务进行隐藏
+  taskList = hideSingleTask(taskList)
 
   // 将任务放置在日历视图指定的日期上
   getEachDayTaskList(taskList)
@@ -445,6 +448,7 @@ function filterTaskListByDateRange(taskList: any[], storage: any) {
 
 /**
  * 根据隐藏节点情况对任务进行隐藏
+ * 隐藏特定文档中的任务
  * @param taskList
  * @returns
  */
@@ -481,6 +485,19 @@ async function filterTaskListByHidden(
   }
 
   return taskList
+}
+
+/**
+ * 隐藏单个任务
+ * @param taskList 
+ * @returns 
+ */
+function hideSingleTask(taskList: any[]) {
+  return taskList.filter((task: any) => {
+    return !func.parseStringToKeyValuePairs(task.ial)[
+      'custom-plugin-task-list-isTaskHidden'
+    ]
+  })
 }
 
 /**

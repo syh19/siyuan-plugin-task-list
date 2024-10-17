@@ -40,6 +40,9 @@
     "hideTaskTreeDesc": "您所勾选的节点，其中的任务会将被隐藏",
     "onlySelf": "仅自身",
     "selfAndChildren": "自身及子节点",
+    "singleTaskHiddenDesc": "以下是被隐藏的任务，您可以在这里重新显示它们",
+    "showTask": "显示任务",
+    "noHiddenTask": "没有隐藏的任务",
     "taskListDisplayLabel": "任务列表的展示方式",
     "boxDocTask": "笔记本 & 文档 & 任务",
     "boxTask": "笔记本 & 任务",
@@ -96,6 +99,7 @@
     "doneTaskNumPopover": "已完成 任务数量："
   },
   "addHandleDate": "添加任务处理时间",
+  "hideSingleTask": "隐藏任务",
   "cancel": "取消",
   "confirm": "确认",
   "top": "置顶"

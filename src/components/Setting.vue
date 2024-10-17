@@ -123,6 +123,15 @@
           />
         </div>
       </div>
+      <!-- 设置单个任务节点不显示的列表组件 -->
+      <div class="setting-item setting-item__vertical">
+        <div class="setting-item__label">
+          {{ i18n.setting.singleTaskHiddenDesc }}
+        </div>
+        <div class="setting-item__content setting-tree-wrap">
+          <SingleTaskHidden v-if="isShow" />
+        </div>
+      </div>
     </template>
     <template #footer>
       <div style="flex: auto">
@@ -136,31 +145,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineExpose, watch } from 'vue'
-import * as utils from '../utils/common'
-import { i18n } from '../utils/common'
-import * as API from '../api'
-import eventBus from '../utils/eventBus'
-import * as treeFn from '../utils/handleTreeData'
+import { ref, defineExpose, watch } from "vue";
+import * as utils from "../utils/common";
+import { i18n } from "../utils/common";
+import * as API from "../api";
+import eventBus from "../utils/eventBus";
+import * as treeFn from "../utils/handleTreeData";
+import SingleTaskHidden from "./settingComp/SingleTaskHidden.vue";
 
-const isShow = ref<boolean>(false)
-const treeData = ref<Array<any>>([])
+const isShow = ref<boolean>(false);
+const treeData = ref<Array<any>>([]);
 // const taskTreeDisplayMode = ref<'box-doc-task' | 'box-task'>('box-doc-task')
 
 watch(
   isShow,
   (val) => {
     if (val) {
-      init()
+      init();
     }
   },
   { immediate: false }
-)
+);
 
 const init = async () => {
-  getTreeData()
-  getLocalStorage()
-}
+  getTreeData();
+  getLocalStorage();
+};
 
 /**
  * 本地设置
@@ -169,43 +179,43 @@ const init = async () => {
 const localSettings = ref<any>({
   /** 信息卡片的配置 */
   infoCardConfig: {
-    dateTimeDisplayMode: 'date',
+    dateTimeDisplayMode: "date",
     fieldsForHidden: [],
   },
   /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
   nodeListForHideTask: [],
   /** 任务列表树的显示模式 */
-  taskTreeDisplayMode: 'box-doc-task',
+  taskTreeDisplayMode: "box-doc-task",
   /** 任务节点的排序方式 */
-  taskSortBy: 'createdAsc',
-})
+  taskSortBy: "createdAsc",
+});
 
 const sortOptions = ref<Array<{ value: string; label: string }>>([
   {
-    value: 'createdAsc',
+    value: "createdAsc",
     label: i18n.setting.sortItem.createdAsc,
   },
   {
-    value: 'createdDesc',
+    value: "createdDesc",
     label: i18n.setting.sortItem.createdDesc,
   },
   {
-    value: 'updatedAsc',
+    value: "updatedAsc",
     label: i18n.setting.sortItem.updatedAsc,
   },
   {
-    value: 'updatedDesc',
+    value: "updatedDesc",
     label: i18n.setting.sortItem.updatedDesc,
   },
   {
-    value: 'finishedAsc',
+    value: "finishedAsc",
     label: i18n.setting.sortItem.finishedAsc,
   },
   {
-    value: 'finishedDesc',
+    value: "finishedDesc",
     label: i18n.setting.sortItem.finishedDesc,
   },
-])
+]);
 
 /** 信息卡片中要隐藏的字段列表 */
 const infoCardFieldsForHiddenOptions = ref<
@@ -213,47 +223,47 @@ const infoCardFieldsForHiddenOptions = ref<
 >([
   {
     label: i18n.infoCard.created,
-    value: 'created',
+    value: "created",
   },
   {
     label: i18n.infoCard.handleAt,
-    value: 'handleAt',
+    value: "handleAt",
   },
   {
     label: i18n.infoCard.updated,
-    value: 'updated',
+    value: "updated",
   },
   {
     label: i18n.infoCard.finished,
-    value: 'finished',
+    value: "finished",
   },
   {
     label: i18n.infoCard.box,
-    value: 'box',
+    value: "box",
   },
   {
     label: i18n.infoCard.docPath,
-    value: 'pathList',
+    value: "pathList",
   },
-])
+]);
 
 const getLocalStorage = async () => {
-  const { data: storage } = await API.getLocalStorage()
-  if (!storage['plugin-task-list-settings']) return
+  const { data: storage } = await API.getLocalStorage();
+  if (!storage["plugin-task-list-settings"]) return;
   const {
     infoCardConfig,
     nodeListForHideTask,
     taskTreeDisplayMode,
     taskSortBy,
-  } = storage['plugin-task-list-settings']
+  } = storage["plugin-task-list-settings"];
 
-  infoCardConfig && (localSettings.value.infoCardConfig = infoCardConfig)
+  infoCardConfig && (localSettings.value.infoCardConfig = infoCardConfig);
   nodeListForHideTask &&
-    (localSettings.value.nodeListForHideTask = nodeListForHideTask)
+    (localSettings.value.nodeListForHideTask = nodeListForHideTask);
   taskTreeDisplayMode &&
-    (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode)
-  taskSortBy && (localSettings.value.taskSortBy = taskSortBy)
-}
+    (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode);
+  taskSortBy && (localSettings.value.taskSortBy = taskSortBy);
+};
 
 /**
  * 获取el-tree的数据
@@ -261,27 +271,27 @@ const getLocalStorage = async () => {
 const getTreeData = async () => {
   let res: any = await API.getTaskListBySql({
     isGetAll: true,
-  })
-  let resTreeData: any = utils.convertSqlToTree(res.data)
+  });
+  let resTreeData: any = utils.convertSqlToTree(res.data);
   // 这里必须这么写，因为子组件做了watch监听，如果直接赋值，子组件不会触发watch
-  treeData.value = treeFn.handleTreeDataWithoutTaskNode(resTreeData)
-  treeData.value = await treeFn.handleCheckStatusForTreeData(treeData.value)
-}
+  treeData.value = treeFn.handleTreeDataWithoutTaskNode(resTreeData);
+  treeData.value = await treeFn.handleCheckStatusForTreeData(treeData.value);
+};
 
-const checkedNodes = ref<Array<any>>([])
+const checkedNodes = ref<Array<any>>([]);
 const handleChecked2HideTask = async (e: any) => {
-  checkedNodes.value = e
-}
+  checkedNodes.value = e;
+};
 
 const cancel = () => {
-  isShow.value = false
-}
+  isShow.value = false;
+};
 
 const submit = async () => {
   // 找到treeData中被勾选的节点
   let hiddenTaskNodes: any[] = treeFn.findHiddenTaskNodesInTreeData(
     treeData.value
-  )
+  );
 
   const val: any = {
     /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
@@ -290,23 +300,23 @@ const submit = async () => {
     taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
     taskSortBy: localSettings.value.taskSortBy,
     infoCardConfig: localSettings.value.infoCardConfig,
-  }
+  };
   await API.setLocalStorageVal({
-    key: 'plugin-task-list-settings',
+    key: "plugin-task-list-settings",
     val,
-  })
+  });
 
-  isShow.value = false
+  isShow.value = false;
 
-  eventBus.emit('node-list-for-hide-task-changed', hiddenTaskNodes)
-}
+  eventBus.emit("node-list-for-hide-task-changed", hiddenTaskNodes);
+};
 
 const open = () => {
-  isShow.value = true
-}
+  isShow.value = true;
+};
 defineExpose({
   open,
-})
+});
 </script>
 
 <style lang="scss">

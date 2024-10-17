@@ -60,11 +60,7 @@
                     </svg>
                   </el-button>
                 </el-tooltip>
-                <el-tooltip
-                  effect="dark"
-                  :content="'刷新'"
-                  placement="bottom"
-                >
+                <el-tooltip effect="dark" :content="'刷新'" placement="bottom">
                   <el-button circle size="small" @click="getAuthCodeInfo">
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#tl-sync"></use>
@@ -82,6 +78,7 @@
                 rel="noopener noreferrer"
                 >获取认证码？</a
               >
+              
             </div>
           </div>
 
@@ -165,13 +162,6 @@
 
 <script setup lang="ts">
 import { ElButton, ElMessage } from "element-plus";
-import {
-  Edit,
-  CircleCheck,
-  View,
-  Hide,
-  Refresh,
-} from "@element-plus/icons-vue";
 import { downloadAsImage } from "../utils/ai";
 import { formatDateToLocaleString } from "../utils/date";
 import { ref, watch } from "vue";

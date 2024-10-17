@@ -636,7 +636,20 @@ const handleNodeContextMenu = async (e: any, data: any) => {
   taskNodeTopNum.value = data.topNum;
   const theme: string =
     globalStore.currentThemeMode === "light" ? "mac" : "mac dark";
-  let options: any = [];
+  const hideTaskOption = {
+    label: i18n.hideSingleTask,
+    icon: h(
+      "svg",
+      {
+        class: "icon",
+      },
+      [h("use", { "xlink:href": "#tl-eyeClose" })]
+    ),
+    onClick: () => {
+      hideTaskNode(data.key);
+    },
+  };
+  let options: any = [hideTaskOption];
   /** 置顶功能操作项 */
   const setTaskNodeTopOption: any = {
     label: h(SetTaskNodeTop, {
@@ -687,7 +700,7 @@ const handleNodeContextMenu = async (e: any, data: any) => {
       //     console.log("完成任务");
       //   },
       // };
-      options = [addHandleDateOption, setTaskNodeTopOption];
+      options.push(addHandleDateOption, setTaskNodeTopOption);
     } else {
       // const unfinishTaskOption = {
       //   label: "取消完成",
@@ -704,7 +717,7 @@ const handleNodeContextMenu = async (e: any, data: any) => {
       //     console.log("取消完成");
       //   },
       // };
-      options = [setTaskNodeTopOption];
+      options.push(setTaskNodeTopOption);
     }
   }
 
@@ -722,6 +735,20 @@ const setTaskNodeTopNum = async (blockId: string, topNum: number) => {
     id: blockId,
     attrs: {
       "custom-plugin-task-list-top-priority": topNum === 0 ? "" : topNum + "",
+    },
+  }).then(() => {
+    // 需要延时刷新数据，因为setBlockAttrs接口写入数据后更新没那么快
+    setTimeout(() => {
+      refreshData();
+    }, 1800);
+  });
+};
+
+const hideTaskNode = async (blockId: string) => {
+  return await API.setBlockAttrs({
+    id: blockId,
+    attrs: {
+      "custom-plugin-task-list-isTaskHidden": 'true',
     },
   }).then(() => {
     // 需要延时刷新数据，因为setBlockAttrs接口写入数据后更新没那么快
