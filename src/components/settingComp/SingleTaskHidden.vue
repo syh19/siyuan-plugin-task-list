@@ -89,7 +89,7 @@ const showTask = async (taskId: string) => {
 ul {
   list-style-type: none;
   padding: 0;
-  max-height: 300px;
+  // max-height: 300px;
   overflow-y: auto;
 }
 
