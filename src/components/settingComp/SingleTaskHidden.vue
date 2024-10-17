@@ -31,7 +31,7 @@
         <button @click="showTask(task.id)">{{ i18n.setting.showTask }}</button>
       </li>
     </ul>
-    <p v-else>{{ i18n.setting.noHiddenTask }}</p>
+    <p v-else class="no-tasks-message">{{ i18n.setting.noHiddenTask }}</p>
   </div>
 </template>
 
@@ -165,4 +165,15 @@ button:hover {
 //   text-decoration: line-through;
 //   color: var(--tl-color-done-icon);
 // }
+
+.no-tasks-message {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--tl-color-hover-bg);
+  border-radius: 6px;
+  color: var(--b3-theme-on-surface);
+  font-size: 14px;
+  border: 1px dashed var(--tl-color-border);
+  margin-top: 15px;
+}
 </style>

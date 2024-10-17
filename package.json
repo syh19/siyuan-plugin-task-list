@@ -1,6 +1,6 @@
 {
   "name": "siyuan-plugin-task-list",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "description": "思源笔记插件：汇总散落在整个工作空间的任务，依托任务列表实现日程管理和待办事项管理",
   "repository": "https://github.com/syh19/siyuan-plugin-task-list",

@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.0.7
+
+> **2024-10-17**
+
+**Enhancement**
+
+- Support single task hidden and show
+
 ## v1.0.6
 
 > **2024-09-19**
