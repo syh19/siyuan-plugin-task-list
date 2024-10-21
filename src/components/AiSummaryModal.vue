@@ -162,13 +162,13 @@
 
 <script setup lang="ts">
 import { ElButton, ElMessage } from "element-plus";
-import { downloadAsImage } from "../utils/ai";
-import { formatDateToLocaleString } from "../utils/date";
+import { downloadAsImage } from "@/utils/ai";
+import { formatDateToLocaleString } from "@/utils/date";
 import { ref, watch } from "vue";
-import ContentCardGroup from "./aiComp/ContentCardGroup.vue";
-import HistoryContentCard from "./aiComp/HistoryContentCard.vue";
-import * as aiAPI from "../api/ai";
-import * as API from "../api";
+import ContentCardGroup from "@/components/aiComp/ContentCardGroup.vue";
+import HistoryContentCard from "@/components/aiComp/HistoryContentCard.vue";
+import * as aiAPI from "@/api/ai";
+import * as API from "@/api";
 
 const modelValue = defineModel<boolean>();
 

@@ -1,6 +1,6 @@
 import * as sySDK from "@siyuan-community/siyuan-sdk";
-import type { TSqlResItem, TResponse } from "../types";
-import * as utils from "../utils/common";
+import type { TSqlResItem, TResponse } from "@/types";
+import * as utils from "@/utils/common";
 import {
   IFile,
   IPayload,

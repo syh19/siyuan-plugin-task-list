@@ -36,9 +36,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { ElCollapse, ElCollapseItem } from "element-plus";
-import ContentCardGroup from "./ContentCardGroup.vue";
-import { downloadAsImage } from "../../utils/ai";
-import * as API from "../../api";
+import ContentCardGroup from "@/components/aiComp/ContentCardGroup.vue";
+import { downloadAsImage } from "@/utils/ai";
+import * as API from "@/api";
 
 interface HistoryRecord {
   dateTime: string;

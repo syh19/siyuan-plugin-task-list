@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { i18n } from '../utils/common'
-import eventBus from '../utils/eventBus'
+import { i18n } from '@/utils/common'
+import eventBus from '@/utils/eventBus'
 
 /** 调用方 */
 type Caller = 'addHandleDate' | 'dateFilter' | 'taskList'

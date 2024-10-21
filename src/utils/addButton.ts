@@ -1,8 +1,8 @@
-import { plugin, i18n } from './common'
+import { plugin, i18n } from '@/utils/common'
 import App from '@/App.vue'
 import { createApp } from 'vue'
-import eventBus from '../utils/eventBus'
-import { addIcons } from '../utils/addIcon'
+import eventBus from '@/utils/eventBus'
+import { addIcons } from '@/utils/addIcon'
 import { createPinia } from 'pinia'
 
 import ElementPlus from 'element-plus'

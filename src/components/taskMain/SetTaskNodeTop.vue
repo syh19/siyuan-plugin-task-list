@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
-import { i18n } from '../../utils/common'
+import { i18n } from '@/utils/common'
 
 const props = withDefaults(defineProps<{ num: number }>(), {
   num: 0,

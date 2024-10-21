@@ -1,4 +1,4 @@
-import InfoCardVue from './index.vue'
+import InfoCardVue from '@/components/infoCard/index.vue'
 import { render, h } from 'vue'
 
 class InfoCard {

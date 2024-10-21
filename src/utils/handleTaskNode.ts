@@ -1,5 +1,5 @@
-import * as API from '../api'
-import * as date from './date'
+import * as API from '@/api'
+import * as date from '@/utils/date'
 
 /**
  * 为任务节点设置自定义属性：完成时间

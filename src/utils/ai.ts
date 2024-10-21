@@ -1,4 +1,4 @@
-import * as date from "./date";
+import * as date from "@/utils/date";
 import { ElMessage } from "element-plus";
 import html2canvas from "html2canvas";
 

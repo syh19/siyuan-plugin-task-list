@@ -1,14 +1,14 @@
 import * as sy from 'siyuan'
-import TaskListPlugin from '../index'
+import TaskListPlugin from '@/index'
 import * as sySDK from '@siyuan-community/siyuan-sdk'
-import * as API from '../api/index'
-import type { IRange, TSqlResItem, TResponse } from '../types'
-import * as func from './func'
-import eventBus from './eventBus'
-import * as date from './date'
-import * as treeFn from './handleTreeData'
+import * as API from '@/api/index'
+import type { IRange, TSqlResItem, TResponse } from '@/types'
+import * as func from '@/utils/func'
+import eventBus from '@/utils/eventBus'
+import * as date from '@/utils/date'
+import * as treeFn from '@/utils/handleTreeData'
 import * as globalStroage from '@/utils/globalStroage.ts'
-import { handleTaskListForAI } from './ai'
+import { handleTaskListForAI } from '@/utils/ai'
 
 /* 初始化客户端 (默认使用 Axios 发起 XHR 请求) */
 export const client = new sySDK.Client()

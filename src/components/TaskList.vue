@@ -775,7 +775,7 @@ const defaultProps = {
 </script>
 
 <style lang="scss">
-@import "../styles/index.scss";
+@import "@/styles/index.scss";
 
 #siyuan-plugin-task-list {
   .plugin-task-list-wrap {

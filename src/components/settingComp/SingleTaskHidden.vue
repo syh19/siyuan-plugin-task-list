@@ -37,9 +37,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import * as API from "../../api";
-import * as func from "../../utils/func";
-import { i18n } from '../../utils/common'
+import * as API from "@/api";
+import * as func from "@/utils/func";
+import { i18n } from "@/utils/common";
 interface Task {
   id: string;
   content: string;

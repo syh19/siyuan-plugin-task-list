@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import ContentCard from "./ContentCard.vue";
+import ContentCard from "@/components/aiComp/ContentCard.vue";
 
 defineProps<{
   content: any[];

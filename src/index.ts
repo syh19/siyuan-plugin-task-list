@@ -1,12 +1,12 @@
 import { Plugin } from 'siyuan'
-import * as utils from './utils/common'
-import * as addBtn from './utils/addButton'
-import './styles/index.scss'
-import * as task from '../src/utils/handleTaskNode'
+import * as utils from '@/utils/common'
+import * as addBtn from '@/utils/addButton'
+import '@/styles/index.scss'
+import * as task from '@/utils/handleTaskNode'
 import '@/utils/compatible'
 import { initLocalStorageWhenFirstUsePlugin } from '@/utils/initLocalStorage'
 
-import { useGlobalStore } from './store/index'
+import { useGlobalStore } from '@/store/index'
 const globalStore = useGlobalStore()
 
 export default class TaskListPlugin extends Plugin {

@@ -158,10 +158,10 @@
 import { ref, defineExpose, defineEmits, watch } from 'vue'
 import { Calendar, DatePicker } from 'v-calendar'
 import 'v-calendar/style.css'
-import { i18n } from '../utils/common'
-import * as API from '../api'
-import * as date from '../utils/date'
-import { useDatePicker } from '../hooks/useDatePicker'
+import { i18n } from '@/utils/common'
+import * as API from '@/api'
+import * as date from '@/utils/date'
+import { useDatePicker } from '@/hooks/useDatePicker'
 
 interface Props {
   visible: boolean

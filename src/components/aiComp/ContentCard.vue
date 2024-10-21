@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { downloadAsImage } from "../../utils/ai";
+import { downloadAsImage } from "@/utils/ai";
 
 const props = defineProps<{
   elementId: string;

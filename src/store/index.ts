@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import * as API from '../api/index'
+import * as API from '@/api/index'
 
 export const useGlobalStore = defineStore('global', {
   state: () => ({

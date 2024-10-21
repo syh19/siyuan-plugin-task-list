@@ -73,10 +73,10 @@
 <script setup lang="ts">
 import { ref, nextTick, watch, defineProps } from 'vue'
 // import { toRaw } from '@vue/reactivity'
-import * as utils from '../utils/common'
-import { i18n } from '../utils/common'
+import * as utils from '@/utils/common'
+import { i18n } from '@/utils/common'
 import * as sy from 'siyuan'
-import type { IRange } from '../types/index'
+import type { IRange } from '@/types/index'
 import { ElTree } from 'element-plus'
 /** 选择隐藏任务节点方式的复选框选项 */
 const hideRangeList = ref<Array<any>>([

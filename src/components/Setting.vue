@@ -146,12 +146,12 @@
 
 <script setup lang="ts">
 import { ref, defineExpose, watch } from "vue";
-import * as utils from "../utils/common";
-import { i18n } from "../utils/common";
-import * as API from "../api";
-import eventBus from "../utils/eventBus";
-import * as treeFn from "../utils/handleTreeData";
-import SingleTaskHidden from "./settingComp/SingleTaskHidden.vue";
+import * as utils from "@/utils/common";
+import { i18n } from "@/utils/common";
+import * as API from "@/api";
+import eventBus from "@/utils/eventBus";
+import * as treeFn from "@/utils/handleTreeData";
+import SingleTaskHidden from "@/components/settingComp/SingleTaskHidden.vue";
 
 const isShow = ref<boolean>(false);
 const treeData = ref<Array<any>>([]);

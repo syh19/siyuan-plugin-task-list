@@ -1,5 +1,5 @@
-import { request } from "../utils/request";
-import { taskListForAI } from "../utils/ai";
+import { request } from "@/utils/request";
+import { taskListForAI } from "@/utils/ai";
 import { ElMessage } from "element-plus";
 
 export async function getAuthCodeInfo(id: string) {

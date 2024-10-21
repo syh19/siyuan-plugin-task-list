@@ -1,4 +1,4 @@
-import { plugin } from "./common";
+import { plugin } from "@/utils/common";
 
 const icons = [
   {
