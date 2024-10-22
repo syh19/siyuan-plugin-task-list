@@ -102,5 +102,37 @@
   "hideSingleTask": "隐藏任务",
   "cancel": "取消",
   "confirm": "确认",
-  "top": "置顶"
+  "top": "置顶",
+  "aiRoast": {
+    "title": "AI 总结",
+    "authCode": "认证码",
+    "authCodePlaceholder": "点击右侧按钮输入认证码",
+    "getAuthCode": "获取认证码？",
+    "totalTimes": "总次数",
+    "remainingTimes": "剩余次数",
+    "save": "保存",
+    "edit": "编辑",
+    "show": "显示",
+    "hide": "隐藏",
+    "refresh": "刷新",
+    "callMe": "想让我如何称呼您？",
+    "aiGenerate": "AI 生成",
+    "shareAs": "分享为",
+    "img": "图片",
+    "current": "当前",
+    "history": "历史",
+    "close": "关闭",
+    "footer": {
+      "by": "由",
+      "siYuanNote": "思源笔记",
+      "plugin": "插件",
+      "taskList": "任务列表",
+      "generatedByAI": "通过 AI 生成"
+    },
+    "all": "全部",
+    "empty": "暂无数据，请点击 AI 生成 按钮",
+    "content": {
+      "profile": "人物概述"
+    }
+  }
 }

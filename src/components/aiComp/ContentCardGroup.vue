@@ -8,32 +8,38 @@
       v-if="content[0]"
       elementId="ai-profile-card"
       :pcOrMobilePic="pcOrMobilePic"
-      title="人物概述"
+      :title="i18n.aiRoast.content.profile"
+      :index="0"
       :isProfileCard="true"
       class="full-width-card"
     >
       <template #content>
-        <h3>
-          {{ content[0]["content"][0]["content"] }}
-        </h3>
-        <p class="emoji">
-          {{ content[0]["content"][1]["content"] }}
-        </p>
-        <p class="goal">
-          {{ content[0]["content"][2]["content"] }}
-        </p>
+        <div class="content-wrapper">
+          <h3>
+            {{ content[0]["content"][0]["content"] }}
+          </h3>
+          <p class="emoji">
+            {{ content[0]["content"][1]["content"] }}
+          </p>
+          <p class="goal">
+            {{ content[0]["content"][2]["content"] }}
+          </p>
+        </div>
       </template>
     </ContentCard>
     <ContentCard
       :elementId="`ai-content-card-${index}`"
       :pcOrMobilePic="pcOrMobilePic"
       :title="item.title"
+      :index="index + 1"
       v-for="(item, index) in content.slice(1)"
       :key="item.title"
     >
       <template #content>
-        <h3>{{ item.title }}</h3>
-        <p v-html="item.content"></p>
+        <div class="content-wrapper">
+          <h3>{{ item.title }}</h3>
+          <p v-html="item.content"></p>
+        </div>
       </template>
     </ContentCard>
     <!-- 添加一个空的占位 div -->
@@ -43,7 +49,7 @@
 
 <script setup lang="ts">
 import ContentCard from "@/components/aiComp/ContentCard.vue";
-
+import { i18n } from "@/utils/common";
 defineProps<{
   content: any[];
   wrapperElementId: string;
@@ -100,5 +106,9 @@ defineProps<{
   min-width: 42%;
   max-width: 48%;
   flex-grow: 1;
+}
+
+.content-wrapper {
+  font-family: "Playfair Display", "Merriweather", "Lora", "Georgia", serif;
 }
 </style>

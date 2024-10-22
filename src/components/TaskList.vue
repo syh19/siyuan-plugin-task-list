@@ -7,7 +7,7 @@
           <h3>
             <svg
               style="margin-right: 5px"
-              :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
+              class="icon ai-enter"
               aria-hidden="true"
               @click="showAiSummaryModal"
             >
@@ -26,8 +26,7 @@
             placement="bottom"
           >
             <svg
-              v-if="i18n.language === '简体中文'"
-              :class="{ icon: true, 'ai-enter': i18n.language === '简体中文' }"
+              class="icon ai-enter"
               aria-hidden="true"
               @click="showAiSummaryModal"
             >
@@ -277,9 +276,7 @@ const dateChanged = (e: Date) => {
 
 let isShowAiSummaryModal = ref<boolean>(false);
 const showAiSummaryModal = () => {
-  if (i18n.language === "简体中文") {
-    isShowAiSummaryModal.value = true;
-  }
+  isShowAiSummaryModal.value = true;
 };
 
 let isTaskFilterDialogVisible = ref<boolean>(false);

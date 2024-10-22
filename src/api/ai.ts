@@ -1,7 +1,6 @@
 import { request } from "@/utils/request";
 import { taskListForAI } from "@/utils/ai";
-import { ElMessage } from "element-plus";
-
+import { i18n } from "@/utils/common";
 export async function getAuthCodeInfo(id: string) {
   try {
     const response = await request.get<any>(`/auth-code?id=${id}`);
@@ -25,6 +24,7 @@ export async function getAiSummary({
       taskList: taskListForAI,
       authCode,
       name,
+      lang: i18n.language,
     });
 
     return response;

@@ -2,7 +2,7 @@
   <div class="ai-summary-drawer">
     <el-drawer
       v-model="modelValue"
-      title="AI总结"
+      :title="i18n.aiRoast.title"
       size="75%"
       :close-on-click-modal="true"
       :close-on-press-escape="true"
@@ -19,14 +19,14 @@
                 v-model="authCode"
                 :type="isHideAuthCode ? 'password' : 'text'"
                 :disabled="!isEditAuthCode"
-                placeholder="点击右侧按钮输入认证码"
+                :placeholder="i18n.aiRoast.authCodePlaceholder"
               >
-                <template #prepend>认证码</template>
+                <template #prepend>{{ i18n.aiRoast.authCode }}</template>
               </el-input>
               <div class="auth-code-buttons">
                 <el-tooltip
                   effect="dark"
-                  :content="isEditAuthCode ? '保存' : '编辑'"
+                  :content="isEditAuthCode ? i18n.aiRoast.save : i18n.aiRoast.edit"
                   placement="bottom"
                 >
                   <el-button
@@ -47,7 +47,7 @@
                 </el-tooltip>
                 <el-tooltip
                   effect="dark"
-                  :content="isHideAuthCode ? '显示' : '隐藏'"
+                  :content="isHideAuthCode ? i18n.aiRoast.show : i18n.aiRoast.hide"
                   placement="bottom"
                 >
                   <el-button circle size="small" @click="toggleHideAuthCode">
@@ -60,7 +60,7 @@
                     </svg>
                   </el-button>
                 </el-tooltip>
-                <el-tooltip effect="dark" :content="'刷新'" placement="bottom">
+                <el-tooltip effect="dark" :content="i18n.aiRoast.refresh" placement="bottom">
                   <el-button circle size="small" @click="getAuthCodeInfo">
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#tl-sync"></use>
@@ -70,13 +70,13 @@
               </div>
             </div>
             <div class="auth-code-info">
-              <span>总次数：{{ authCodeInfo.totalUses }}</span>
-              <span>剩余次数：{{ authCodeInfo.remainingUses }}</span>
+              <span>{{ i18n.aiRoast.totalTimes }}: {{ authCodeInfo.totalUses }}</span>
+              <span>{{ i18n.aiRoast.remainingTimes }}: {{ authCodeInfo.remainingUses }}</span>
               <a
                 href="https://ccicqyfum6.feishu.cn/wiki/BR9twc5G4imc7jkSRDxcJFISnGf"
                 target="_blank"
                 rel="noopener noreferrer"
-                >获取认证码？</a
+                >{{ i18n.aiRoast.getAuthCode }}</a
               >
               
             </div>
@@ -88,8 +88,8 @@
               size="small"
               style="margin-bottom: 4px"
             >
-              <el-radio-button value="current">当前</el-radio-button>
-              <el-radio-button value="history">历史</el-radio-button>
+              <el-radio-button value="current">{{ i18n.aiRoast.current }}</el-radio-button>
+              <el-radio-button value="history">{{ i18n.aiRoast.history }}</el-radio-button>
             </el-radio-group>
             <div class="operation-buttons">
               <template v-if="currentOrHistory === 'current'">
@@ -97,26 +97,26 @@
                   v-model="name"
                   size="small"
                   style="width: 120px"
-                  placeholder="想让我如何称呼您"
+                  :placeholder="i18n.aiRoast.callMe"
                 />
                 <el-button
                   size="small"
                   type="primary"
                   :loading="btnLoading"
                   @click="getAiSummary"
-                  >AI 生成</el-button
+                  >{{ i18n.aiRoast.aiGenerate }}</el-button
                 >
                 <el-button
                   size="small"
                   @click="
                     downloadAsImage({
                       elementId: 'ai-summary-content-wrapper',
-                      fileName: '全部',
+                      fileName: i18n.aiRoast.all,
                       pcOrMobilePic: pcOrMobilePic,
                     })
                   "
                 >
-                  分享为 {{ pcOrMobilePic === "pc" ? "PC" : "Mobile" }} 图片
+                  {{ `${i18n.aiRoast.shareAs} ${pcOrMobilePic === 'pc' ? 'PC' : 'Mobile'} ${i18n.aiRoast.img}` }}
                 </el-button>
               </template>
               <el-radio-group v-model="pcOrMobilePic" size="small">
@@ -131,7 +131,7 @@
       <!-- 内容卡片区域 -->
       <el-empty v-if="!currentAiSummary.content.length">
         <template #description>
-          <span> 暂无数据，请点击 AI生成 按钮 </span>
+          <span> {{ i18n.aiRoast.empty }} </span>
         </template>
       </el-empty>
       <template v-else>
@@ -152,7 +152,7 @@
       <template #footer>
         <slot name="footer">
           <span class="dialog-footer">
-            <el-button type="primary" @click="handleConfirm"> 关闭 </el-button>
+            <el-button type="primary" @click="handleConfirm">{{ i18n.aiRoast.close }}</el-button>
           </span>
         </slot>
       </template>
@@ -169,6 +169,7 @@ import ContentCardGroup from "@/components/aiComp/ContentCardGroup.vue";
 import HistoryContentCard from "@/components/aiComp/HistoryContentCard.vue";
 import * as aiAPI from "@/api/ai";
 import * as API from "@/api";
+import { i18n } from "@/utils/common";
 
 const modelValue = defineModel<boolean>();
 

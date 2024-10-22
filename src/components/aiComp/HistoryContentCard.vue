@@ -14,12 +14,12 @@
               @click.stop="
                 downloadAsImage({
                   elementId: `history-content-wrapper-${index}`,
-                  fileName: `全部-${record.dateTime}`,
+                  fileName: `${i18n.aiRoast.all}-${record.dateTime}`,
                   pcOrMobilePic: pcOrMobilePic,
                 })
               "
             >
-              分享为 {{ pcOrMobilePic === "pc" ? "PC" : "Mobile" }} 图片
+              {{ `${i18n.aiRoast.shareAs} ${pcOrMobilePic === "pc" ? "PC" : "Mobile"} ${i18n.aiRoast.img}` }}
             </el-button>
           </div>
         </template>
@@ -39,12 +39,13 @@ import { ElCollapse, ElCollapseItem } from "element-plus";
 import ContentCardGroup from "@/components/aiComp/ContentCardGroup.vue";
 import { downloadAsImage } from "@/utils/ai";
 import * as API from "@/api";
+import { i18n } from "@/utils/common";
 
 interface HistoryRecord {
   dateTime: string;
   content: any[];
 }
-const props = defineProps<{
+defineProps<{
   pcOrMobilePic: string;
 }>();
 const activeNames = ref<number[]>([]);

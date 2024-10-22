@@ -3,14 +3,14 @@
     :id="elementId"
     class="ai-summary-content-card-comp"
     :style="{
-      backgroundColor: aiTitleBgColorMap[title],
+      backgroundColor: aiTitleBgColorList[index],
     }"
     :class="{ 'profile-card': isProfileCard }"
   >
     <div class="ai-summary-content-card">
       <el-tooltip
         effect="dark"
-        :content="`分享为 ${pcOrMobilePic === 'pc' ? 'PC' : 'Mobile'} 图片`"
+        :content="`${i18n.aiRoast.shareAs} ${pcOrMobilePic === 'pc' ? 'PC' : 'Mobile'} ${i18n.aiRoast.img}`"
         placement="top"
       >
         <div class="share-icon-wrapper">
@@ -33,19 +33,19 @@
       <br />
       <footer>
         <div class="footer-item">
-          <span>由<strong>思源笔记</strong></span>
+          <span>{{ i18n.aiRoast.footer.by }} <strong>{{ i18n.aiRoast.footer.siYuanNote }}</strong></span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#iconSiYuan"></use>
           </svg>
         </div>
         <div class="footer-item">
-          <span>插件：<strong>任务列表</strong></span>
+          <span>{{ i18n.aiRoast.footer.plugin }}: <strong>{{ i18n.aiRoast.footer.taskList }}</strong></span>
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#tl-greenTask"></use>
           </svg>
         </div>
         <div class="footer-item">
-          <span>通过 AI 生成</span>
+          <span>{{ i18n.aiRoast.footer.generatedByAI }}</span>
         </div>
       </footer>
     </div>
@@ -55,23 +55,36 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { downloadAsImage } from "@/utils/ai";
+import { i18n } from "@/utils/common";
 
-const props = defineProps<{
+defineProps<{
   elementId: string;
   isProfileCard?: boolean;
   title: string;
   pcOrMobilePic: string;
+  index: number;
 }>();
 
-const aiTitleBgColorMap: { [key: string]: string } = {
-  人物概述: "#FFFACD",
-  无情吐槽: "#FFE4E1",
-  办公室八卦: "#E6E6FA",
-  极具创意的搭讪台词: "#E0FFF0",
-  灵魂双胞胎名人: "#E6F3FF",
-  荒诞前世: "#FFE5B4",
-  命中注定的职业: "#E0EEE0",
-};
+
+const aiTitleBgColorList: string[] = [
+  "#FFFACD",
+  "#FFE4E1",
+  "#E6E6FA",
+  "#E0FFF0",
+  "#E6F3FF",
+  "#FFE5B4",
+  "#E0EEE0",
+];
+// {
+//   [lang === "简体中文" ? "人物概述" : "Character Profile"]: "#FFFACD",
+//   [lang === "简体中文" ? "无情吐槽" : "Ruthless Roast"]: "#FFE4E1",
+//   [lang === "简体中文" ? "办公室八卦" : "Office Gossip"]: "#E6E6FA",
+//   [lang === "简体中文" ? "极具创意的搭讪台词" : "Clever Pick-up Lines"]:
+//     "#E0FFF0",
+//   [lang === "简体中文" ? "灵魂双胞胎名人" : "Soul Twin Celebrity"]: "#E6F3FF",
+//   [lang === "简体中文" ? "荒诞前世" : "Absurd Past Life"]: "#FFE5B4",
+//   [lang === "简体中文" ? "命中注定的职业" : "Predestined Profession"]: "#E0EEE0",
+// };
 </script>
 
 <style lang="scss" scoped>
