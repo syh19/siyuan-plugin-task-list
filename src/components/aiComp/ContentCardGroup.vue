@@ -92,6 +92,7 @@ defineProps<{
   }
 
   .emoji {
+    width: auto;
     font-size: 2em;
     text-align: center;
   }

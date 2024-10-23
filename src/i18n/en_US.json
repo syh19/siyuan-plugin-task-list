@@ -133,6 +133,12 @@
     "empty": "No data available, please click the AI Generate button",
     "content": {
       "profile": "Character Profile"
+    },
+    "toast": {
+      "downloadSuccess": "Image Download Success",
+      "downloadError": "Image Download Error",
+      "fileNamePrefix": "SiYuan Task-List AI",
+      "netWorkError": "Network Connection Disconnected, Please Check Your Network Settings"
     }
   }
 }

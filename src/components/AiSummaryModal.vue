@@ -73,7 +73,7 @@
               <span>{{ i18n.aiRoast.totalTimes }}: {{ authCodeInfo.totalUses }}</span>
               <span>{{ i18n.aiRoast.remainingTimes }}: {{ authCodeInfo.remainingUses }}</span>
               <a
-                href="https://ccicqyfum6.feishu.cn/wiki/BR9twc5G4imc7jkSRDxcJFISnGf"
+                :href="docUrl"
                 target="_blank"
                 rel="noopener noreferrer"
                 >{{ i18n.aiRoast.getAuthCode }}</a
@@ -113,6 +113,7 @@
                       elementId: 'ai-summary-content-wrapper',
                       fileName: i18n.aiRoast.all,
                       pcOrMobilePic: pcOrMobilePic,
+                      isAll: true,
                     })
                   "
                 >
@@ -164,7 +165,7 @@
 import { ElButton, ElMessage } from "element-plus";
 import { downloadAsImage } from "@/utils/ai";
 import { formatDateToLocaleString } from "@/utils/date";
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import ContentCardGroup from "@/components/aiComp/ContentCardGroup.vue";
 import HistoryContentCard from "@/components/aiComp/HistoryContentCard.vue";
 import * as aiAPI from "@/api/ai";
@@ -172,6 +173,13 @@ import * as API from "@/api";
 import { i18n } from "@/utils/common";
 
 const modelValue = defineModel<boolean>();
+
+const docUrl = computed(() => {
+  const feishuUrl = "https://ccicqyfum6.feishu.cn/wiki/BR9twc5G4imc7jkSRDxcJFISnGf";
+  const notionUrl = "https://complex-broom-a63.notion.site/SiYuan-Note-Plugin-Task-List-AI-1220ab674c2f8055a320e8ae8145940b";
+  return i18n.language === "简体中文" ? feishuUrl : notionUrl;
+});
+
 
 const currentOrHistory = ref<string>("current");
 const isEditAuthCode = ref<boolean>(false);
@@ -225,15 +233,16 @@ const btnLoading = ref<boolean>(false);
 const pcOrMobilePic = ref<string>("pc");
 // 使用示例
 const getAiSummary = async () => {
-  if (!authCode.value && allAiSummary.value.length >= 3) {
-    ElMessage.error("免费次数已用完，请使用认证码");
-    return;
-  }
+  // if (!authCode.value && allAiSummary.value.length >= 3) {
+  //   ElMessage.error("免费次数已用完，请使用认证码");
+  //   return;
+  // }
   btnLoading.value = true;
   try {
     const res: any = await aiAPI.getAiSummary({
       authCode: authCode.value,
       name: name.value,
+      deviceId: window.siyuan.config.system.id,
     });
     if (res.code === 0) {
       currentAiSummary.value = {

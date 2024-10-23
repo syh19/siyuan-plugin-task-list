@@ -133,6 +133,12 @@
     "empty": "暂无数据，请点击 AI 生成 按钮",
     "content": {
       "profile": "人物概述"
+    },
+    "toast": {
+      "downloadSuccess": "图片下载成功",
+      "downloadError": "图片下载失败",
+      "fileNamePrefix": "思源插件任务列表 AI",
+      "netWorkError": "网络连接已断开，请检查您的网络设置"
     }
   }
 }

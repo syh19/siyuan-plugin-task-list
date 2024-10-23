@@ -13,10 +13,12 @@ export async function getAuthCodeInfo(id: string) {
 export async function getAiSummary({
   authCode,
   name,
+  deviceId,
   retries = 3,
 }: {
   authCode: string;
   name: string;
+  deviceId: string;
   retries?: number;
 }) {
   try {
@@ -24,6 +26,7 @@ export async function getAiSummary({
       taskList: taskListForAI,
       authCode,
       name,
+      deviceId,
       lang: i18n.language,
     });
 
@@ -31,7 +34,7 @@ export async function getAiSummary({
   } catch (error) {
     if (retries > 0) {
       console.log(`请求失败,剩余重试次数: ${retries - 1}`);
-      return getAiSummary({ authCode, name, retries: retries - 1 });
+      return getAiSummary({ authCode, name, deviceId, retries: retries - 1 });
     }
   }
 }

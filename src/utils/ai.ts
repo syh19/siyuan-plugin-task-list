@@ -1,6 +1,7 @@
 import * as date from "@/utils/date";
 import { ElMessage } from "element-plus";
 import html2canvas from "html2canvas";
+import { i18n } from "@/utils/common";
 
 export let taskListForAI: any[] = [];
 
@@ -38,10 +39,12 @@ export async function downloadAsImage({
   elementId,
   fileName,
   pcOrMobilePic,
+  isAll = false,
 }: {
   elementId: string;
   fileName: string;
   pcOrMobilePic: string;
+  isAll?: boolean;
 }) {
   try {
     const originalElement = document.getElementById(elementId);
@@ -51,7 +54,7 @@ export async function downloadAsImage({
     }
 
     let wrapperWidth: number = 0;
-    if (fileName.startsWith("全部")) {
+    if (isAll) {
       wrapperWidth = imgWidthMap[pcOrMobilePic].whole;
     } else {
       wrapperWidth = imgWidthMap[pcOrMobilePic].single;
@@ -151,14 +154,14 @@ export async function downloadAsImage({
     const image = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = image;
-    link.download = `思源插件任务列表AI—${fileName}-${pcOrMobilePic}.png`;
+    link.download = `${i18n.aiRoast.toast.fileNamePrefix}—${fileName}-${pcOrMobilePic}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    ElMessage.success("图片下载成功");
+    ElMessage.success(i18n.aiRoast.toast.downloadSuccess);
   } catch (error) {
-    console.error("下载图片时发生错误:", error);
-    ElMessage.error("下载图片失败");
+    console.error(i18n.aiRoast.toast.downloadError + ": ", error);
+    ElMessage.error(i18n.aiRoast.toast.downloadError);
   }
 }

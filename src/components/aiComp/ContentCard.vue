@@ -22,6 +22,7 @@
                 elementId: elementId,
                 fileName: title,
                 pcOrMobilePic: pcOrMobilePic,
+                isAll: false,
               })
             "
           >

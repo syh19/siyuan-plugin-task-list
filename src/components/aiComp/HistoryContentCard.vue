@@ -16,6 +16,7 @@
                   elementId: `history-content-wrapper-${index}`,
                   fileName: `${i18n.aiRoast.all}-${record.dateTime}`,
                   pcOrMobilePic: pcOrMobilePic,
+                  isAll: true,
                 })
               "
             >
