@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v1.0.8` change log
+# Latest version `v1.0.9` change log
 
 **Enhancement**
 
-- Support single task hidden and show
+- ✨✨✨ AI roasting mode is here, making your task list no longer boring!
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)

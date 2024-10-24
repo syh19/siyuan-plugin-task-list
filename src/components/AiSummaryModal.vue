@@ -176,8 +176,8 @@ const modelValue = defineModel<boolean>();
 
 const docUrl = computed(() => {
   const feishuUrl = "https://ccicqyfum6.feishu.cn/wiki/BR9twc5G4imc7jkSRDxcJFISnGf";
-  const notionUrl = "https://complex-broom-a63.notion.site/SiYuan-Note-Plugin-Task-List-AI-1220ab674c2f8055a320e8ae8145940b";
-  return i18n.language === "简体中文" ? feishuUrl : notionUrl;
+  const larkUrl = "https://musikycx4p9z.larksuite.com/wiki/XaBNwNZUqi8xcBkPwijuySkqsSC";
+  return i18n.language === "简体中文" ? feishuUrl : larkUrl;
 });
 
 

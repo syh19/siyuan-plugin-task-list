@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
-
+import { i18n } from "@/utils/common";
 interface ApiResponse<T> {
   code: number;
   data: T;
@@ -25,7 +25,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.code === "ERR_NETWORK") {
       ElMessage({
-        message: "网络连接已断开，请检查您的网络设置。",
+        message: i18n.aiRoast.toast.netWorkError,
         grouping: true,
         type: "error",
       });

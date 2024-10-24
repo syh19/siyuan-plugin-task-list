@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.0.9
+
+> **2024-10-24**
+
+**Enhancement**
+
+- ✨✨✨ AI roasting mode is here, making your task list no longer boring!
+
 ## v1.0.8
 
 > **2024-10-17**
