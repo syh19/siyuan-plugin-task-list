@@ -1,5 +1,6 @@
 import * as API from '@/api'
 import * as date from '@/utils/date'
+import { addHandleDateToTaskNode } from '@/utils/addInfoToHtmlNode'
 
 /**
  * 为任务节点设置自定义属性：完成时间
@@ -71,5 +72,8 @@ export const taskNodeFinishedSetAttrs = (e: any): void => {
     else {
       setTaskBlockAttrs(divNodeId, false)
     }
+    setTimeout(() => {
+      addHandleDateToTaskNode()
+    }, 100)
   }
 }

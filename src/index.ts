@@ -5,7 +5,7 @@ import '@/styles/index.scss'
 import * as task from '@/utils/handleTaskNode'
 import '@/utils/compatible'
 import { initLocalStorageWhenFirstUsePlugin } from '@/utils/initLocalStorage'
-
+import { addHandleDateToTaskNode } from '@/utils/addInfoToHtmlNode'
 import { useGlobalStore } from '@/store/index'
 const globalStore = useGlobalStore()
 
@@ -29,6 +29,7 @@ export default class TaskListPlugin extends Plugin {
       utils.setCurrentBoxId(e.detail.protyle.notebookId)
       globalStore.setCurrentBoxInfo(e.detail.protyle.notebookId)
       // utils.addOperationForTaskNode(e)
+        addHandleDateToTaskNode()
     })
 
     // 编辑事件 & 其他消息事件
