@@ -66,13 +66,13 @@
 
       <el-divider style="margin-top: 60px" content-position="center">
         <h3>
-          {{ "文档编辑区信息展示" }}
+          {{ i18n.setting.docTaskConfigDivider }}
         </h3>
       </el-divider>
 
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
-          {{ "是否显示附加信息" }}
+          {{ i18n.setting.docTaskConfig.isShowExtraInfoOnDocTask }}
         </div>
         <div class="setting-item__content">
           <el-switch

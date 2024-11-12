@@ -37,6 +37,7 @@
     "confirm": "确认",
     "infoCardConfigDivider": "信息卡片配置",
     "taskListConfigDivider": "任务列表配置",
+    "docTaskConfigDivider": "文档编辑区域信息展示配置",
     "hideTaskTreeDesc": "您所勾选的节点，其中的任务会将被隐藏",
     "onlySelf": "仅自身",
     "selfAndChildren": "自身及子节点",
@@ -62,6 +63,9 @@
       "dateTimeFormat": "yyyy-mm-dd hh:mm",
       "fieldsForHidden": "隐藏所选字段",
       "fieldsForHiddenPlaceholder": "请选择想要隐藏的字段"
+    },
+    "docTaskConfig": {
+      "isShowExtraInfoOnDocTask": "是否在任务附近显示附加信息"
     }
   },
   "infoCard": {
