@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.0.10
+
+> **2024-11-12**
+
+**Enhancement**
+
+- Support configure whether to display additional information near the task node in the document editing area
+
 ## v1.0.9
 
 > **2024-10-24**
