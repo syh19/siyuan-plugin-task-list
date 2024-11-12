@@ -66,6 +66,23 @@
 
       <el-divider style="margin-top: 60px" content-position="center">
         <h3>
+          {{ "文档编辑区信息展示" }}
+        </h3>
+      </el-divider>
+
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ "是否显示附加信息" }}
+        </div>
+        <div class="setting-item__content">
+          <el-switch
+            v-model="localSettings.docTaskConfig.isShowExtraInfoOnDocTask"
+          />
+        </div>
+      </div>
+
+      <el-divider style="margin-top: 60px" content-position="center">
+        <h3>
           {{ i18n.setting.taskListConfigDivider }}
         </h3>
       </el-divider>
@@ -182,6 +199,10 @@ const localSettings = ref<any>({
     dateTimeDisplayMode: "date",
     fieldsForHidden: [],
   },
+  docTaskConfig: {
+    /** 是否显示附加信息 */
+    isShowExtraInfoOnDocTask: true,
+  },
   /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
   nodeListForHideTask: [],
   /** 任务列表树的显示模式 */
@@ -255,6 +276,7 @@ const getLocalStorage = async () => {
     nodeListForHideTask,
     taskTreeDisplayMode,
     taskSortBy,
+    docTaskConfig,
   } = storage["plugin-task-list-settings"];
 
   infoCardConfig && (localSettings.value.infoCardConfig = infoCardConfig);
@@ -263,6 +285,8 @@ const getLocalStorage = async () => {
   taskTreeDisplayMode &&
     (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode);
   taskSortBy && (localSettings.value.taskSortBy = taskSortBy);
+  docTaskConfig &&
+    (localSettings.value.docTaskConfig = docTaskConfig);
 };
 
 /**
@@ -300,6 +324,7 @@ const submit = async () => {
     taskTreeDisplayMode: localSettings.value.taskTreeDisplayMode,
     taskSortBy: localSettings.value.taskSortBy,
     infoCardConfig: localSettings.value.infoCardConfig,
+    docTaskConfig: localSettings.value.docTaskConfig,
   };
   await API.setLocalStorageVal({
     key: "plugin-task-list-settings",

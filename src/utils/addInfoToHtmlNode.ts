@@ -5,50 +5,106 @@
  */
 import { formatDateTime } from "@/utils/date";
 import { i18n } from "@/utils/common";
+import * as API from "@/api";
 
-export function addHandleDateToTaskNode() {
-  const taskNodes = document.querySelectorAll('div[data-subtype="t"]');
+const judgeIsShowExtraInfoOnDocTask = async () => {
+  const { data: storage } = await API.getLocalStorage();
+  if (!storage["plugin-task-list-settings"]) return;
+  const { docTaskConfig } = storage["plugin-task-list-settings"];
+  let isShow: boolean = false;
+  if (typeof docTaskConfig?.isShowExtraInfoOnDocTask === "boolean") {
+    isShow = docTaskConfig.isShowExtraInfoOnDocTask;
+  } else {
+    // 默认显示
+    isShow = true;
+  }
+  return isShow;
+};
+
+export async function addHandleDateToTaskNode() {
+
+  // 获取编辑器容器
+  const editor = document.querySelector(".protyle-wysiwyg");
+  if (!editor) return;
+
+  // 清除所有已存在的日期信息元素和包装器
+  const existingWrappers = document.querySelectorAll(
+    ".siyuan-plugin-task-date-info-wrapper"
+  );
+  existingWrappers.forEach((el) => el.remove());
+
+  // 清除可能存在的 NodeHTMLBlock
+  const htmlBlocks = document.querySelectorAll(
+    'div[data-type="NodeHTMLBlock"]'
+  );
+  htmlBlocks.forEach((block) => {
+    if (block.innerHTML.includes("siyuan-plugin-task-date-info")) {
+      block.remove();
+    }
+  });
+
+  const isShow = await judgeIsShowExtraInfoOnDocTask();
+  if (!isShow) return;
+
+  // 获取所有任务节点
+  const taskNodes = document.querySelectorAll(
+    'div[data-marker="*"][data-type="NodeListItem"][data-subtype="t"]'
+  );
 
   taskNodes.forEach((node) => {
     const handleDate = node.getAttribute("custom-plugin-task-list-handleat");
     const finishedDate = node.getAttribute("custom-plugin-task-list-finished");
 
-    // 先清除已存在的日期信息元素
-    const existingDateInfo = node.querySelector(".task-date-info");
-    if (existingDateInfo) {
-      existingDateInfo.remove();
-    }
-
     if (handleDate || finishedDate) {
       const dateInfo = document.createElement("div");
-      dateInfo.className = "task-date-info";
+      dateInfo.className = "siyuan-plugin-task-date-info";
+
+      // 设置样式和属性
       dateInfo.style.cssText = `
         position: absolute;
-        top: -5px;
-        right: 5px;
         font-size: 10px;
         color: #888;
-        pointer-events: none;
+        pointer-events: none !important;
         text-align: right;
+        right: 5px;
+        top: -15px;
+        user-select: none !important;
+        -webkit-user-select: none !important;
       `;
 
-      let dateText = "";
+      // 使用多重保护确保元素不可编辑
+      dateInfo.setAttribute("contenteditable", "false");
+      dateInfo.setAttribute("data-editable", "false");
+      dateInfo.setAttribute("spellcheck", "false");
+      dateInfo.setAttribute("data-type", "siyuan-plugin-custom-date-info");
+
+      // 设置日期文本
+      let dateText = [];
       if (handleDate) {
-        dateText += `${i18n.infoCard.handleAt}: ${formatDateTime(handleDate, "date")}`;
+        dateText.push(
+          `${i18n.infoCard.handleAt}: ${formatDateTime(handleDate, "date")}`
+        );
       }
       if (finishedDate) {
-        if (dateText) dateText += " "; // 使用HTML实体空白符增加间隙
-        dateText += `${i18n.infoCard.finished}: ${formatDateTime(finishedDate, "date")}`;
+        dateText.push(
+          `${i18n.infoCard.finished}: ${formatDateTime(finishedDate, "date")}`
+        );
       }
+      dateInfo.textContent = dateText.join(" ");
 
-      dateInfo.textContent = dateText;
-      // dateInfo.innerHTML = dateText; // 使用innerHTML代替textContent以正确渲染HTML实体，但是这样可能会导致渲染出 html 元素到页面上
+      // 确保任务节点是相对定位
+      (node as HTMLElement).style.position = "relative";
 
-      if ((node as HTMLElement).style.position !== "relative") {
-        (node as HTMLElement).style.position = "relative";
-      }
+      // 创建一个包装器来进一步隔离编辑状态
+      const wrapper = document.createElement("div");
+      wrapper.className = "siyuan-plugin-task-date-info-wrapper";
+      wrapper.style.cssText =
+        "pointer-events: none !important; position: absolute; top: 0; right: 0; left: 0;";
+      wrapper.setAttribute("contenteditable", "false");
+      wrapper.setAttribute("data-type", "siyuan-plugin-custom-wrapper");
 
-      node.appendChild(dateInfo);
+      wrapper.appendChild(dateInfo);
+      node.appendChild(wrapper);
     }
   });
 }

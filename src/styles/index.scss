@@ -57,3 +57,26 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.siyuan-plugin-task-date-info,
+.siyuan-plugin-task-date-info-wrapper {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  contenteditable: false !important;
+  
+  &[data-type="siyuan-plugin-custom-date-info"],
+  &[data-type="siyuan-plugin-custom-wrapper"] {
+    pointer-events: none !important;
+    user-select: none !important;
+  }
+}
+
+// [data-type="NodeHTMLBlock"] {
+//   .siyuan-plugin-task-date-info,
+//   .siyuan-plugin-task-date-info-wrapper {
+//     display: none !important;
+//   }
+// }
