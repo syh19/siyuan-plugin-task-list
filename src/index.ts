@@ -21,7 +21,7 @@ export default class TaskListPlugin extends Plugin {
     this.eventBus.on('loaded-protyle-static', (e: any) => {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)
     })
-    this.eventBus.on('switch-protyle', (e: any) => {
+    this.eventBus.on('switch-protyle', async (e: any) => {
       utils.setCurrentDocId(e.detail.protyle.block.rootID)
 
       globalStore.setCurrentDocInfo(e.detail.protyle.block.rootID)
@@ -29,7 +29,9 @@ export default class TaskListPlugin extends Plugin {
       utils.setCurrentBoxId(e.detail.protyle.notebookId)
       globalStore.setCurrentBoxInfo(e.detail.protyle.notebookId)
       // utils.addOperationForTaskNode(e)
-        addHandleDateToTaskNode()
+
+      await utils.sleep(350);
+      addHandleDateToTaskNode()
     })
 
     // 编辑事件 & 其他消息事件

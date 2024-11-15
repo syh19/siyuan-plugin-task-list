@@ -257,6 +257,7 @@ import ContextMenu from "@imengyu/vue3-context-menu";
 
 import { useResizeObserver } from "@/hooks/useResizeObserver";
 import { useGlobalStore } from "@/store/index";
+import { addHandleDateToTaskNode } from "@/utils/addInfoToHtmlNode";
 const globalStore = useGlobalStore();
 
 const isSmallWidth = useResizeObserver();
@@ -597,6 +598,7 @@ const openDocAndScrollTaskNode = async (docId: string, taskNodeId: string) => {
     // 延时滚动到指定的node节点
     await utils.sleep(350);
   }
+  addHandleDateToTaskNode()
   let taskEle: any = document.querySelector(
     `.layout-tab-container .protyle-content .protyle-wysiwyg >div:not([data-type="NodeBlockQueryEmbed"]) [data-node-id="${taskNodeId}"][data-type="NodeListItem"] div:nth-child(2)[data-type="NodeParagraph"]`
   );

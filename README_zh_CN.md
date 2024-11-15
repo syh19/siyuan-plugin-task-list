@@ -1,10 +1,10 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.0.10`更新记录
+# 最新版本`v1.1.0`更新记录
 
-**改进功能**
+**修复缺陷**
 
-- 支持配置是否在文档中的任务节点右上角显示附加信息
+- 修复某些场景下任务节点右上角附加信息不显示的问题并微调位置
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)

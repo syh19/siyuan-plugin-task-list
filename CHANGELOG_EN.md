@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.1.0
+
+> **2024-11-15**
+
+**Bugfix**
+
+- Fix the issue where the additional information near the task node in the document editing area is not displayed in some scenarios and adjust the position slightly
+
 ## v1.0.10
 
 > **2024-11-12**

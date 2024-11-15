@@ -66,8 +66,8 @@ export async function addHandleDateToTaskNode() {
         color: #888;
         pointer-events: none !important;
         text-align: right;
-        right: 5px;
-        top: -15px;
+        right: 20px;
+        top: -12px;
         user-select: none !important;
         -webkit-user-select: none !important;
       `;
