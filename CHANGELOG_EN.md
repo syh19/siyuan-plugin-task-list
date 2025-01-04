@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.1.2
+
+> **2025-01-04**
+
+**Bugfix**
+
+- Fix the issue where clicking on a task in the only task display mode does not locate the document to the specified position
+
 ## v1.1.1
 
 > **2025-01-04**

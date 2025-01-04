@@ -311,7 +311,7 @@ export async function getTaskListForDisplay({
   } else if (
     storage['plugin-task-list-settings']?.['taskTreeDisplayMode'] === 'only-task'
   ) {
-    treeData = taskList
+    treeData = convertToList(treeData)
   }
 
   treeData = treeFn.sortTaskTreeData(
