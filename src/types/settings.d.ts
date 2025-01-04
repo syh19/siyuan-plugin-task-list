@@ -15,7 +15,7 @@ export type LocalSettings = {
   /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
   nodeListForHideTask: any[];
   /** 任务列表树的显示模式 */
-  taskTreeDisplayMode: "box-doc-task" | "box-task";
+  taskTreeDisplayMode: "box-doc-task" | "box-task" | "only-task";
   /** 任务节点的排序方式 */
   taskSortBy: SortOptionValue;
 };

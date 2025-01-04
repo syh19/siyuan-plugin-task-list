@@ -47,6 +47,7 @@
     "taskListDisplayLabel": "How task lists are displayed",
     "boxDocTask": "notebook & doc & task",
     "boxTask": "notebook & task",
+    "onlyTask": "only task",
     "sortItem": {
       "sortBy": "Task Sort",
       "placeholder": "Please select a sort method",

@@ -7,7 +7,7 @@
     close-on-click-modal
     close-on-press-escape
     show-close
-    size="50%"
+    size="60%"
     :title="i18n.setting.title"
   >
     <template #default>
@@ -122,6 +122,11 @@
             <el-radio
               value="box-task"
               :label="i18n.setting.boxTask"
+              size="large"
+            />
+            <el-radio
+              value="only-task"
+              :label="i18n.setting.onlyTask"
               size="large"
             />
           </el-radio-group>
@@ -285,8 +290,7 @@ const getLocalStorage = async () => {
   taskTreeDisplayMode &&
     (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode);
   taskSortBy && (localSettings.value.taskSortBy = taskSortBy);
-  docTaskConfig &&
-    (localSettings.value.docTaskConfig = docTaskConfig);
+  docTaskConfig && (localSettings.value.docTaskConfig = docTaskConfig);
 };
 
 /**
@@ -377,7 +381,7 @@ defineExpose({
       justify-content: flex-start;
       align-items: center;
       .setting-item__label {
-        margin-right: 80px;
+        margin-right: 60px;
       }
     }
     .setting-item__vertical {

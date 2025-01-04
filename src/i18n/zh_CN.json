@@ -47,6 +47,7 @@
     "taskListDisplayLabel": "任务列表的展示方式",
     "boxDocTask": "笔记本 & 文档 & 任务",
     "boxTask": "笔记本 & 任务",
+    "onlyTask": "仅任务",
     "sortItem": {
       "sortBy": "任务排序方式",
       "placeholder": "请选择排序方式",
