@@ -2,7 +2,7 @@
   "name": "siyuan-plugin-task-list",
   "author": "sylwair",
   "url": "https://github.com/syh19/siyuan-plugin-task-list",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "minAppVersion": "2.10.13",
   "backends": [
     "all"

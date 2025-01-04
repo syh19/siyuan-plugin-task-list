@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.1.1
+
+> **2025-01-04**
+
+**Enhancement**
+
+- Add a new display mode: only task
+
 ## v1.1.0
 
 > **2024-11-15**

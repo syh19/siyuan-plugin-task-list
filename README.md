@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v1.1.0` change log
+# Latest version `v1.1.1` change log
 
-**Bugfix**
+**Enhancement**
 
-- Fix the issue where the additional information near the task node in the document editing area is not displayed in some scenarios and adjust the position slightly
+- Add a new display mode: only task
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
@@ -60,8 +60,8 @@ This plug-in uses `Vue3` and `Element Plus` to realize the drawing of `UI Layout
 - [SiYuan English Discussion Forum](https://liuyun.io/)
 - [Github Repository Address](https://github.com/syh19/siyuan-plugin-task-list)
 
-# Donate
+# Buy me a coffee
 
-I hope this plug-in can be helpful to you. If you like this plug-in, please support me. Thank you very much.
+I hope this plugin can be helpful to you. If you like this plugin. You can buy me a coffee. Thank you very much.
 
-<img src="https://xhir-website-blog.oss-cn-beijing.aliyuncs.com/picgo/donate-QR-code.jpg" style="width:90%" align="center" alt="">
+<a href="https://www.buymeacoffee.com/sylwair" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="sylwair" width="250"/></a>
