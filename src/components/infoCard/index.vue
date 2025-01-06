@@ -144,7 +144,7 @@ onUpdated(() => {
   padding: 10px;
   font-size: 14px;
   color: var(--tl-color-text);
-  max-width: 300px;
+  max-width: 350px;
   min-width: 250px;
   // white-space: nowrap;
   // overflow: hidden;
@@ -157,7 +157,7 @@ onUpdated(() => {
     align-items: flex-start;
     .info-card-item__label {
       flex-shrink: 0;
-      width: 80px;
+      width: 100px;
       color: var(--tl-color-text);
     }
     .info-card-item__value {

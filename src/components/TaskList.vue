@@ -329,8 +329,8 @@ const handleMouseEnter = (e: any, data: any) => {
 /** 高亮搜索的关键字 */
 const handleHighLightSearchText = (text: string) => {
   return text.replace(
-    new RegExp(filterText.value, "g"),
-    `<span style="color: #5182ee; font-weight: bold">${filterText.value}</span>`
+    new RegExp(filterText.value, "gi"),
+    (match) => `<span style="color: #5182ee; font-weight: bold">${match}</span>`
   );
 };
 const toggleTaskStatus = () => {
@@ -442,7 +442,7 @@ const filterTreeNode = (value: string, data: any) => {
   // if (!value) return true
   if (data.type !== "task") return false;
   data.highlightLabel = handleHighLightSearchText(data.label);
-  return data.label.indexOf(value) !== -1;
+  return data.label.toLowerCase().indexOf(value.toLowerCase()) !== -1;
 };
 
 /**

@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## v1.1.3
+
+> **2025-01-06**
+
+**Enhancement**
+
+- Optimize the internationalization of English language
+- Optimize the search function to be case-insensitive #40
+
 ## v1.1.2
 
 > **2025-01-04**

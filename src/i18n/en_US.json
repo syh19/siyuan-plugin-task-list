@@ -2,55 +2,55 @@
   "language": "English",
   "pluginTitle": "TaskList",
   "taskStatus": {
-    "todo": "TODO",
-    "done": "DONE",
-    "all": "ALL"
+    "todo": "Todo",
+    "done": "Done",
+    "all": "All"
   },
   "options": {
     "ai": "AI",
-    "refresh": "refresh",
-    "expand": "expand",
-    "collapse": "collapse",
-    "switch": "switch status",
-    "filter": "filter",
-    "search": "search"
+    "refresh": "Refresh",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "switch": "Switch Status",
+    "filter": "Filter",
+    "search": "Search"
   },
-  "searchPlaceholder": "Please enter the task you want to search for",
+  "searchPlaceholder": "Please enter task to search",
   "range": {
-    "doc": "document",
-    "box": "notebook",
-    "workspace": "workspace"
+    "doc": "Document",
+    "box": "Notebook",
+    "workspace": "Workspace"
   },
-  "docTreeEmptyText": "You have not created any tasks",
+  "docTreeEmptyText": "No tasks created yet",
   "emptyText": {
-    "allNotebooksHidden": "You set the hidden scope of the task: all notebooks",
-    "currentNotebook": "You set the hidden scope of the task: current notebook",
-    "currentDoc": "You set the hidden scope of the task: current document or a document and its subdocuments",
-    "dateFilter": "You have filtered tasks: There are no tasks for the current date",
-    "statusFilter": "You have filtered tasks: There are no tasks in the current state",
-    "rangeStatus": "You have filtered tasks: There are no tasks in the current dimension",
+    "allNotebooksHidden": "You have set task hidden scope: all notebooks",
+    "currentNotebook": "You have set task hidden scope: current notebook",
+    "currentDoc": "You have set task hidden scope: current document or document and its subdocuments",
+    "dateFilter": "You have filtered tasks: No tasks under current date",
+    "statusFilter": "You have filtered tasks: No tasks under current status",
+    "rangeStatus": "You have filtered tasks: No tasks under current dimension",
     "reallyNoTask": "Great, all tasks completed~"
   },
   "setting": {
-    "title": "SETTING",
+    "title": "Settings",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "infoCardConfigDivider": "Info card config",
-    "taskListConfigDivider": "Task list config",
-    "docTaskConfigDivider": "Document task config",
-    "hideTaskTreeDesc": "The tasks in the nodes you checked will be hidden",
-    "onlySelf": "Only Self",
+    "infoCardConfigDivider": "Info Card Configuration",
+    "taskListConfigDivider": "Task List Configuration",
+    "docTaskConfigDivider": "Document Task Display Configuration",
+    "hideTaskTreeDesc": "Tasks in the nodes you checked will be hidden",
+    "onlySelf": "Self Only",
     "selfAndChildren": "Self & Children",
-    "singleTaskHiddenDesc": "The tasks below are hidden, you can show them here",
+    "singleTaskHiddenDesc": "The following tasks are hidden, you can show them here",
     "showTask": "Show Task",
-    "noHiddenTask": "No hidden tasks",
-    "taskListDisplayLabel": "How task lists are displayed",
-    "boxDocTask": "notebook & doc & task",
-    "boxTask": "notebook & task",
-    "onlyTask": "only task",
+    "noHiddenTask": "No Hidden Tasks",
+    "taskListDisplayLabel": "Task List Display Mode",
+    "boxDocTask": "Notebook & Doc & Task",
+    "boxTask": "Notebook & Task",
+    "onlyTask": "Task Only",
     "sortItem": {
-      "sortBy": "Task Sort",
-      "placeholder": "Please select a sort method",
+      "sortBy": "Task Sort Method",
+      "placeholder": "Please select sort method",
       "createdAsc": "Created Time ASC",
       "createdDesc": "Created Time DESC",
       "updatedAsc": "Updated Time ASC",
@@ -59,59 +59,59 @@
       "finishedDesc": "Finished Time DESC"
     },
     "infoCardConfig": {
-      "dateTimeDisplayMode": "date time display mode",
+      "dateTimeDisplayMode": "Date Time Display Mode",
       "dateFormat": "yyyy-mm-dd",
       "dateTimeFormat": "yyyy-mm-dd hh:mm",
-      "fieldsForHidden": "fields selected for hidden",
-      "fieldsForHiddenPlaceholder": "Please select fields for hidden"
+      "fieldsForHidden": "Fields Selected to Hide",
+      "fieldsForHiddenPlaceholder": "Please select fields to hide"
     },
     "docTaskConfig": {
-      "isShowExtraInfoOnDocTask": "is show extra info on doc task"
+      "isShowExtraInfoOnDocTask": "Show Extra Info Near Tasks"
     }
   },
   "infoCard": {
-    "taskName": "task name",
-    "created": "created",
-    "handleAt": "handleAt",
-    "updated": "updated",
-    "finished": "finished",
-    "box": "notebook",
-    "docPath": "doc path"
+    "taskName": "Task Name",
+    "created": "Created Time",
+    "handleAt": "Handle Time",
+    "updated": "Updated Time",
+    "finished": "Finished Time",
+    "box": "Notebook",
+    "docPath": "Doc Path"
   },
   "filterConfig": {
-    "title": "Task Filter Config",
-    "taskFilterWay": "task filter method",
-    "monthRange": "range filter in month view",
-    "dockCalendar": "date filter in dock bar",
-    "dockCalendarDisplayMode": "calendar display mode",
-    "dockWeekMode": "week mode",
-    "dockMonthMode": "month mode",
-    "dateRangeFormat": "date range filter format",
-    "static": "static date filter",
-    "dynamic": "dynamic date filter",
-    "dateRangeValue": "please select the date range",
-    "clearBtn": "clear",
+    "title": "Task Filter Configuration",
+    "taskFilterWay": "Task Filter Method",
+    "monthRange": "Month View Range Filter",
+    "dockCalendar": "Dock Bar Date Filter",
+    "dockCalendarDisplayMode": "Calendar Display Mode",
+    "dockWeekMode": "Week View",
+    "dockMonthMode": "Month View",
+    "dateRangeFormat": "Date Range Filter Format",
+    "static": "Static Date Filter",
+    "dynamic": "Dynamic Date Filter",
+    "dateRangeValue": "Please Select Date Range",
+    "clearBtn": "Clear",
     "dynamicDateRangeList": {
-      "month": "current month",
-      "week": "current week",
-      "pastThreeDays": "past three days",
-      "futureThreeDays": "future three days",
-      "today": "today"
+      "month": "Current Month",
+      "week": "Current Week",
+      "pastThreeDays": "Past Three Days",
+      "futureThreeDays": "Future Three Days",
+      "today": "Today"
     }
   },
   "dockCalendar": {
-    "todoTaskNumPopover": "Todo Task Counts: ",
-    "doneTaskNumPopover": "Done Task Counts: "
+    "todoTaskNumPopover": "Todo Task Count: ",
+    "doneTaskNumPopover": "Done Task Count: "
   },
-  "addHandleDate": "add task handle date",
-  "hideSingleTask": "hide task",
+  "addHandleDate": "Add Task Handle Time",
+  "hideSingleTask": "Hide Task",
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "top": "sticky on top",
+  "top": "Pin to Top",
   "aiRoast": {
     "title": "AI Summary",
     "authCode": "Authentication Code",
-    "authCodePlaceholder": "Click the button on the right to enter the authentication code",
+    "authCodePlaceholder": "Click the button on the right to enter authentication code",
     "getAuthCode": "Get Authentication Code?",
     "totalTimes": "Total Times",
     "remainingTimes": "Remaining Times",
@@ -135,15 +135,15 @@
       "generatedByAI": "Generated by AI"
     },
     "all": "All",
-    "empty": "No data available, please click the AI Generate button",
+    "empty": "No data available, please click AI Generate button",
     "content": {
       "profile": "Character Profile"
     },
     "toast": {
       "downloadSuccess": "Image Download Success",
-      "downloadError": "Image Download Error",
+      "downloadError": "Image Download Failed",
       "fileNamePrefix": "SiYuan Task-List AI",
-      "netWorkError": "Network Connection Disconnected, Please Check Your Network Settings"
+      "netWorkError": "Network Connection Lost, Please Check Your Network Settings"
     }
   }
 }

@@ -1,11 +1,11 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.1.2`更新记录
+# 最新版本`v1.1.3`更新记录
 
-**修复缺陷**
+**增强功能**
 
-- 仅任务显示模式下，点击任务无法定位到文档指定位置的问题
-
+- 优化国际化英文语言的文案
+- 优化搜索功能，使其不区分大小写 #40
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
 
