@@ -11,6 +11,21 @@
     :title="i18n.setting.title"
   >
     <template #default>
+      <el-divider style="margin-top: 60px" content-position="center">
+        <h3>
+          {{ '任务数量控制' }}
+        </h3>
+      </el-divider>
+
+      <div class="setting-item setting-item__horizontal">
+        <div class="setting-item__label">
+          {{ '任务数量控制' }}
+        </div>
+        <div class="setting-item__content">
+          <el-input-number v-model="taskCountLimit" :min="1" :max="10000" />
+        </div>
+      </div>
+
       <el-divider content-position="center">
         <h3>
           {{ i18n.setting.infoCardConfigDivider }}
