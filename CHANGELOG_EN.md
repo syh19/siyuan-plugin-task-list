@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## v1.1.4
+> **2025-03-25**
+
+**Enhancement**
+
+- Support customizing the number of task nodes to count (default 2000)
+
 ## v1.1.3
 
 > **2025-01-06**

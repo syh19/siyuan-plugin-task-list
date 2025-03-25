@@ -1,11 +1,11 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.1.3`更新记录
+# 最新版本`v1.1.4`更新记录
 
 **增强功能**
 
-- 优化国际化英文语言的文案
-- 优化搜索功能，使其不区分大小写 #40
+- 支持自定义需要统计的任务节点数量（默认2000）
+
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
 
