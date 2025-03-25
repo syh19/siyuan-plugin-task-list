@@ -53,7 +53,9 @@ export async function getTaskListBySql(
     params.boxId && (stmtStr += ` AND box = '${params.boxId}'`);
   }
 
-  stmtStr += ` ORDER BY created ASC LIMIT 2000`;
+  const { data: storage } = await getLocalStorage();
+  const taskCountLimit = storage["plugin-task-list-settings"]?.["taskCountLimit"] || 2000;
+  stmtStr += ` ORDER BY created ASC LIMIT ${taskCountLimit}`;
 
   let taskRes: any = await client.sql({
     stmt: stmtStr,

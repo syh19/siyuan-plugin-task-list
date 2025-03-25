@@ -22,7 +22,14 @@
           {{ '任务数量控制' }}
         </div>
         <div class="setting-item__content">
-          <el-input-number v-model="taskCountLimit" :min="1" :max="10000" />
+          <el-input-number
+            v-model="localSettings.taskCountLimit"
+            :min="1"
+            :max="10000"
+            :step="1"
+            step-strictly
+            @change="handleTaskCountChange"
+          />
         </div>
       </div>
 
@@ -229,6 +236,8 @@ const localSettings = ref<any>({
   taskTreeDisplayMode: "box-doc-task",
   /** 任务节点的排序方式 */
   taskSortBy: "createdAsc",
+  /** 任务数量控制 */
+  taskCountLimit: 2000,
 });
 
 const sortOptions = ref<Array<{ value: string; label: string }>>([
@@ -326,6 +335,16 @@ const handleChecked2HideTask = async (e: any) => {
   checkedNodes.value = e;
 };
 
+const handleTaskCountChange = (value: number) => {
+  if (value < 1) {
+    localSettings.value.taskCountLimit = 1;
+  } else if (value > 10000) {
+    localSettings.value.taskCountLimit = 10000;
+  } else if (!Number.isInteger(value)) {
+    localSettings.value.taskCountLimit = Math.floor(value);
+  }
+};
+
 const cancel = () => {
   isShow.value = false;
 };
@@ -337,6 +356,8 @@ const submit = async () => {
   );
 
   const val: any = {
+    /** 任务数量控制 */
+    taskCountLimit: localSettings.value.taskCountLimit,
     /** 需要隐藏任务的节点，包括笔记本节点或者是文档节点 */
     nodeListForHideTask: hiddenTaskNodes,
     /** 任务列表树的显示模式 */
