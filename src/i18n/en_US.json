@@ -35,6 +35,7 @@
     "title": "Settings",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "taskCountLimit": "Task Count Limit",
     "infoCardConfigDivider": "Info Card Configuration",
     "taskListConfigDivider": "Task List Configuration",
     "docTaskConfigDivider": "Document Task Display Configuration",

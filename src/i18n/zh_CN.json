@@ -35,6 +35,7 @@
     "title": "设置",
     "cancel": "取消",
     "confirm": "确认",
+    "taskCountLimit": "任务数量控制",
     "infoCardConfigDivider": "信息卡片配置",
     "taskListConfigDivider": "任务列表配置",
     "docTaskConfigDivider": "文档编辑区域信息展示配置",

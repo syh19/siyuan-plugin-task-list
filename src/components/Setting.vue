@@ -11,15 +11,15 @@
     :title="i18n.setting.title"
   >
     <template #default>
-      <el-divider style="margin-top: 60px" content-position="center">
+      <el-divider content-position="center">
         <h3>
-          {{ '任务数量控制' }}
+          {{ i18n.setting.taskCountLimit }}
         </h3>
       </el-divider>
 
       <div class="setting-item setting-item__horizontal">
         <div class="setting-item__label">
-          {{ '任务数量控制' }}
+          {{ i18n.setting.taskCountLimit }}
         </div>
         <div class="setting-item__content">
           <el-input-number
@@ -306,6 +306,7 @@ const getLocalStorage = async () => {
     taskTreeDisplayMode,
     taskSortBy,
     docTaskConfig,
+    taskCountLimit,
   } = storage["plugin-task-list-settings"];
 
   infoCardConfig && (localSettings.value.infoCardConfig = infoCardConfig);
@@ -315,6 +316,7 @@ const getLocalStorage = async () => {
     (localSettings.value.taskTreeDisplayMode = taskTreeDisplayMode);
   taskSortBy && (localSettings.value.taskSortBy = taskSortBy);
   docTaskConfig && (localSettings.value.docTaskConfig = docTaskConfig);
+  taskCountLimit && (localSettings.value.taskCountLimit = taskCountLimit);
 };
 
 /**
