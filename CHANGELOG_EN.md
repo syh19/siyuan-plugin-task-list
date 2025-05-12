@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v1.1.5
+> **2025-05-12**
+
+**Enhancement**
+
+- Compatible task status logic to support multiple task mark formats (such as "* [ ]" and "- [ ]")
+
+
 ## v1.1.4
 > **2025-03-25**
 

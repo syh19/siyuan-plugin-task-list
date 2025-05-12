@@ -1,10 +1,10 @@
 [中文](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README_zh_CN.md)
 
-# Latest version `v1.1.4` change log
+# Latest version `v1.1.5` change log
 
 **Enhancement**
 
-- Support customizing the number of task nodes to count (default 2000)
+- Compatible task status logic to support multiple task mark formats (such as "* [ ]" and "- [ ]")
 
 > - [For more information about the plugin, please view here](https://liuyun.io/article/1711344682726)
 > - [Please view the CHANGE LOG of all versions here](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG_EN.md)
