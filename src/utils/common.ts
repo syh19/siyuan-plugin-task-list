@@ -364,7 +364,7 @@ function formatSqlTaskList(sqlTaskList: any[]) {
       ...item,
       label: item.fcontent,
       key: item.id,
-      status: item.markdown.substring(0, 5) === '* [ ]' ? 'todo' : 'done',
+      status: (item.markdown.substring(0, 5) === '* [ ]' || item.markdown.substring(0, 5) === '- [ ]') ? 'todo' : 'done',
       finished:
         func.parseStringToKeyValuePairs(item.ial)[
           'custom-plugin-task-list-finished'

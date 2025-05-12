@@ -66,7 +66,7 @@ const fetchHiddenTasks = async () => {
       id: task.id,
       content: task.fcontent,
       path: `${task.boxName} > ${task.hpath}`,
-      status: task.markdown.substring(0, 5) === "* [ ]" ? "todo" : "done",
+      status: (task.markdown.substring(0, 5) === "* [ ]" || task.markdown.substring(0, 5) === "- [ ]") ? "todo" : "done",
     }));
 };
 
