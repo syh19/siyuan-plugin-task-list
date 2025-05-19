@@ -671,7 +671,7 @@ const handleNodeContextMenu = async (e: any, data: any) => {
   if (data.type === "box") {
     // 笔记本节点添加"隐藏节点自身及子节点中的任务"选项
     const hideBoxAndChildrenTaskOption = {
-      label: i18n.hideSelfAndChildrenTask,
+      label: i18n.hideChildTask,
       icon: h(
         "svg",
         {
