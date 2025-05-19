@@ -669,9 +669,9 @@ const handleNodeContextMenu = async (e: any, data: any) => {
     },
   };
   if (data.type === "box") {
-    // 笔记本节点添加"隐藏节点自身中的任务"选项
-    const hideBoxTaskOption = {
-      label: i18n.hideSelfTask,
+    // 笔记本节点添加"隐藏节点自身及子节点中的任务"选项
+    const hideBoxAndChildrenTaskOption = {
+      label: i18n.hideSelfAndChildrenTask,
       icon: h(
         "svg",
         {
@@ -680,10 +680,10 @@ const handleNodeContextMenu = async (e: any, data: any) => {
         [h("use", { "xlink:href": "#tl-eyeClose" })]
       ),
       onClick: () => {
-        hideNodeTask(data, 1);
+        hideNodeTask(data, 2);
       },
     };
-    options = [hideBoxTaskOption];
+    options = [hideBoxAndChildrenTaskOption];
   } else if (data.type === "doc") {
     // 文档节点添加两个选项
     const hideDocSelfTaskOption = {

@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## v1.1.6
+## v1.1.7
 > **2025-05-19**
 
 **Enhancement**
