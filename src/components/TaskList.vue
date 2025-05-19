@@ -668,9 +668,52 @@ const handleNodeContextMenu = async (e: any, data: any) => {
       setTaskNodeTopNum(data.key, taskNodeTopNum.value);
     },
   };
-  if (data.type !== "task") {
-    return;
-  } else {
+  if (data.type === "box") {
+    // 笔记本节点添加"隐藏节点自身中的任务"选项
+    const hideBoxTaskOption = {
+      label: i18n.hideSelfTask,
+      icon: h(
+        "svg",
+        {
+          class: "icon",
+        },
+        [h("use", { "xlink:href": "#tl-eyeClose" })]
+      ),
+      onClick: () => {
+        hideNodeTask(data, 1);
+      },
+    };
+    options = [hideBoxTaskOption];
+  } else if (data.type === "doc") {
+    // 文档节点添加两个选项
+    const hideDocSelfTaskOption = {
+      label: i18n.hideSelfTask,
+      icon: h(
+        "svg",
+        {
+          class: "icon",
+        },
+        [h("use", { "xlink:href": "#tl-eyeClose" })]
+      ),
+      onClick: () => {
+        hideNodeTask(data, 1);
+      },
+    };
+    const hideDocAndChildrenTaskOption = {
+      label: i18n.hideChildTask,
+      icon: h(
+        "svg",
+        {
+          class: "icon",
+        },
+        [h("use", { "xlink:href": "#tl-eyeClose" })]
+      ),
+      onClick: () => {
+        hideNodeTask(data, 2);
+      },
+    };
+    options = [hideDocSelfTaskOption, hideDocAndChildrenTaskOption];
+  } else if (data.type === "task") {
     if (data.status === "todo") {
       /** 添加任务处理时间的选项 */
       let addHandleDateOption = {
@@ -718,6 +761,8 @@ const handleNodeContextMenu = async (e: any, data: any) => {
       // };
       options.push(setTaskNodeTopOption);
     }
+  } else {
+    return;
   }
 
   e.preventDefault();
@@ -727,6 +772,50 @@ const handleNodeContextMenu = async (e: any, data: any) => {
     items: options,
     theme: theme,
   });
+};
+
+/**
+ * 隐藏节点中的任务
+ * @param nodeData 节点数据
+ * @param hideStatus 隐藏状态：1-仅自身，2-自身及子节点
+ */
+const hideNodeTask = async (nodeData: any, hideStatus: number) => {
+  // 获取本地存储的隐藏任务节点列表
+  const { data: storage } = await API.getLocalStorage();
+  let nodeListForHideTask = storage["plugin-task-list-settings"]?.["nodeListForHideTask"] || [];
+  
+  // 检查是否已存在该节点
+  const existingNodeIndex = nodeListForHideTask.findIndex((item: any) => 
+    item.key === nodeData.key && item.type === nodeData.type
+  );
+  
+  if (existingNodeIndex !== -1) {
+    // 如果存在，更新隐藏状态
+    nodeListForHideTask[existingNodeIndex].hideTaskInNodeStatus = hideStatus;
+  } else {
+    // 如果不存在，添加新节点
+    nodeListForHideTask.push({
+      key: nodeData.key,
+      type: nodeData.type,
+      label: nodeData.label,
+      hideTaskInNodeStatus: hideStatus
+    });
+  }
+  
+  // 保存到本地存储
+  await API.setLocalStorageVal({
+    key: "plugin-task-list-settings",
+    val: {
+      ...storage["plugin-task-list-settings"],
+      nodeListForHideTask
+    }
+  });
+  
+  // 通知更新
+  eventBus.emit("node-list-for-hide-task-changed");
+  
+  // 刷新数据
+  refreshData();
 };
 
 const setTaskNodeTopNum = async (blockId: string, topNum: number) => {

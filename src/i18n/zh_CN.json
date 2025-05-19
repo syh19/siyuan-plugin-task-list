@@ -106,6 +106,8 @@
   },
   "addHandleDate": "添加任务处理时间",
   "hideSingleTask": "隐藏任务",
+  "hideSelfTask": "隐藏节点自身中的任务",
+  "hideChildTask": "隐藏节点自身及子节点中的任务",
   "cancel": "取消",
   "confirm": "确认",
   "top": "置顶",

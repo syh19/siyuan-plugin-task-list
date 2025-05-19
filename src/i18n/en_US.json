@@ -106,6 +106,8 @@
   },
   "addHandleDate": "Add Task Handle Time",
   "hideSingleTask": "Hide Task",
+  "hideSelfTask": "Hide Tasks in This Node",
+  "hideChildTask": "Hide Tasks in This Node and Children",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "top": "Pin to Top",

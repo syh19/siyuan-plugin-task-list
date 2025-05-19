@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## v1.1.6
+> **2025-05-19**
+
+**Enhancement**
+- Support hiding tasks in notebook and document nodes in the dock panel
+
+
 ## v1.1.5
 > **2025-05-12**
 

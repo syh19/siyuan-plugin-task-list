@@ -1,10 +1,10 @@
 [English](https://github.com/syh19/siyuan-plugin-task-list/blob/main/README.md)
 
-# 最新版本`v1.1.5`更新记录
+# 最新版本`v1.1.6`更新记录
 
 **增强功能**
 
-- 兼容任务状态逻辑，以支持多种任务标记格式（如 "* [ ]" 和 "- [ ]"）
+- dock 栏中笔记本以及文档节点支持隐藏任务
 
 > - [所有功能的详情描述请看这里](https://ld246.com/article/1711244396256)
 > - [所有版本的更新记录请看这里](https://github.com/syh19/siyuan-plugin-task-list/blob/main/CHANGELOG.md)
