@@ -1023,12 +1023,31 @@ const defaultProps = {
         &.is-current.tree-task-node {
           .el-tree-node__content {
             background-color: var(--tl-color-active-bg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
           }
         }
+        
         .el-tree-node__content {
           &:hover {
             background-color: var(--tl-color-hover-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            
+            .custom-tree-node {
+              .icon {
+                transform: scale(1.3);
+              }
+              
+              span {
+                font-weight: 600;
+              }
+            }
           }
+          
+          &:active {
+            transform: translateX(4px);
+            transition: all 0.1s ease;
+          }
+          
           div.custom-tree-node {
             width: calc(100% - 24px);
             height: 100%;
@@ -1050,6 +1069,11 @@ const defaultProps = {
               top: -8px;
               color: #fff;
               transform: rotate(305deg);
+              transition: all 0.3s ease;
+              
+              &:hover {
+                transform: rotate(305deg) scale(1.3);
+              }
             }
           }
         }
