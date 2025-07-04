@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## v1.1.9
+> **2025-07-04**
+
+**Enhancement**
+- Add hover and active state styles for task list in the dock panel to enhance user interaction experience
+
+
 ## v1.1.8
 > **2025-05-19**
 
